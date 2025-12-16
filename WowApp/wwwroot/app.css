@@ -58,3 +58,26 @@ h1:focus {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+.logo-img {
+    height: 48px;
+    max-width: 220px;
+    width: auto;
+    object-fit: contain;
+}
+
+@media (max-width: 992px) {
+    .logo-img {
+        height: 42px;
+        max-width: 180px;
+    }
+}
+
+@media (max-width: 576px) {
+    .logo-img {
+        height: 34px;
+        max-width: 140px;
+    }
+}
+
+

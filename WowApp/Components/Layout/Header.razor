@@ -1,5 +1,130 @@
-﻿<h3>Header</h3>
+﻿
+@inject NavigationManager _navigationManager
+@inject IJSRuntime _jsRuntime
+@rendermode InteractiveServer
+
+<div class="container-fluid position-relative p-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 px-lg-5 py-3">
+        <!-- Logo -->
+        <a href="/" class="navbar-brand d-flex align-items-center">
+            <img src="images/logo.jpeg" alt="English Club Logo" class="logo-img">
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation -->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ms-auto align-items-center gap-2">
+                <li class="nav-item">
+                    <NavLink href="/" class="nav-link" Match="NavLinkMatch.All" activeClass="active">
+                        Домашня
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink href="/about-us" class="nav-link" activeClass="active">
+                        Про нас
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink href="#" class="nav-link" activeClass="active">
+                        Наші відгуки
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink href="#" class="nav-link" activeClass="active">
+                        Освітні послуги
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink href="#" class="nav-link" activeClass="active">
+                        Договір
+                    </NavLink>
+                </li>               
+                <li class="nav-item">
+                    <NavLink href="#" class="nav-link" activeClass="active">
+                        Події
+                    </NavLink>
+                </li> 
+                <li class="nav-item">
+                    <NavLink href="#" class="nav-link" activeClass="active">
+                        Наші контакти
+                    </NavLink>
+                </li>
+                @if (isAuthenticated)
+                {
+                    <li class="nav-item">
+                        <NavLink href="/personal-account" class="nav-link" activeClass="active">
+                            Особистий кабінет
+                        </NavLink>
+                    </li>
+                }
+                <AuthorizeView>
+                    <Authorized Context="auth">
+                        @if (auth.User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <NavLink class="nav-link fw-semibold text-primary" href="/admin-clients">
+                                    <i class="bi bi-shield-lock me-1"></i> Адмінка
+                                </NavLink>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <form action="Account/Logout" method="post" class="d-inline">
+                                <AntiforgeryToken />
+                                <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                                <button type="submit" class="nav-link btn-logout">
+                                    <i class="bi bi-box-arrow-right me-1"></i> Вийти
+                                </button>
+                            </form>
+                        </li>
+                    </Authorized>
+
+                    <NotAuthorized>
+                        <li class="nav-item">
+                            <NavLink class="nav-link" href="Account/Login">
+                                <i class="bi bi-person me-1"></i> Логін
+                            </NavLink>
+                        </li>
+                    </NotAuthorized>
+                </AuthorizeView>                               
+            </ul>
+        </div>
+    </nav>
+</div>
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateUser { get; set; }
+    private string? currentUrl;
+    private int cartCount;
+    private bool isAuthenticated = false;
+    private string userName = string.Empty;
 
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationStateUser;
+        var user = authState.User;
+
+        isAuthenticated = user.Identity?.IsAuthenticated ?? false;
+
+        if (isAuthenticated)
+        {
+            var email =
+                user.FindFirst(ClaimTypes.Email)?.Value ??
+                user.FindFirst("email")?.Value ??
+                user.Identity?.Name ?? string.Empty;
+
+            userName = email;
+        }
+        else
+        {
+            userName = string.Empty;
+        }
+              
+        currentUrl = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
+    }
 }
