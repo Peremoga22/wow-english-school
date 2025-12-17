@@ -193,4 +193,9 @@
                 font-size: 1rem;
             }
     }
+
+    .dropdown-item.active {
+        background-color: var(--bs-primary);
+        color: #fff;
+    }
 }

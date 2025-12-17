@@ -1,4 +1,5 @@
-﻿
+﻿@using System.Globalization
+
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _jsRuntime
 @rendermode InteractiveServer
@@ -91,11 +92,33 @@
                         </li>
                     </NotAuthorized>
                 </AuthorizeView>  
-                <li class="nav-item">
-                    <NavLink href="#" class="nav-link" activeClass="active">
-                        UA
-                    </NavLink>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        @CurrentLang
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item @(IsActive("uk-UA"))"
+                               href="#"
+                               @onclick="() => ChangeCulture(CultureUa)">
+                                🇺🇦 Українська
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item @(IsActive("en-US"))"
+                               href="#"
+                               @onclick="() => ChangeCulture(CultureEn)">
+                                🇬🇧 English
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
             </ul>
         </div>
     </nav>
@@ -108,6 +131,8 @@
     private int cartCount;
     private bool isAuthenticated = false;
     private string userName = string.Empty;
+    private string CultureUa = "uk-UA";
+    private string CultureEn = "en-US";
 
     protected override async Task OnInitializedAsync()
     {
@@ -131,5 +156,17 @@
         }
               
         currentUrl = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
+    }
+
+    private string CurrentLang =>
+        CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper();
+
+    private string IsActive(string culture) =>
+        CultureInfo.CurrentUICulture.Name == culture ? "active fw-semibold" : "";
+
+    private async Task ChangeCulture(string culture)
+    {
+        var returnUrl = _navigationManager.Uri.Replace(_navigationManager.BaseUri, "/");
+        await _jsRuntime.InvokeVoidAsync("setCulture", culture, returnUrl);
     }
 }
