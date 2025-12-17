@@ -1,0 +1,250 @@
+﻿@page "/contacts"
+@rendermode InteractiveServer
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-7">
+                <span class="badge rounded-pill text-bg-primary px-3 py-2 mb-3">
+                    English Club
+                </span>
+
+                <h1 class="display-6 fw-bold mb-3">Наші контакти</h1>
+
+                <p class="text-muted fs-5 mb-0" style="max-width: 820px;">
+                    Напиши або подзвони — підкажемо формат навчання, визначимо рівень і допоможемо обрати групу.
+                </p>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="p-4 bg-white rounded-4 shadow-sm border">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="fw-bold">Графік роботи</div>
+                            <div class="text-muted small">Відповідаємо швидко 🙂</div>
+                        </div>
+                        <i class="bi bi-clock fs-3 text-primary"></i>
+                    </div>
+
+                    <hr />
+
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">Пн–Пт</span>
+                        <span class="fw-semibold">@WorkdaysHours</span>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <span class="text-muted">Сб</span>
+                        <span class="fw-semibold">@SaturdayHours</span>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <span class="text-muted">Нд</span>
+                        <span class="fw-semibold">@SundayHours</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- Контакти -->
+            <div class="col-lg-5">
+                <div class="p-4 bg-white rounded-4 shadow-sm border h-100">
+                    <h4 class="fw-bold mb-3">Звʼязатися з нами</h4>
+
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="rounded-3 bg-light d-flex align-items-center justify-content-center"
+                             style="width: 44px; height: 44px;">
+                            <i class="bi bi-telephone text-primary"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small">Телефон</div>
+                            <a class="fw-semibold text-decoration-none" href="tel:@Phone">@Phone</a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="rounded-3 bg-light d-flex align-items-center justify-content-center"
+                             style="width: 44px; height: 44px;">
+                            <i class="bi bi-envelope text-primary"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small">Email</div>
+                            <a class="fw-semibold text-decoration-none" href="mailto:@Email">@Email</a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 mb-3">
+                        <div class="rounded-3 bg-light d-flex align-items-center justify-content-center"
+                             style="width: 44px; height: 44px;">
+                            <i class="bi bi-geo-alt text-primary"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted small">Адреса</div>
+                            <div class="fw-semibold">@Address</div>
+                            @if (!string.IsNullOrWhiteSpace(MapUrl))
+                            {
+                                <a class="small text-decoration-none" href="@MapUrl" target="_blank" rel="noopener">
+                                    Відкрити на карті →
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="d-flex flex-wrap gap-2">
+                        @if (!string.IsNullOrWhiteSpace(TelegramUrl))
+                        {
+                            <a class="btn btn-outline-primary" href="@TelegramUrl" target="_blank" rel="noopener">
+                                <i class="bi bi-telegram me-1"></i> Telegram
+                            </a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(InstagramUrl))
+                        {
+                            <a class="btn btn-outline-secondary" href="@InstagramUrl" target="_blank" rel="noopener">
+                                <i class="bi bi-instagram me-1"></i> Instagram
+                            </a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(FacebookUrl))
+                        {
+                            <a class="btn btn-outline-secondary" href="@FacebookUrl" target="_blank" rel="noopener">
+                                <i class="bi bi-facebook me-1"></i> Facebook
+                            </a>
+                        }
+                    </div>
+
+                    <div class="alert alert-info mt-4 mb-0">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Підберемо групу за рівнем — напиши “Хочу навчатися”, і ми з тобою звʼяжемось.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Форма -->
+            <div class="col-lg-7">
+                <div class="p-4 bg-white rounded-4 shadow-sm border">
+                    <h4 class="fw-bold mb-2">Написати повідомлення</h4>
+                    <p class="text-muted mb-4">Залиш контакт — і ми відповімо найближчим часом.</p>
+
+                    <EditForm Model="@form" OnValidSubmit="SendAsync">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <InputText class="form-control" @bind-Value="form.Name" placeholder="Імʼя" />
+                                    <label>Імʼя</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <InputText class="form-control" @bind-Value="form.Phone" placeholder="Телефон" />
+                                    <label>Телефон</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <InputText class="form-control" @bind-Value="form.Email" placeholder="Email" />
+                                    <label>Email (необовʼязково)</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <InputTextArea class="form-control" @bind-Value="form.Message"
+                                                   placeholder="Повідомлення"
+                                                   style="height: 140px;" />
+                                    <label>Повідомлення</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex flex-wrap gap-2">
+                                <button class="btn btn-primary px-4" type="submit" disabled="@isSending">
+                                    <i class="bi bi-send me-1"></i>
+                                    @(isSending ? "Надсилаю..." : "Надіслати")
+                                </button>
+
+                                <button class="btn btn-outline-secondary" type="button" @onclick="Clear" disabled="@isSending">
+                                    Очистити
+                                </button>
+                            </div>
+                        </div>
+                    </EditForm>
+
+                    @if (!string.IsNullOrWhiteSpace(success))
+                    {
+                        <div class="alert alert-success mt-4 mb-0">
+                            <i class="bi bi-check-circle me-1"></i> @success
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@code {
+    // --------- Контакти (підстав свої) ----------
+    private string Phone = "+380 (00) 000 00 00";
+    private string Email = "weopentheworld@gmail.com";
+    private string Address = "м. Стрий, вул. Охримовича, 8/25";
+
+    private string? MapUrl = "https://maps.google.com"; // або null якщо не треба
+    private string? TelegramUrl = "https://t.me/your_channel";
+    private string? InstagramUrl = "https://instagram.com/your_page";
+    private string? FacebookUrl = null;
+
+    private string WorkdaysHours = "10:00 – 20:00";
+    private string SaturdayHours = "11:00 – 17:00";
+    private string SundayHours = "вихідний";
+
+    // --------- Форма ----------
+    private ContactForm form = new();
+    private bool isSending;
+    private string? success;
+
+    private async Task SendAsync()
+    {
+        isSending = true;
+        success = null;
+
+        // Тут ти можеш:
+        // 1) зберегти звернення в БД
+        // 2) надіслати в Telegram (як ти робив для записів)
+        // 3) надіслати на email
+        await Task.Delay(600);
+
+        success = "Дякуємо! Ми отримали ваше повідомлення і скоро з вами звʼяжемось.";
+        isSending = false;
+    }
+
+    private void Clear()
+    {
+        form = new ContactForm();
+        success = null;
+    }
+
+    public class ContactForm
+    {
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Вкажіть імʼя")]
+        public string Name { get; set; } = "";
+
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Вкажіть телефон")]
+        public string Phone { get; set; } = "";
+
+        [System.ComponentModel.DataAnnotations.EmailAddress(ErrorMessage = "Невірний email")]
+        public string? Email { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Напишіть повідомлення")]
+        [System.ComponentModel.DataAnnotations.MinLength(5, ErrorMessage = "Повідомлення занадто коротке")]
+        public string Message { get; set; } = "";
+    }
+}
