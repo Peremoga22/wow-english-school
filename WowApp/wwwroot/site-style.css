@@ -117,4 +117,80 @@
             margin-top: 14px;
             font-weight: 600;
         }
+
+
+    .contract-page {
+        padding: 56px 0;
+        background: #fff;
+    }
+
+    .contract-wrap {
+        max-width: 980px;
+    }
+
+    .contract-head {
+        text-align: center;
+        margin-bottom: 18px;
+    }
+
+    .contract-title {
+        font-weight: 900;
+        letter-spacing: .02em;
+        margin: 0 0 6px;
+    }
+
+    .contract-subtitle {
+        margin: 0;
+        color: #6b7280;
+        font-weight: 600;
+    }
+
+    .contract-body {
+        margin-top: 18px;
+        padding: 22px 22px;
+        border: 1px solid rgba(0,0,0,.08);
+        border-radius: 18px;
+        box-shadow: 0 14px 34px rgba(0,0,0,.08);
+        background: #fff;
+    }
+
+        .contract-body p {
+            color: #4b5563;
+            line-height: 1.8;
+            font-size: 1.03rem;
+            margin: 0 0 12px;
+        }
+
+    .contract-h {
+        margin: 22px 0 10px;
+        font-weight: 900;
+        color: #111827;
+        font-size: 1.15rem;
+        letter-spacing: .01em;
+    }
+
+    .contract-ol {
+        margin: 10px 0 14px;
+        padding-left: 22px;
+        color: #4b5563;
+        line-height: 1.8;
+    }
+
+    .contract-requisites {
+        margin-top: 10px;
+        padding: 14px 16px;
+        border: 1px dashed rgba(0,0,0,.16);
+        border-radius: 14px;
+        background: #f9fafb;
+    }
+
+    @media (max-width: 576px) {
+        .contract-body {
+            padding: 16px;
+        }
+
+            .contract-body p {
+                font-size: 1rem;
+            }
+    }
 }
