@@ -1,0 +1,325 @@
+﻿body {
+    .ec-hero {
+        background: #f6f8fb;
+        min-height: 100vh;
+    }
+
+    .ec-title {
+        font-weight: 800;
+        letter-spacing: .04em;
+        margin: 0;
+        font-size: clamp(28px, 3vw, 44px);
+    }
+
+    .ec-subtitle {
+        color: #b84a4a;
+        font-weight: 600;
+        letter-spacing: .02em;
+    }
+
+    .ec-lead {
+        color: #4b5563;
+        max-width: 58ch;
+        font-size: 1.05rem;
+        line-height: 1.55;
+    }
+
+    .ec-badge {
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
+        background: #ffffff;
+        border: 2px solid rgba(17,24,39,.08);
+        box-shadow: 0 10px 24px rgba(0,0,0,.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ec-wow {
+        font-weight: 900;
+        letter-spacing: .06em;
+        color: #0f172a;
+    }
+
+    .ec-card {
+        background: #ffffff;
+        border-radius: 18px;
+        border: 1px solid rgba(17,24,39,.08);
+        box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .ec-card-title {
+        font-weight: 800;
+        font-size: 1.05rem;
+        letter-spacing: .03em;
+    }
+
+    .ec-card-text {
+        color: #4b5563;
+        margin-top: .35rem;
+        line-height: 1.5;
+    }
+
+    .ec-mini {
+        color: #6b7280;
+        font-size: .9rem;
+    }
+
+    .ec-btn {
+        border-radius: 14px;
+        padding: .75rem 1rem;
+        font-weight: 700;
+    }
+
+    .ec-block {
+        background: #ffffff;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid rgba(17,24,39,.08);
+        box-shadow: 0 10px 30px rgba(0,0,0,.06);
+    }
+
+    .ec-block-header {
+        background: #123a63;
+        color: #fff;
+        padding: .85rem 1rem;
+    }
+
+    .ec-block-header-alt {
+        background: #8a2e2e;
+    }
+
+    .ec-block-title {
+        font-weight: 900;
+        letter-spacing: .08em;
+    }
+
+    .ec-list {
+        padding: 1rem 1.25rem 1.15rem 2.2rem;
+    }
+
+        .ec-list li {
+            margin: .45rem 0;
+        }
+
+    .ec-muted {
+        color: #6b7280;
+    }
+
+    .ec-cta {
+        background: #123a63;
+        border-radius: 18px;
+        padding: 1rem 1.25rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .ec-cta-text {
+        color: #fff;
+        font-weight: 900;
+        letter-spacing: .08em;
+    }
+
+    .ec-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .6rem;
+        justify-content: center;
+    }
+
+    .ec-chip {
+        background: #ffffff;
+        border: 1px solid rgba(17,24,39,.10);
+        border-radius: 999px;
+        padding: .55rem .9rem;
+        font-weight: 700;
+        color: #111827;
+        box-shadow: 0 6px 18px rgba(0,0,0,.05);
+        text-transform: uppercase;
+        font-size: .82rem;
+        letter-spacing: .03em;
+    }
+
+    .ec-footerbox {
+        background: #0f2f52;
+        border-radius: 18px;
+        padding: 1rem 1.25rem;
+        color: #fff;
+        box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .ec-footer-title {
+        font-weight: 900;
+        letter-spacing: .06em;
+        margin-bottom: .35rem;
+    }
+
+    .ec-footer-text {
+        color: rgba(255,255,255,.88);
+        line-height: 1.6;
+    }
+
+    .ec-link {
+        color: #fff;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    .ec-header {
+        background: #ffffff;
+        padding: 1rem 0;
+        text-align: center;
+        border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+
+        .ec-header img {
+            max-width: 540px;
+        }
+
+
+    .ec-video {
+        max-width: 720px;
+    }
+
+    .ec-video-wrap {
+        position: relative;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 12px 35px rgba(0,0,0,.18);
+        border: 1px solid rgba(255,255,255,.25);
+        background: #000;
+    }
+
+    .ec-video-el {
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+        display: block;
+    }
+
+    @media (min-width: 992px) {
+        .ec-video-el {
+            height: 300px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .ec-video-el {
+            height: 220px;
+        }
+    }
+
+    .ec-video-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 14px 14px 12px 14px;
+        background: linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0));
+    }
+
+    .ec-video-title {
+        color: #fff;
+        font-weight: 800;
+        letter-spacing: .2px;
+        line-height: 1.2;
+        font-size: 16px;
+    }
+
+    .ec-video-sub {
+        color: rgba(255,255,255,.85);
+        font-size: 13px;
+        margin-top: 4px;
+    }
+
+    .ec-photo-middle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .ec-photo {
+        border-radius: 18px;
+        object-fit: cover;
+        box-shadow: 0 14px 40px rgba(0,0,0,.18);
+        transition: transform .35s ease, box-shadow .35s ease;
+    }
+    /* центральне фото */
+    .ec-photo-center {
+        width: 320px;
+        height: 420px;
+        z-index: 2;
+    }
+    /* бокові */
+    .ec-photo-side {
+        width: 240px;
+        height: 340px;
+        opacity: .85;
+        filter: saturate(.9);
+    }
+    /* hover */
+    .ec-photo:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 55px rgba(0,0,0,.25);
+    }
+    /* мобільна адаптація */
+    @media (max-width: 768px) {
+        .ec-photo-middle {
+            flex-direction: column;
+        }
+
+        .ec-photo,
+        .ec-photo-center,
+        .ec-photo-side {
+            width: 100%;
+            max-width: 360px;
+            height: auto;
+        }
+    }
+
+    .ec-photo-desc {
+        max-width: 640px;
+        margin: 0 auto;
+    }
+
+    .ec-photo-title {
+        font-weight: 800;
+        letter-spacing: .3px;
+        margin-bottom: 8px;
+    }
+
+    .ec-photo-text {
+        color: #555;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .ec-christmas {
+        padding: 28px 22px;
+        border-radius: 20px;
+        background: linear-gradient( 135deg, #f8f9fa, #ffffff );
+        box-shadow: 0 14px 40px rgba(0,0,0,.12);
+        border: 1px solid rgba(0,0,0,.06);
+    }
+
+    .ec-christmas-icon {
+        font-size: 38px;
+        margin-bottom: 6px;
+    }
+
+    .ec-christmas-title {
+        font-weight: 800;
+        letter-spacing: .3px;
+        margin-bottom: 8px;
+    }
+
+    .ec-christmas-text {
+        max-width: 640px;
+        margin: 0 auto;
+        color: #555;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+}
