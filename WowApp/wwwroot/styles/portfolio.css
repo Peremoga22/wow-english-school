@@ -1,0 +1,130 @@
+﻿body {
+    /* SECTION */
+    .courses-title {
+        font-size: 36px;
+        font-weight: 800;
+    }
+
+    .courses-desc {
+        max-width: 700px;
+        margin: 10px auto 0;
+        color: #6c757d;
+        line-height: 1.6;
+    }
+    /* CARD */
+    .course-card {
+        background: #fff;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 12px 30px rgba(0,0,0,.08);
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+        .course-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,.14);
+        }
+    /* IMAGE */
+    .course-card__img {
+        position: relative;
+    }
+
+        .course-card__img img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+    /* BADGES */
+    .course-category {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: rgba(255,255,255,.9);
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .course-price {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        background: #2f6bff;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+    /* BODY */
+    .course-card__body {
+        padding: 18px;
+    }
+
+    .course-card__title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .course-card__text {
+        font-size: 15px;
+        color: #6c757d;
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+    /* FOOTER */
+    .course-card__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .trainer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .trainer img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .trainer span {
+            font-weight: 600;
+            font-size: 14px;
+        }
+    /* BUTTON */
+    .course-btn {
+        background: transparent;
+        border: 1px solid #2f6bff;
+        color: #2f6bff;
+        padding: 8px 14px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all .2s ease;
+    }
+
+        .course-btn:hover {
+            background: #2f6bff;
+            color: #fff;
+        }
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        .courses-title {
+            font-size: 28px;
+        }
+
+        .course-card__img img {
+            height: 200px;
+        }
+    }
+
+
+}
