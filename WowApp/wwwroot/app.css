@@ -2,6 +2,81 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+/* ===============================
+   GLOBAL BRAND COLORS
+   =============================== */
+:root {
+    --color-primary: #0d1b2a; /* темно-син≥й (основний) */
+    --color-primary-soft: #2f3e66;
+    --color-secondary: #6c757d; /* secondary text */
+    --color-bg: #ffffff;
+}
+
+/* ===============================
+   NAVBAR LINKS
+   =============================== */
+
+/* «вичайн≥ л≥нки */
+.navbar .nav-link {
+    color: var(--color-primary);
+    font-weight: 600;
+    transition: color .15s ease, background-color .15s ease;
+}
+
+    /* Hover */
+    .navbar .nav-link:hover {
+        color: var(--color-primary-soft);
+    }
+
+    /* Active (NavLink activeClass="active") */
+    .navbar .nav-link.active {
+        color: var(--color-primary);
+        font-weight: 800;
+    }
+
+/* Logout button (бо це button, не a) */
+.navbar .btn-logout {
+    color: var(--color-primary);
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+    .navbar .btn-logout:hover {
+        color: var(--color-primary-soft);
+    }
+
+/* јдм≥нка Ч прибираЇмо bootstrap primary */
+.navbar .nav-link.text-primary {
+    color: var(--color-primary) !important;
+}
+
+/* Dropdown */
+.navbar .dropdown-toggle {
+    color: var(--color-primary);
+}
+
+.navbar .dropdown-item {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+    .navbar .dropdown-item:hover,
+    .navbar .dropdown-item.active {
+        background-color: rgba(13,27,42,.08);
+        color: var(--color-primary);
+    }
+
+.navbar {
+    background-color: #f8f9fa;
+    transition: box-shadow .2s ease;
+}
+
+    .navbar.scrolled {
+        box-shadow: 0 6px 20px rgba(0,0,0,.12);
+    }
+
+
 a, .btn-link {
     color: #006bb7;
 }

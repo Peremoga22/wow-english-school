@@ -1,130 +1,249 @@
-﻿body {
-    .acc2 {
-        display: grid;
-        gap: 12px;
-    }
-    /* card */
-    .acc2-item {
-        border: 1px solid rgba(0,0,0,.08);
-        border-radius: 18px;
-        background: #fff;
-        box-shadow: 0 10px 26px rgba(0,0,0,.06);
-        overflow: hidden;
-    }
-    /* header */
-    .acc2-head {
-        list-style: none;
-        cursor: pointer;
-        padding: 16px;
-        font-weight: 900;
-        color: #111827;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
+﻿/* ===============================
+   BRAND COLORS
+   =============================== */
+:root {
+    --brand-blue: #2f3e66; /* темно-синій (основний) */
+    --brand-blue-soft: #2f3e66; /* мʼякший темно-синій */
+    --text-muted: #6c757d;
+}
+
+/* ===============================
+   BREADCRUMB
+   =============================== */
+.bread-link {
+    color: var(--brand-blue);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+    .bread-link:hover {
+        text-decoration: underline;
     }
 
-        .acc2-head::-webkit-details-marker {
-            display: none;
-        }
-    /* arrow */
-    .acc2-arrow {
-        width: 10px;
-        height: 10px;
-        border-right: 2px solid #111827;
-        border-bottom: 2px solid #111827;
-        transform: rotate(45deg);
-        transition: transform .15s ease;
+/* ===============================
+   HERO
+   =============================== */
+.services-hero__box {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: center;
+    padding: 18px;
+    border-radius: 18px;
+    border: 1px solid rgba(0,0,0,.06);
+    background: linear-gradient( 135deg, rgba(13,27,42,.12), rgba(0,0,0,0) );
+}
+
+.services-kicker {
+    display: inline-flex;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 12px;
+    color: var(--brand-blue);
+    background: rgba(13,27,42,.08);
+    border: 1px solid rgba(0,0,0,.06);
+}
+
+.services-title {
+    font-size: 36px;
+    font-weight: 900;
+    margin: 8px 0;
+    color: var(--brand-blue);
+}
+
+.services-subtitle {
+    max-width: 720px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.services-hero__actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ===============================
+   BUTTONS
+   =============================== */
+.btn-cta,
+.btn-cta-outline {
+    border-radius: 14px;
+    font-weight: 800;
+}
+
+/* ===============================
+   SECTION HEAD
+   =============================== */
+.section-title {
+    font-size: 28px;
+    font-weight: 900;
+    margin: 0;
+    color: var(--brand-blue);
+}
+
+.section-desc {
+    color: var(--text-muted);
+    margin: 8px auto 0;
+    max-width: 720px;
+    line-height: 1.6;
+}
+
+/* ===============================
+   SERVICE CARD
+   =============================== */
+.service-card {
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,.06);
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+    .service-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 40px rgba(0,0,0,.14);
     }
 
-    .acc2-item[open] .acc2-arrow {
-        transform: rotate(225deg);
-    }
-    /* body */
-    .acc2-body {
-        padding: 0 16px 18px;
-    }
-    /* price grid/cards (з твого стилю) */
-    .price-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0,1fr));
-        gap: 14px;
-        padding-top: 10px;
-    }
+.service-media {
+    position: relative;
+}
 
-    .pricecard {
-        border: 1px solid rgba(0,0,0,.08);
-        border-radius: 18px;
-        background: linear-gradient(180deg, #ffffff, #fbfbfd);
-        box-shadow: 0 12px 28px rgba(0,0,0,.08);
-        padding: 16px;
-    }
-
-    .pricecard-title {
-        margin: 0 0 10px;
-        font-weight: 900;
-        color: #111827;
-        font-size: 1.15rem;
-    }
-
-    .price-row {
-        display: flex;
-        gap: 12px;
-        align-items: baseline;
-        justify-content: space-between;
-        padding: 12px 0;
-        border-top: 1px dashed rgba(0,0,0,.10);
-    }
-
-    .price-left {
-        font-weight: 900;
-        font-size: 1.35rem;
-        color: #111827;
-        white-space: nowrap;
-    }
-
-        .price-left span {
-            font-size: .95rem;
-            color: #6b7280;
-            font-weight: 800;
-            margin-left: 4px;
-        }
-
-    .price-right {
-        color: #4b5563;
-        font-weight: 700;
-        line-height: 1.4;
-        text-align: right;
-    }
-
-    .btn-orange {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+    .service-media img {
+        height: 220px;
         width: 100%;
-        margin-top: 14px;
-        padding: 12px 16px;
-        border-radius: 14px;
-        text-decoration: none;
-        font-weight: 900;
-        color: #fff;
-        background: #f59e0b;
-        box-shadow: 0 12px 28px rgba(245,158,11,.28);
-        transition: transform .15s ease, box-shadow .15s ease;
+        object-fit: cover;
     }
 
-        .btn-orange:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 16px 36px rgba(245,158,11,.34);
-        }
+/* Badge */
+.service-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--brand-blue);
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(0,0,0,.08);
+    backdrop-filter: blur(6px);
+}
 
-    @media (max-width: 992px) {
-        .price-grid {
-            grid-template-columns: 1fr;
-        }
+/* Favorite */
+.service-fav {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(0,0,0,.08);
+    color: var(--brand-blue);
+    text-decoration: none;
+}
 
-        .acc2-body {
-            padding: 0 14px 16px;
-        }
+    .service-fav:hover {
+        color: var(--brand-blue-soft);
+    }
+
+/* Title & description */
+.service-title {
+    color: var(--brand-blue);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+}
+
+.service-desc {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+/* Meta */
+.service-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.service-price {
+    font-weight: 900;
+    color: var(--brand-blue);
+}
+
+.service-btn {
+    border-radius: 14px;
+    font-weight: 900;
+}
+
+/* Mini info */
+.service-mini {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(0,0,0,.12);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* ===============================
+   CTA BOX
+   =============================== */
+.cta-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 18px;
+    border-radius: 18px;
+    border: 1px solid rgba(0,0,0,.06);
+    background: linear-gradient( 135deg, rgba(13,27,42,.12), rgba(0,0,0,0) );
+}
+
+.cta-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+@media (max-width: 992px) {
+    .services-hero__box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cta-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .services-title {
+        font-size: 30px;
     }
 }
+
+.navbar {
+    background-color: #f8f9fa;
+    transition: box-shadow .2s ease;
+}
+
+    .navbar.scrolled {
+        box-shadow: 0 6px 20px rgba(0,0,0,.12);
+    }

@@ -1,74 +1,153 @@
 ﻿@page "/services-page"
 
-<section class="page-standard">
+@* <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white p-2 mb-5 rounded shadow-sm">
+            <li class="breadcrumb-item"><a href="/" style="color: #f8b7d8;">Домашня сторінка</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Косметологія</li>
+        </ol>
+    </nav>
+</div>
+<section class="pt-3">
     <div class="container">
-        <h1 class="page-title">Вартість послуг</h1>
-        <p class="page-subtitle">
-            Оберіть напрямок — розгорніть блок і перегляньте актуальні варіанти.
-        </p>
-
-        <div class="acc2">
-
-            <details class="acc2-item" open>
-                <summary class="acc2-head">
-                    Пробне заняття
-                    <span class="acc2-arrow"></span>
-                </summary>
-
-                <div class="acc2-body">
-                    <div class="price-grid">
-                        <div class="pricecard">
-                            <h3 class="pricecard-title">Пробне заняття</h3>
-
-                            <div class="price-row">
-                                <div class="price-left">250 <span>грн</span></div>
-                                <div class="price-right">Індивідуальне • 45 хв</div>
+        <figure class="figure m-0">
+            <div class="row g-3">
+               
+                
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="card h-100 shadow-sm">
+                            <img src="/images/carosel2.jpg" class="card-img-top" alt="TitleCard" loading="lazy" decoding="async">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold" style="color: #f8b7d8;">
+                                    TitleCard
+                                </h5>
+                                <p class="card-text">DescriptionCard</p>
+                                <div class="card-footer bg-transparent border-0 text-center mt-auto">
+                                    <i class="bi bi-cash-stack me-1"></i>
+                                   Price.ToString("C0", new System.Globalization.CultureInfo("uk-UA"))
+                                </div>
                             </div>
-
-                            <div class="price-row">
-                                <div class="price-left">500 <span>грн</span></div>
-                                <div class="price-right">Парне • 60 хв</div>
-                            </div>
-
-                            <a class="btn-orange" href="/appointment-user">Записатись</a>
                         </div>
                     </div>
-                </div>
-            </details>
+                
+            </div>
+        </figure>
+    </div>
+</section>
 
-            <details class="acc2-item">
-                <summary class="acc2-head">
-                    Індивідуальні заняття
-                    <span class="acc2-arrow"></span>
-                </summary>
+ *@
+@* --- PAGE: Послуги / Косметологія --- *@
 
-                <div class="acc2-body">
-                    <div class="price-grid">
-                        <div class="pricecard">
-                            <h3 class="pricecard-title">Індивідуальне заняття</h3>
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white p-2 mb-4 rounded shadow-sm">
+            <li class="breadcrumb-item">
+                <a href="/" class="bread-link">Домашня сторінка</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Послуги</li>
+        </ol>
+    </nav>
+</div>
 
-                            <div class="price-row">
-                                <div class="price-left">450 <span>грн</span></div>
-                                <div class="price-right">45 хв</div>
-                            </div>
+<!-- HERO -->
+<section class="services-hero py-4 py-lg-5">
+    <div class="container">
+        <div class="services-hero__box">
+            <div>
+                <span class="services-kicker">Послуги</span>
+                <h1 class="services-title">Вивчення англійської мови</h1>
+                <p class="services-subtitle">
+                    Вивчай англійську через практику, спілкування та цікаві завдання.
+                    Підберемо формат навчання під твій рівень і цілі.
+                </p>
+            </div>
 
-                            <div class="price-row">
-                                <div class="price-left">500 <span>грн</span></div>
-                                <div class="price-right">60 хв</div>
-                            </div>
-
-                            <a class="btn-orange" href="/appointment-user">Записатись</a>
-                        </div>
-                    </div>
-                </div>
-            </details>
-
+           
         </div>
     </div>
 </section>
 
 
+<!-- SERVICES GRID -->
+<section class="pt-3 pb-5" id="servicesList">
+    <div class="container">
+
+        <div class="section-head text-center mb-4">
+            <h2 class="section-title">Типи занять</h2>
+            <p class="section-desc">
+                Оберіть для себе тип заняття — ми уточнимо деталі та зручний час.
+            </p>
+        </div>
+
+        <figure class="figure m-0">
+            <div class="row g-3">                              
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="card service-card h-100 shadow-sm">
+
+                        <div class="service-media">
+                            <img src="/images/home-children2.jpg"
+                                 class="card-img-top"
+                                 alt="TitleCard"
+                                 loading="lazy"
+                                 decoding="async">
+
+                            <span class="service-badge">ТОП</span>
+
+                            <a href="/contact" class="service-fav" title="Додати в обране">
+                                <i class="bi bi-heart"></i>
+                            </a>
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold service-title text-center">
+                                TitleCard
+                            </h5>
+                                                      
+                            <p class="card-text">DescriptionCard</p>
+                            <div class="card-footer bg-transparent border-0 text-center mt-auto">
+                                <i class="bi bi-cash-stack me-1">1800</i>
+                                @* @item.Price.ToString("C0", new System.Globalization.CultureInfo("uk-UA")) *@
+                            </div>
+
+                            <div class="service-mini">
+                                <span><i class="bi bi-clock me-1"></i> 60 хв</span>
+                                <span><i class="bi bi-shield-check me-1"></i> Дитяча група</span>
+                                <span><i class="bi bi-stars me-1"></i> 8-12 років</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>                               
+
+            </div>
+        </figure>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="pb-5">
+    <div class="container">
+        <div class="cta-box">
+            <div class="cta-text">
+                <h3 class="mb-2 fw-bold">Не знаєте, що обрати?</h3>
+                <p class="mb-0">
+                    Напишіть нам — підберемо процедуру під ваш тип шкіри та бажаний результат.
+                </p>
+            </div>
+           @*  <div class="cta-actions">
+                <a href="/contact" class="btn btn-primary btn-cta">
+                    <i class="bi bi-chat-dots me-1"></i> Отримати консультацію
+                </a>
+                <a href="tel:+380000000000" class="btn btn-outline-secondary btn-cta-outline">
+                    <i class="bi bi-telephone me-1"></i> Зателефонувати
+                </a>
+            </div> *@
+        </div>
+    </div>
+</section>
+
 
 @code {
-
+    private decimal Price = 1800m;
 }
