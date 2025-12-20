@@ -1,0 +1,190 @@
+﻿@page "/add-review"
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white p-2 mb-4 rounded shadow-sm">
+            <li class="breadcrumb-item">
+                <a href="/reviews" class="bread-link">Повернутися на попередню сторінку</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Додати відгук</li>
+        </ol>
+    </nav>
+</div>
+<h3 style="padding-top: 5%;"></h3>
+<!-- SECTION TITLE -->
+<div class="section-title text-center mb-5">
+    <h2 class="courses-title">Додати відгук</h2>
+    <p class="courses-desc">       
+    </p>
+
+</div>
+<!-- Форма відгуку -->
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-6 col-xl-5">
+        <div class="review-card p-4 bg-white rounded-4 border text-center">
+
+            <h4 class="fw-bold mb-2">Залишити відгук</h4>
+            <p class="text-muted mb-4">
+                Твоя думка допомагає нам ставати кращими 💛
+            </p>
+
+            <EditForm Model="@form" OnValidSubmit="SubmitAsync">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-floating mb-3 text-start">
+                    <InputText class="form-control"
+                               @bind-Value="form.Name"
+                               placeholder="Імʼя" />
+                    <label>Імʼя</label>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label class="form-label text-muted mb-1">Оцінка</label>
+                    <div class="d-flex justify-content-center gap-1 fs-4 text-warning">
+                        @for (var i = 1; i <= 5; i++)
+                        {
+                            <button type="button"
+                                    class="btn p-0 border-0 bg-transparent"
+                                    title="@i"
+                                    @onclick="() => form.Rating = i">
+                                <i class="bi @(i <= form.Rating ? "bi-star-fill" : "bi-star")"></i>
+                            </button>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3 text-start">
+                    <InputTextArea class="form-control"
+                                   @bind-Value="form.Text"
+                                   placeholder="Відгук"
+                                   style="height: 140px;" />
+                    <label>Твій відгук</label>
+                </div>
+
+                <button class="btn ec-btn-primary w-100 py-2"
+                        type="submit"
+                        disabled="@isSending">
+                    <i class="bi bi-send me-1"></i>
+                    @(isSending ? "Надіслати..." : "Надіслати відгук")
+                </button>
+            </EditForm>
+
+            @if (!string.IsNullOrWhiteSpace(success))
+            {
+                <div class="alert alert-success mt-3 mb-0 text-start">
+                    <i class="bi bi-check-circle me-1"></i> @success
+                </div>
+            }
+
+            <div class="alert alert-warning mt-3 mb-0 text-start">
+                <i class="bi bi-shield-check me-1"></i>
+                Публікація відгуку може бути після модерації.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private readonly List<ReviewVM> reviews = new()
+    {
+        new("Олена", 5, "Дуже зрозуміло пояснюють, багато говоримо на уроці. Нарешті перестала боятися помилок!", "Розмовна практика", DateTime.Today.AddDays(-4)),
+        new("Андрій", 5, "Класна структура уроків. Відчуваю прогрес уже за місяць!", "Результат", DateTime.Today.AddDays(-11)),
+        new("Марія", 4, "Комфортна атмосфера і нормальні домашки — не важко, але ефективно.", "Комфорт", DateTime.Today.AddDays(-21)),
+        new("Ірина", 5, "Підготовка до співбесіди пройшла супер, тепер спокійно спілкуюсь англійською.", "Для роботи", DateTime.Today.AddDays(-34)),
+    };
+
+    private string? search;
+
+    private int page = 1;
+    private int pageSize = 4;
+    private int totalPages = 1;
+
+    private bool IsFirstPage => page <= 1;
+    private bool IsLastPage => page >= totalPages;
+
+    private ReviewForm form = new() { Rating = 5 };
+    private bool isSending;
+    private string? success;
+
+    private List<ReviewVM> Filtered
+    {
+        get
+        {
+            var q = reviews.AsEnumerable();
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                var s = search.Trim().ToLowerInvariant();
+                q = q.Where(x =>
+                    x.Name.ToLowerInvariant().Contains(s) ||
+                    x.Text.ToLowerInvariant().Contains(s));
+            }
+
+            return q
+                .OrderByDescending(x => x.Date)
+                .ToList();
+        }
+    }
+
+    private List<ReviewVM> Paged
+    {
+        get
+        {
+            totalPages = Math.Max(1, (int)Math.Ceiling(Filtered.Count / (double)pageSize));
+            page = Math.Clamp(page, 1, totalPages);
+            return Filtered.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+        }
+    }
+
+    private double AvgRating => Filtered.Count == 0 ? 0 : Filtered.Average(x => x.Rating);
+
+    private void PrevPage() { if (!IsFirstPage) page--; }
+    private void NextPage() { if (!IsLastPage) page++; }
+
+    private async Task SubmitAsync()
+    {
+        isSending = true;
+        success = null;
+
+        // TODO: Тут підключиш БД / Telegram / модерацію
+        await Task.Delay(500);
+
+        reviews.Insert(0, new ReviewVM(
+            form.Name.Trim(),
+            form.Rating,
+            form.Text.Trim(),
+            string.IsNullOrWhiteSpace(form.Tag) ? null : form.Tag.Trim(),
+            DateTime.Today));
+
+        form = new ReviewForm { Rating = 5 };
+        success = "Дякуємо! Ваш відгук додано ❤️";
+        isSending = false;
+
+        page = 1;
+    }
+
+    private static string GetInitials(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return "EC";
+        var parts = name.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length == 1) return parts[0].Substring(0, 1).ToUpperInvariant();
+        return (parts[0].Substring(0, 1) + parts[1].Substring(0, 1)).ToUpperInvariant();
+    }
+
+    private sealed record ReviewVM(string Name, int Rating, string Text, string? Tag, DateTime Date);
+
+    public class ReviewForm
+    {
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Вкажіть імʼя")]
+        public string Name { get; set; } = "";
+
+        [System.ComponentModel.DataAnnotations.Range(1, 5, ErrorMessage = "Оцінка має бути 1–5")]
+        public int Rating { get; set; } = 5;
+
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Напишіть відгук")]
+        [System.ComponentModel.DataAnnotations.MinLength(5, ErrorMessage = "Відгук занадто короткий")]
+        public string Text { get; set; } = "";
+
+        public string? Tag { get; set; }
+    }
+}

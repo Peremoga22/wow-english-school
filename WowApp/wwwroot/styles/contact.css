@@ -74,4 +74,38 @@
             padding: 18px;
         }
     }
+    /* ACTIONS WRAPPER */
+    .ec-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    /* BUTTON BASE */
+    .ec-btn-responsive {
+        padding: 10px 24px;
+    }
+    /* 📱 MOBILE (до 576px) */
+    @media (max-width: 575.98px) {
+        .ec-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .ec-btn-responsive {
+            width: 100%;
+            text-align: center;
+        }
+    }
+   
+    @media (min-width: 576px) and (max-width: 991.98px) {
+        .ec-actions {
+            justify-content: center;
+        }
+    }
+   
+    @media (min-width: 992px) {
+        .ec-actions {
+            justify-content: flex-start;
+        }
+    }
 }

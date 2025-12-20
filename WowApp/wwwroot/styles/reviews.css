@@ -1,0 +1,11 @@
+﻿body {
+    .review-card {
+        box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+    }
+    /* мобілка — трохи компактніше */
+    @media (max-width: 575.98px) {
+        .review-card {
+            padding: 24px 20px;
+        }
+    }
+}

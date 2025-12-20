@@ -247,3 +247,6 @@
     .navbar.scrolled {
         box-shadow: 0 6px 20px rgba(0,0,0,.12);
     }
+.ec-bg-soft {
+    background-color: #f3f5f8; /* м’який сіро-блакитний */
+}

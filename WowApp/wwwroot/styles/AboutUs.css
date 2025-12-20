@@ -1,0 +1,78 @@
+﻿body {
+    /* HERO SECTION */
+    .ec-hero {
+        padding: 80px 0;
+        background: linear-gradient( 180deg, #f8f9fc 0%, #ffffff 100% );
+    }
+    /* CONTENT */
+    .ec-hero-content {
+        max-width: 720px;
+    }
+    /* TITLE */
+    .ec-title {
+        font-size: clamp(28px, 4vw, 42px);
+        font-weight: 700;
+        line-height: 1.2;
+        color: #0f172a; /* темний синій */
+    }
+    /* TEXT */
+    .ec-lead {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #475569; /* slate */
+    }
+    /* BUTTON */
+    .ec-btn-primary {
+        background-color: #0b3c5d; /* темно-синій */
+        color: #ffffff;
+        border-radius: 999px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        transition: all 0.25s ease;
+        box-shadow: 0 8px 20px rgba(11, 60, 93, 0.25);
+    }
+
+        .ec-btn-primary:hover {
+            background-color: #082f49;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(11, 60, 93, 0.35);
+            color: #ffffff;
+        }
+
+    .ec-btn-glass-white {
+        background: rgba(255, 255, 255, 0.65);
+        color: #0b3c5d;
+        border: 1px solid rgba(11, 60, 93, 0.25);
+        border-radius: 999px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        transition: all 0.25s ease;
+        padding: 10px 24px;
+    }
+
+        .ec-btn-glass-white:hover {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 24px rgba(11, 60, 93, 0.2);
+            transform: translateY(-2px);
+        }
+
+    .ec-btn-outline-white {
+        background-color: transparent;
+        color: #0b3c5d; /* темно-синій текст */
+        border: 2px solid #0b3c5d; /* темно-синя обводка */
+        border-radius: 999px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        transition: all 0.25s ease;
+        padding: 10px 24px;
+    }
+
+        .ec-btn-outline-white:hover {
+            background-color: #0b3c5d;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(11, 60, 93, 0.25);
+        }
+}

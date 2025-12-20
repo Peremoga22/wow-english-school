@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row g-4 align-items-center">
             <div class="col-lg-7">
-                <span class="badge rounded-pill text-bg-primary px-3 py-2 mb-3">
+                <span class="badge rounded-pill ec-badge-primary px-3 py-2 mb-3">
                     English Club
                 </span>
 
@@ -101,13 +101,13 @@
                     <div class="socials mt-4">
                         @if (!string.IsNullOrWhiteSpace(TelegramUrl))
                         {
-                            <a href="@TelegramUrl" target="_blank" class="social-btn telegram">
+                            <a href="@TelegramUrl" target="_blank" class="social-btn telegram ec-btn-outline-white">
                                 <i class="bi bi-telegram"></i> Telegram
                             </a>
                         }
                         @if (!string.IsNullOrWhiteSpace(InstagramUrl))
                         {
-                            <a href="@InstagramUrl" target="_blank" class="social-btn instagram">
+                            <a href="@InstagramUrl" target="_blank" class="social-btn instagram ec-btn-outline-white">
                                 <i class="bi bi-instagram"></i> Instagram
                             </a>
                         }
@@ -162,17 +162,24 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 d-flex gap-2 flex-wrap">
-                                <button class="btn btn-primary px-4" type="submit" disabled="@isSending">
-                                    <i class="bi bi-send me-1"></i>
-                                    @(isSending ? "Надсилаємо..." : "Надіслати заявку")
-                                </button>
+                            <div class="col-12">
+                                <div class="ec-actions">
+                                    <button class="btn ec-btn-primary ec-btn-responsive"
+                                            type="submit"
+                                            disabled="@isSending">
+                                        <i class="bi bi-send me-1"></i>
+                                        @(isSending ? "Надсилаємо..." : "Надіслати заявку")
+                                    </button>
 
-                                <button class="btn btn-outline-secondary" type="button"
-                                        @onclick="Clear" disabled="@isSending">
-                                    Очистити
-                                </button>
+                                    <button class="btn ec-btn-outline-white ec-btn-responsive"
+                                            type="button"
+                                            @onclick="Clear"
+                                            disabled="@isSending">
+                                        Очистити
+                                    </button>
+                                </div>
                             </div>
+
                         </div>
                     </EditForm>
 
