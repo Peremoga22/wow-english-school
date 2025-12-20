@@ -52,4 +52,30 @@
         font-size: 13px;
         box-shadow: 0 6px 16px rgba(11, 60, 93, 0.25);
     }
+    /* WRAPPER */
+    .logo-2-wrap {
+        flex-shrink: 0;
+    }
+    /* LOGO */
+    .logo-2-img {
+        width: 72px; /* ⬅️ стало більше */
+        height: 72px;
+        object-fit: cover;
+        border-radius: 50%; /* якщо хочеш кругле */
+        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.15);
+    }
+   
+    @media (max-width: 575.98px) {
+        .logo-2-img {
+            width: 56px;
+            height: 56px;
+        }
+    }
+  
+    @media (min-width: 992px) {
+        .logo-2-img {
+            width: 88px;
+            height: 88px;
+        }
+    }
 }
