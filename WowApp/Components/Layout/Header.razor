@@ -1,7 +1,14 @@
 ﻿@using System.Globalization
-
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Antiforgery
+@using Microsoft.AspNetCore.Http
+@using WowApp.Services
+@inject IStringLocalizer<App> _localizer
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _jsRuntime
+@inject IAntiforgery _antiforgery
+@inject IHttpContextAccessor HttpContextAccessor
+@inject CultureStateService _cultureStateService
 @rendermode InteractiveServer
 
 <div class="container-fluid position-relative p-0">
@@ -92,33 +99,33 @@
                         </li>
                     </NotAuthorized>
                 </AuthorizeView>  
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
+               <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center gap-1"
                        href="#"
                        role="button"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        @CurrentLang
+                       data-bs-toggle="dropdown">
+
+                        <span>@CurrentFlag</span>
+                        <span>@CurrentLang</span>
                     </a>
 
-                    <ul class="dropdown-menu dropdown-menu-end">
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                         <li>
-                            <a class="dropdown-item @(IsActive("uk-UA"))"
-                               href="#"
-                               @onclick="() => ChangeCulture(CultureUa)">
+                            <button class="dropdown-item @IsActive("uk-UA")"
+                                    @onclick="() => ChangeCulture(CultureUa)">
                                 🇺🇦 Українська
-                            </a>
+                            </button>
                         </li>
+
                         <li>
-                            <a class="dropdown-item @(IsActive("en-US"))"
-                               href="#"
-                               @onclick="() => ChangeCulture(CultureEn)">
+                            <button class="dropdown-item @IsActive("en-US")"
+                                    @onclick="() => ChangeCulture(CultureEn)">
                                 🇬🇧 English
-                            </a>
+                            </button>
                         </li>
                     </ul>
-                </li>
-
+                </li>    
+               
             </ul>
         </div>
     </nav>
@@ -154,19 +161,41 @@
         {
             userName = string.Empty;
         }
-              
+
+        _cultureStateService.OnChange += StateHasChanged;
         currentUrl = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
     }
 
+    public void Dispose()
+    {
+        _cultureStateService.OnChange -= StateHasChanged;
+    }
+
+    private CultureInfo CurrentCulture => _cultureStateService.CurrentCulture;
+
     private string CurrentLang =>
-        CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper();
+        CurrentCulture.TwoLetterISOLanguageName.ToUpper();
+
+    private string CurrentFlag =>
+        CurrentCulture.Name switch
+        {
+            "uk-UA" => "🇺🇦",
+            "en-US" => "🇬🇧",
+            _ => "🌐"
+        };
 
     private string IsActive(string culture) =>
-        CultureInfo.CurrentUICulture.Name == culture ? "active fw-semibold" : "";
+        CurrentCulture.Name == culture ? "active fw-semibold" : "";
 
-    private async Task ChangeCulture(string culture)
+    private void ChangeCulture(string culture)
     {
-        var returnUrl = _navigationManager.Uri.Replace(_navigationManager.BaseUri, "/");
-        await _jsRuntime.InvokeVoidAsync("setCulture", culture, returnUrl);
+        // ✅ 1. одразу міняємо UI
+        _cultureStateService.SetCulture(culture);
+
+        // ✅ 2. ставимо cookie + reload (реальна культура)
+        var url =
+            $"/set-culture?culture={culture}&returnUrl={Uri.EscapeDataString(_navigationManager.Uri)}";
+
+        _navigationManager.NavigateTo(url, forceLoad: true);
     }
 }

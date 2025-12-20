@@ -1,6 +1,8 @@
 ﻿@page "/"
-@* English Club Home *@
-<!-- TOP LOGO -->
+@using WowApp.Resources
+
+@* @inject IStringLocalizer<SharedResource> _localizer *@
+
 
 @* <header class="ec-header">
     <img src="images/logo.jpeg"
@@ -25,9 +27,9 @@
                         <div class="ec-subtitle">we open the world</div>
                     </div>
                 </div>
-
+               @*  English for children and adults - *@
                 <p class="ec-lead mt-3 mb-0">
-                    Англійська для дітей та дорослих — групові й індивідуальні заняття.
+                    @SharedResource.Hero_Lead_1 — групові й індивідуальні заняття.
                     Допоможемо заговорити впевнено та покращити результат у навчанні/роботі.
                 </p>               
                 <div class="ec-video mt-4">

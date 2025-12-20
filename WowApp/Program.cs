@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using System.Globalization;
@@ -8,6 +9,7 @@ using System.Globalization;
 using WowApp.Components;
 using WowApp.Components.Account;
 using WowApp.Data;
+using WowApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,12 +40,14 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-
+builder.Services.AddScoped<CultureStateService>();
 builder.Services.AddLocalization(options =>
 {
-    options.ResourcesPath = "Resources";
+    options.ResourcesPath = "SharedResource";
 });
-
+builder.Services.AddLocalization();
+builder.Services.AddRazorPages();
+builder.Services.AddControllers();
 var app = builder.Build();
 
 var supportedCultures = new[]
@@ -57,6 +61,14 @@ var locOptions = new RequestLocalizationOptions
     DefaultRequestCulture = new RequestCulture("uk-UA"),
     SupportedCultures = supportedCultures,
     SupportedUICultures = supportedCultures
+};
+
+
+locOptions.RequestCultureProviders = new IRequestCultureProvider[]
+{
+    new QueryStringRequestCultureProvider(),           
+    new CookieRequestCultureProvider(),                
+    new AcceptLanguageHeaderRequestCultureProvider()   
 };
 
 app.UseRequestLocalization(locOptions);
@@ -77,12 +89,12 @@ app.UseHttpsRedirection();
 
 
 app.UseAntiforgery();
-
+app.MapControllers();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+app.MapRazorPages();
 
-// Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
 
 app.Run();
