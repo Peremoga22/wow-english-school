@@ -6,7 +6,7 @@ namespace WowApp.Services
     {
         public event Action? OnChange;
 
-        public CultureInfo CurrentCulture { get; private set; }
+        public CultureInfo CurrentCulture { get; private set; } 
             = CultureInfo.CurrentUICulture;
 
         public void SetCulture(string culture)

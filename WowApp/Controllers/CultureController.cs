@@ -8,8 +8,7 @@ namespace WowApp.Controllers
     {
         [HttpGet("/set-culture")]
         public IActionResult SetCulture(string culture, string returnUrl)
-        {
-            // Записуємо cookie культури
+        {            
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
@@ -19,8 +18,7 @@ namespace WowApp.Controllers
                     IsEssential = true
                 }
             );
-
-            // Перетворюємо абсолютний URL → локальний шлях
+                        
             var localPath = new Uri(returnUrl).PathAndQuery;
 
             return LocalRedirect(localPath);
