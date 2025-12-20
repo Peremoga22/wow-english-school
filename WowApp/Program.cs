@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+
+using System.Globalization;
+
 using WowApp.Components;
 using WowApp.Components.Account;
 using WowApp.Data;
@@ -35,7 +39,27 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
+builder.Services.AddLocalization(options =>
+{
+    options.ResourcesPath = "Resources";
+});
+
 var app = builder.Build();
+
+var supportedCultures = new[]
+{
+    new CultureInfo("uk-UA"),
+    new CultureInfo("en-US")
+};
+
+var locOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("uk-UA"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+};
+
+app.UseRequestLocalization(locOptions);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
