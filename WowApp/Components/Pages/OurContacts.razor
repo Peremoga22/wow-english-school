@@ -98,26 +98,38 @@
                         </div>
                     </div>
 
-                    <div class="socials mt-4">
+                    <div class="socials mt-4 d-flex flex-wrap justify-content-center gap-2 gap-md-3">
                         @if (!string.IsNullOrWhiteSpace(TelegramUrl))
                         {
-                            <a href="@TelegramUrl" target="_blank" class="social-btn telegram ec-btn-outline-white">
-                                <i class="bi bi-telegram"></i> Telegram
+                            <a href="@TelegramUrl"
+                               target="_blank"
+                               class="social-btn telegram ec-btn-outline-white">
+                                <i class="bi bi-telegram"></i>
+                                <span class="d-none d-sm-inline">Telegram</span>
                             </a>
                         }
+
                         @if (!string.IsNullOrWhiteSpace(InstagramUrl))
                         {
-                            <a href="@InstagramUrl" target="_blank" class="social-btn instagram ec-btn-outline-white">
-                                <i class="bi bi-instagram"></i> Instagram
+                            <a href="@InstagramUrl"
+                               target="_blank"
+                               class="social-btn instagram ec-btn-outline-white">
+                                <i class="bi bi-instagram"></i>
+                                <span class="d-none d-sm-inline">Instagram</span>
                             </a>
                         }
-                       @*  @if (!string.IsNullOrWhiteSpace(FacebookUrl)) *@
-                        @* { *@
-                            <a href="@FacebookUrl" target="_blank" class="social-btn facebook ec-btn-outline-white">
-                                <i class="bi bi-facebook"></i> Facebook
+
+                        @if (!string.IsNullOrWhiteSpace(FacebookUrl))
+                        {
+                            <a href="@FacebookUrl"
+                               target="_blank"
+                               class="social-btn facebook ec-btn-outline-white">
+                                <i class="bi bi-facebook"></i>
+                                <span class="d-none d-sm-inline">Facebook</span>
                             </a>
-                        @* } *@
+                        }
                     </div>
+
 
                     <div class="contact-note mt-4">
                         💡 Підберемо групу за віком та рівнем — просто напиши “Хочу навчатися”
@@ -203,10 +215,10 @@
     private string Email = "lyubovvynnytska87@gmail.com";
     private string Address = "м. Стрий, вул. Охримовича, 8/25";
 
-    private string? MapUrl = "https://maps.google.com"; // або null якщо не треба
+    private string? MapUrl = "https://maps.google.com"; 
     private string? TelegramUrl = "https://t.me/your_channel";
     private string? InstagramUrl = "https://instagram.com/your_page";
-    private string? FacebookUrl = null;
+    private string? FacebookUrl = "https://t.me/your_channel";
 
     private string WorkdaysHours = "09:00 – 21:00";
     private string SaturdayHours = "09:00 – 15:00";

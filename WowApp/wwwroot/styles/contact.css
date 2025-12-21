@@ -96,16 +96,35 @@
             text-align: center;
         }
     }
-   
+
     @media (min-width: 576px) and (max-width: 991.98px) {
         .ec-actions {
             justify-content: center;
         }
     }
-   
+
     @media (min-width: 992px) {
         .ec-actions {
             justify-content: flex-start;
+        }
+    }
+
+    .social-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-weight: 500;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+    /* Мобільні */
+    @media (max-width: 576px) {
+        .social-btn {
+            padding: 10px 14px;
+            font-size: 0.95rem;
         }
     }
 }

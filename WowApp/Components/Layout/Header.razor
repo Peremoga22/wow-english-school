@@ -28,78 +28,41 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ms-auto align-items-center gap-2">
                 <li class="nav-item">
-                    <NavLink href="/" class="nav-link" Match="NavLinkMatch.All" activeClass="active">
+                    <NavLink href="/" class="nav-link" Match="NavLinkMatch.All" activeClass="active" @onclick="CloseNavbar">
                         Домашня
                     </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink href="/about-us" class="nav-link" activeClass="active">
+                    <NavLink href="/about-us" class="nav-link" activeClass="active" @onclick="CloseNavbar">
                         Про нас
                     </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink href="/reviews" class="nav-link" activeClass="active">
+                    <NavLink href="/reviews" class="nav-link" activeClass="active" @onclick="CloseNavbar">
                         Відгуки
                     </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink href="/services-page" class="nav-link" activeClass="active">
+                    <NavLink href="/services-page" class="nav-link" activeClass="active" @onclick="CloseNavbar">
                         Послуги
                     </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink href="/contract" class="nav-link" activeClass="active">
+                    <NavLink href="/contract" class="nav-link" activeClass="active" @onclick="CloseNavbar">
                         Договір
                     </NavLink>
                 </li>               
                 <li class="nav-item">
-                    <NavLink href="/portfolio" class="nav-link" activeClass="active">
+                    <NavLink href="/portfolio" class="nav-link" activeClass="active" @onclick="CloseNavbar">
                         Портфоліо
                     </NavLink>
                 </li> 
                 <li class="nav-item">
-                    <NavLink href="/contacts" class="nav-link" activeClass="active">
+                    <NavLink href="/contacts" class="nav-link" activeClass="active" @onclick="CloseNavbar">
                         Контакти
                     </NavLink>
                 </li>
-                @if (isAuthenticated)
-                {
-                    <li class="nav-item">
-                        <NavLink href="/personal-account" class="nav-link" activeClass="active">
-                            Особистий кабінет
-                        </NavLink>
-                    </li>
-                }
-                <AuthorizeView>
-                    <Authorized Context="auth">
-                        @if (auth.User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <NavLink class="nav-link fw-semibold text-primary" href="/admin-clients">
-                                    <i class="bi bi-shield-lock me-1"></i> Адмінка
-                                </NavLink>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <form action="Account/Logout" method="post" class="d-inline">
-                                <AntiforgeryToken />
-                                <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                                <button type="submit" class="nav-link btn-logout">
-                                    <i class="bi bi-box-arrow-right me-1"></i> Вийти
-                                </button>
-                            </form>
-                        </li>
-                    </Authorized>
-
-                    <NotAuthorized>
-                        <li class="nav-item">
-                            <NavLink class="nav-link" href="Account/Login">
-                                <i class="bi bi-person me-1"></i> Логін
-                            </NavLink>
-                        </li>
-                    </NotAuthorized>
-                </AuthorizeView>  
-               <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center gap-1"
                        href="#"
                        role="button"
@@ -112,25 +75,71 @@
                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                         <li>
                             <button class="dropdown-item @IsActive("uk-UA")"
-                                    @onclick="() => ChangeCulture(CultureUa)">
+                                    @onclick="() => ChangeCulture(CultureUa)"
+                                    @onclick:stopPropagation="true">
                                 🇺🇦 Українська
                             </button>
                         </li>
 
                         <li>
                             <button class="dropdown-item @IsActive("en-US")"
-                                    @onclick="() => ChangeCulture(CultureEn)">
+                                    @onclick="() => ChangeCulture(CultureEn)"
+                                    @onclick:stopPropagation="true">
                                 🇬🇧 English
                             </button>
                         </li>
                     </ul>
-                </li>    
+                </li>
+                @if (isAuthenticated)
+                {
+                    <li class="nav-item">
+                        <NavLink href="/personal-account" class="nav-link" activeClass="active" @onclick="CloseNavbar">
+                            Особистий кабінет
+                        </NavLink>
+                    </li>
+                }
+                <AuthorizeView>
+                    <Authorized Context="auth">
+                        @if (auth.User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <NavLink class="nav-link fw-semibold text-primary" href="/admin-clients" @onclick="CloseNavbar">
+                                    <i class="bi bi-shield-lock me-1"></i> Адмінка
+                                </NavLink>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <form action="Account/Logout" method="post" class="d-inline" @onclick="CloseNavbar">
+                                <AntiforgeryToken />
+                                <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                                <button type="submit" class="nav-link btn-logout">
+                                    <i class="bi bi-box-arrow-right me-1"></i> Вийти
+                                </button>
+                            </form>
+                        </li>
+                    </Authorized>
+
+                    <NotAuthorized>
+                        <li class="nav-item">
+                            <NavLink class="nav-link" href="Account/Login" @onclick="CloseNavbar">
+                                <i class="bi bi-person me-1"></i> Логін
+                            </NavLink>
+                        </li>
+                    </NotAuthorized>
+                </AuthorizeView>                
                
             </ul>
         </div>
     </nav>
 </div>
-
+<script>
+    window.closeNavbar = () => {
+        const navbar = document.getElementById('navbarCollapse');
+        if (navbar?.classList.contains('show')) {
+            bootstrap.Collapse.getOrCreateInstance(navbar).hide();
+        }
+    };
+</script>
 @code {
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateUser { get; set; }
@@ -164,6 +173,11 @@
 
         _cultureStateService.OnChange += StateHasChanged;
         currentUrl = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
+    }
+
+    async Task CloseNavbar()
+    {
+        await _jsRuntime.InvokeVoidAsync("closeNavbar");
     }
 
     public void Dispose()
