@@ -198,4 +198,26 @@
         background-color: var(--bs-primary);
         color: #fff;
     }
+
+
+    .ec-navbar {
+        background-color: #0b1f3b;
+    }
+
+        .ec-navbar .navbar-brand,
+        .ec-navbar .nav-link {
+            color: #ffffff;
+        }
+
+            .ec-navbar .nav-link:hover {
+                color: #6ea8fe;
+            }
+        /* бургер-кнопка */
+        .ec-navbar .navbar-toggler {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .ec-navbar .navbar-toggler-icon {
+            filter: invert(1);
+        }
 }

@@ -90,14 +90,14 @@
                         </li>
                     </ul>
                 </li>
-                @if (isAuthenticated)
+             @*    @if (isAuthenticated)
                 {
                     <li class="nav-item">
                         <NavLink href="/personal-account" class="nav-link" activeClass="active" @onclick="CloseNavbar">
                             Особистий кабінет
                         </NavLink>
                     </li>
-                }
+                } *@
                 <AuthorizeView>
                     <Authorized Context="auth">
                         @if (auth.User.IsInRole("Admin"))
