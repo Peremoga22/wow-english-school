@@ -1,0 +1,76 @@
+﻿html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.ec-hero {
+    overflow-x: hidden;
+}
+
+/* 2) Hero typography адаптивно */
+.ec-title {
+    font-size: clamp(28px, 5vw, 44px);
+    line-height: 1.05;
+}
+
+.ec-subtitle {
+    font-size: clamp(14px, 2.4vw, 18px);
+}
+
+/* 3) Відео: стабільне співвідношення сторін, без “стрибань” */
+/*.ec-video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.ec-video-el {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}*/
+
+/* 4) Фото-трійка: краще grid, ніж flex (на мобілках буде 1 або 2 колонки) */
+.ec-photo-middle {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    align-items: stretch;
+}
+
+.ec-photo {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
+}
+
+@media (max-width: 576px) {
+    .ec-photo-middle {
+        grid-template-columns: 1fr;
+    }
+
+    .ec-photo {
+        height: 200px;
+    }
+}
+
+/* 5) Floating actions: safe-area для iPhone, щоб кнопки не “впирались” в низ */
+/*.floating-actions {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    display: grid;
+    gap: 10px;
+    z-index: 9999;
+}*/
+
+/* Якщо є ризик перекриття контенту кнопками — додай відступ знизу сторінці */
+.ec-hero .container {
+    padding-bottom: 120px; /* щоб контент не ховався під floating-actions */
+}

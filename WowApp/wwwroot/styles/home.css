@@ -54,7 +54,16 @@
     }
     /* WRAPPER */
     .logo-2-wrap {
-        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        height: 56px; /* висота хедера */
+    }
+
+    .logo-2-img {
+        height: 100%;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
     }
     /* LOGO */
     .logo-2-img {
@@ -64,18 +73,94 @@
         border-radius: 50%; /* якщо хочеш кругле */
         box-shadow: 0 6px 16px rgba(15, 23, 42, 0.15);
     }
-   
+
     @media (max-width: 575.98px) {
         .logo-2-img {
             width: 56px;
             height: 56px;
         }
     }
-  
+
     @media (min-width: 992px) {
         .logo-2-img {
             width: 88px;
             height: 88px;
         }
+    }
+
+    .brand-block {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0; /* важливо для iOS */
+        flex-wrap: wrap; /* щоб красиво переносилося */
+    }
+
+    .logo-2-wrap {
+        flex: 0 0 auto;
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 6px 16px rgba(0,0,0,.08);
+    }
+
+    .logo-2-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .brand-text {
+        min-width: 0;
+        line-height: 1.1;
+    }
+
+    .ec-title {
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: .06em;
+        font-size: clamp(16px, 4.2vw, 22px); /* авто під мобілку */
+        white-space: nowrap; /* не рве слово */
+        overflow: hidden;
+        text-overflow: ellipsis; /* якщо зовсім тісно */
+    }
+
+    .ec-subtitle {
+        font-size: clamp(11px, 3.2vw, 14px);
+        opacity: .75;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    /* Дуже вузькі екрани (старі айфони) */
+    /* @media (max-width: 360px) {
+        .logo-2-wrap {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
+
+        .brand-block {
+            gap: 10px;
+        }
+    }*/
+
+    @media (max-width: 576px) {
+        .logo-3-wrap {
+            height: 40px;
+        }
+    }
+
+    .logo-3-wrap {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-3-img {
+        height: clamp(28px, 4.5vw, 44px);
+        width: auto;
     }
 }
