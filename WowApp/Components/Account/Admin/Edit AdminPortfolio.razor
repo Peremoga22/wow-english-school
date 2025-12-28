@@ -1,5 +1,8 @@
 ﻿@page "/edit-admin-portfolio"
 @page "/edit-admin-portfolio/{Id:int}"
+
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Forms
 @using SixLabors.ImageSharp
 @using SixLabors.ImageSharp.Formats.Jpeg
 @using SixLabors.ImageSharp.Processing
@@ -7,234 +10,290 @@
 @inject PortfolioService _portfolioService
 @inject IWebHostEnvironment _env
 @inject NavigationManager _navigationManager
-@inject IJSRuntime _jSRuntime
+
 @layout AdminLayout
 @attribute [Authorize(Roles = "Admin")]
 @rendermode InteractiveServer
 
 <div class="container my-4">
+
     <!-- Page title -->
     <div class="mb-4">
         <h3 class="fw-bold text-primary mb-1">
-            Додавання карток портфоліо
+            @(Id == 0 ? "Додавання картки портфоліо" : "Редагування картки портфоліо")
         </h3>
         <p class="text-muted mb-0 small">
-            Керування титульним блоком та візуальним наповненням
+            Керування візуальним наповненням (фото/відео), текстами та мовною версією
         </p>
     </div>
 
-    <!-- Breadcrumb + actions -->
+    <!-- Breadcrumb -->
     <nav aria-label="breadcrumb"
          class="bg-white shadow-sm rounded-4 px-3 px-md-4 py-3 mb-4">
-
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-
-            <!-- Breadcrumb -->
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item">
-                    <i class="bi bi-house-door me-1"></i>
-                    Адмін-панель
+                    <a class="link-accent text-decoration-none" href="/admin-portfolio">
+                        <i class="bi bi-house-door me-1"></i> Адмін-панель
+                    </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                   Наповнення портфоліо
+                    Портфоліо — @(Id == 0 ? "додати" : "редагувати")
                 </li>
-            </ol>                       
+            </ol>
         </div>
     </nav>
 
+    @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+    {
+        <div class="alert alert-danger rounded-4 shadow-sm">
+            <i class="bi bi-exclamation-triangle me-2"></i>@ErrorMessage
+        </div>
+    }
+
     <section class="mb-5">
-        <div class="card form-shell border-0">
-            <div class="card-header form-header d-flex align-items-center gap-2">
-                <i class="bi bi-journal-text"></i>
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-white d-flex align-items-center gap-2 py-3">
+                <i class="bi bi-journal-text text-primary"></i>
                 <strong>@(Id == 0 ? "Додати картку" : "Редагувати картку")</strong>
             </div>
 
-            <EditForm Model="@portfolioCard"
-                      OnValidSubmit="SavePortfolioCardAsync"
-                      class="p-3 p-md-4">
+            <div class="card-body p-3 p-md-4">
 
-                <DataAnnotationsValidator />
-                <ValidationSummary class="alert alert-danger small mb-3" />
-                <div class="mb-3">
-                    <label for="TitleCard" class="form-label form-label-compact">
-                        вибрати мову контексту <span class="text-danger">*</span>
-                    </label>
-                    <div class="form-check form-switch language-switch">
-                        <InputCheckbox id="languageSwitch"
-                                       class="form-check-input"
-                                       @bind-Value="IsEnglish" />
+                <EditForm Model="portfolioCard" OnValidSubmit="SavePortfolioCardAsync">
+                    <DataAnnotationsValidator />
 
-                        <label class="form-check-label d-flex align-items-center gap-2"
-                               for="languageSwitch">
-                            <i class="bi @(IsEnglish ? "bi-translate" : "bi-translate")"></i>
-                            <span>
-                                @(IsEnglish ? "English" : "Українська")
-                            </span>
-                        </label>
-                    </div>
-                </div>
+                    <div class="row g-4">
 
-                <div class="mb-3">
-                    <label for="TitleCard" class="form-label form-label-compact">
-                        Назва картки <span class="text-danger">*</span>
-                    </label>
-                    <InputText id="TitleCard"
-                               @bind-Value="portfolioCard.TitleCard"
-                               class="form-control form-control-lg soft-input"
-                               placeholder="Введіть назву..." />
-                    <ValidationMessage For="@(() => portfolioCard.TitleCard)" class="text-danger small" />
-                </div>
+                        <!-- LEFT: fields -->
+                        <div class="col-lg-7">
 
-                <div class="mb-3">
-                    <label for="DescriptionCard" class="form-label form-label-compact">
-                        Опис картки <span class="text-danger">*</span>
-                    </label>
-                    <InputText id="DescriptionCard"
-                               @bind-Value="portfolioCard.DescriptionCard"
-                               class="form-control form-control-lg soft-input"
-                               placeholder="Короткий опис..." />
-                    <ValidationMessage For="@(() => portfolioCard.DescriptionCard)" class="text-danger small" />
-                </div>
+                            <!-- Culture -->
+                            <div class="border rounded-4 p-3 bg-light">
+                                <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+                                    <div>
+                                        <div class="fw-semibold">Мовна версія запису</div>
+                                        <div class="text-muted small">
+                                            Якщо це англійський переклад — увімкни <b>IsCulture</b> і заповни тексти англійською.
+                                        </div>
+                                    </div>
 
-                <div class="mb-3">
-                    <label for="DescriptionCard" class="form-label form-label-compact">
-                        Назва події яка відображає на картці "Практичні ігри, Творчість ..." <span class="text-danger">*</span>
-                    </label>
-                    <InputText id="DescriptionCard"
-                               @bind-Value="portfolioCard.Group"
-                               class="form-control form-control-lg soft-input"
-                               placeholder="Коротка назва заходу..." />
-                    <ValidationMessage For="@(() => portfolioCard.Group)" class="text-danger small" />
-                </div>
-
-                <div class="form-check form-switch upload-switch">
-                    <InputCheckbox id="mediaTypeSwitch"
-                                   class="form-check-input"
-                                   @bind-Value="IsVideo" />
-
-                    <label class="form-check-label d-flex align-items-center gap-2"
-                           for="mediaTypeSwitch">
-                        <i class="bi @(IsVideo ? "bi-camera-video-fill" : "bi-camera-fill")"></i>
-                        <span>
-                            @(IsVideo ? "Відео" : "Фото")
-                        </span>
-                    </label>
-                </div>
-
-                @if (IsVideo)
-                {
-                    <div class="mb-2">
-                        <label class="form-label form-label-compact">Додайте силку з ютуба на відео</label>
-                        <InputText id="ImageUrl"
-                                   @bind-Value="portfolioCard.VideoPath"
-                                   class="form-control form-control-lg soft-input"
-                                   placeholder="Вставте: url video" />
-
-                        @if (!string.IsNullOrEmpty(portfolioCard.VideoPath))
-                        {
-                            <div class="ratio ratio-16x9">
-                                <lite-youtube videoid="@portfolioCard.VideoPath" style="width: 100%; height: auto;" title="Відео"></lite-youtube>
+                                    <div class="form-check form-switch m-0">
+                                        <InputCheckbox class="form-check-input" id="IsCulture" @bind-Value="portfolioCard.IsCulture" />
+                                        <label class="form-check-label fw-semibold" for="IsCulture">
+                                            IsCulture (EN)
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                        }
+
+                            <div class="mt-3">
+                                <label class="form-label fw-semibold">Заголовок картки (Title)</label>
+                                <InputText class="form-control form-control-lg"
+                                           @bind-Value="portfolioCard.TitleCard"
+                                           placeholder="UA: Наприклад: Practical games / Creativity ..." />
+                                <ValidationMessage For="@(() => portfolioCard.TitleCard)" class="text-danger small" />
+                                <div class="form-text">
+                                    Якщо <b>IsCulture = true</b> — пиши тут англійською.
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label fw-semibold">Опис (Description)</label>
+                                <InputTextArea class="form-control"
+                                               rows="4"
+                                               @bind-Value="portfolioCard.DescriptionCard"
+                                               placeholder="UA/EN: Короткий опис події..." />
+                                <ValidationMessage For="@(() => portfolioCard.DescriptionCard)" class="text-danger small" />
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label fw-semibold">Категорія / Група (Group)</label>
+                                <InputText class="form-control form-control-lg"
+                                           @bind-Value="portfolioCard.Group"
+                                           placeholder="UA/EN: Kids English / Speaking club ..." />
+                                <ValidationMessage For="@(() => portfolioCard.Group)" class="text-danger small" />
+                            </div>
+
+                            <!-- Media switch -->
+                            <div class="mt-4 d-flex align-items-center justify-content-between gap-3 flex-wrap border rounded-4 p-3">
+                                <div>
+                                    <div class="fw-semibold">Тип контенту</div>
+                                    <div class="text-muted small">Вибери: фото або відео (YouTube)</div>
+                                </div>
+
+                                <div class="form-check form-switch m-0">
+                                    <InputCheckbox class="form-check-input" id="mediaTypeSwitch" @bind-Value="IsVideo" @onchange="OnMediaTypeChanged" />
+                                    <label class="form-check-label" for="mediaTypeSwitch">
+                                        <i class="bi @(IsVideo ? "bi-camera-video-fill" : "bi-camera-fill") me-1"></i>
+                                        @(IsVideo ? "Відео" : "Фото")
+                                    </label>
+                                </div>
+                            </div>
+
+                            @if (IsVideo)
+                            {
+                                <div class="mt-3">
+                                    <label class="form-label fw-semibold">YouTube video id або посилання</label>
+                                    <InputText class="form-control form-control-lg"
+                                               @bind-Value="portfolioCard.VideoPath"
+                                               placeholder="Напр: c73ULSQ9CI8 або https://youtu.be/c73ULSQ9CI8" />
+                                    <div class="form-text">
+                                        Можеш вставити або ID, або URL — на фронті ти і так використовуєш <code>lite-youtube</code>.
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="mt-3">
+                                    <label class="form-label fw-semibold">Фото картки</label>
+                                    <InputFile OnChange="OnCardImageSelected"
+                                               class="form-control form-control-lg"
+                                               accept=".jpg,.jpeg,.png,.webp" />
+                                    <div class="form-text">Формати: JPG/JPEG/PNG/WEBP. Авто-ресайз до 1600px та стиск.</div>
+                                </div>
+                            }
+
+                            <div class="mt-3">
+                                <label class="form-label fw-semibold">Фото викладача</label>
+                                <InputFile OnChange="OnTeacherImageSelected"
+                                           class="form-control form-control-lg"
+                                           accept=".jpg,.jpeg,.png,.webp" />
+                                <div class="form-text">Окреме фото викладача (не плутається з фото картки).</div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="d-flex gap-2 gap-md-3 mt-4 flex-wrap">
+                                <button class="btn btn-primary px-4" type="submit" disabled="@IsSaving">
+                                    <i class="bi bi-check2-circle me-1"></i>
+                                    @(IsSaving ? "Збереження..." : "Зберегти")
+                                </button>
+
+                                <button class="btn btn-outline-secondary px-4" type="button" @onclick="CancelCard" disabled="@IsSaving">
+                                    <i class="bi bi-arrow-left me-1"></i> Назад
+                                </button>
+
+                                @if (Id > 0)
+                                {
+                                    <button class="btn btn-outline-danger ms-auto px-4" type="button" @onclick="() => DeleteCardAsync(Id)" disabled="@IsSaving">
+                                        <i class="bi bi-trash me-1"></i> Видалити
+                                    </button>
+                                }
+                            </div>
+
+                        </div>
+
+                        <!-- RIGHT: preview -->
+                        <div class="col-lg-5">
+                            <div class="border rounded-4 p-3 p-md-4 bg-white shadow-sm">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <div class="fw-semibold">Прев’ю</div>
+                                    <span class="badge rounded-pill text-bg-light">
+                                        @(portfolioCard.IsCulture ? "EN (IsCulture=true)" : "UA (IsCulture=false)")
+                                    </span>
+                                </div>
+
+                                <!-- Media preview -->
+                                @if (IsVideo)
+                                {
+                                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden bg-light">
+                                        @if (!string.IsNullOrWhiteSpace(portfolioCard.VideoPath))
+                                        {
+                                            <lite-youtube videoid="@portfolioCard.VideoPath"
+                                                          style="width:100%;height:auto;"
+                                                          title="Video preview">
+                                            </lite-youtube>
+                                        }
+                                        else
+                                        {
+                                            <div class="d-flex align-items-center justify-content-center text-muted">
+                                                Додай YouTube id/посилання
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    @* Card image preview *@
+                                    <div class="rounded-4 overflow-hidden bg-light" style="height: 220px;">
+                                        @if (cardImageUpload is not null && cardImageUpload.Data is not null && cardImageUpload.Data.Length > 0)
+                                        {
+                                            <img src="@BuildDataUrl(cardImageUpload)"
+                                                 style="width:100%;height:100%;object-fit:cover;" />
+                                        }
+                                        else if (!string.IsNullOrWhiteSpace(portfolioCard.ImgPath) && portfolioCard.ImgPath != "is video")
+                                        {
+                                            <img src="@portfolioCard.ImgPath"
+                                                 style="width:100%;height:100%;object-fit:cover;" />
+                                        }
+                                        else
+                                        {
+                                            <div class="h-100 d-flex align-items-center justify-content-center text-muted">
+                                                Додай фото картки
+                                            </div>
+                                        }
+                                    </div>
+                                }
+
+                                <!-- Text preview -->
+                                <div class="mt-3">
+                                    <div class="fw-bold">@portfolioCard.TitleCard</div>
+                                    <div class="text-muted small">@portfolioCard.Group</div>
+                                    <p class="mt-2 mb-0">@portfolioCard.DescriptionCard</p>
+                                </div>
+
+                                <!-- Teacher preview -->
+                                <hr class="my-3" />
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle overflow-hidden bg-light" style="width:44px;height:44px;">
+                                        @if (teacherImageUpload is not null && teacherImageUpload.Data is not null && teacherImageUpload.Data.Length > 0)
+                                        {
+                                            <img src="@BuildDataUrl(teacherImageUpload)"
+                                                 style="width:100%;height:100%;object-fit:cover;" />
+                                        }
+                                        else if (!string.IsNullOrWhiteSpace(portfolioCard.ImgTeacherPath))
+                                        {
+                                            <img src="@portfolioCard.ImgTeacherPath"
+                                                 style="width:100%;height:100%;object-fit:cover;" />
+                                        }
+                                        else
+                                        {
+                                            <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted">
+                                                <i class="bi bi-person"></i>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="small">
+                                        <div class="fw-semibold">Викладач</div>
+                                        <div class="text-muted">Фото викладача</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
-                }
-                else
-                {
-                    <div class="mb-2">
-                        <label class="form-label form-label-compact">Фото (jpg/jpeg/png)</label><span class="text-danger">*</span>
-                        <InputFile OnChange="OnFileSelected"
-                                   class="form-control form-control-lg soft-input"
-                                   accept=".jpg,.jpeg,.png" multiple />
-                    </div>
-                }                                             
-               
 
-                @if (uploadedImages.Any())
-                {
-                    <div class="d-flex gap-2 mt-3">
-                        @foreach (var f in uploadedImages)
-                        {
-                            <img src="data:@f.ContentType;base64,@Convert.ToBase64String(f.Data)"
-                                 style="width:120px;height:120px;object-fit:cover;border-radius:12px;" />
-                        }
-                    </div>
-                }
+                </EditForm>
 
-                @if (@portfolioCard.ImgPath != "is video" && !string.IsNullOrEmpty(@portfolioCard.ImgPath))
-                {
-                    <div class="d-flex gap-2 mt-3">
-                        <img src="@portfolioCard.ImgPath"
-                             style="width:120px;height:120px;object-fit:cover;border-radius:12px;" />
-                    </div>
-                    
-                }
-
-                @if (!string.IsNullOrEmpty(@portfolioCard.ImgTeacherPath))
-                {
-                    <div class="d-flex gap-2 mt-3">
-                        <img src="@portfolioCard.ImgTeacherPath"
-                             style="width:120px;height:120px;object-fit:cover;border-radius:12px;" />
-                    </div>
-                }
-
-                <div class="mb-2">
-                    <label class="form-label form-label-compact">Фото Любов Романівни (jpg/jpeg/png)<span class="text-danger">*</span></label>
-                    <InputFile OnChange="OnFileSelected"
-                               class="form-control form-control-lg soft-input"
-                               accept=".jpg,.jpeg,.png" multiple />
-                </div>
-
-                <div class="d-flex flex-column flex-sm-row justify-content-end gap-2 mt-4">
-                    @if (!string.IsNullOrWhiteSpace(ErrorMessage))
-                    {
-                        <div class="alert alert-danger py-2 px-3 small mb-0 me-auto">@ErrorMessage</div>
-                    }
-
-                    @if (portfolioCard.Id > 0)
-                    {
-                        <button type="button"
-                                class="btn btn-outline-danger btn-action-lg"
-                                @onclick="(() => DeleteCardAsync(portfolioCard.Id))">
-                            <i class="bi bi-trash me-1"></i> Видалити
-                        </button>
-                    }
-
-                    <button type="submit" class="btn btn-primary btn-action-lg">
-                        <i class="bi bi-save me-1"></i> Зберегти
-                    </button>
-
-                    <button type="button" class="btn btn-outline-secondary btn-action-lg"
-                            @onclick="CancelCard">
-                        <i class="bi bi-x-circle me-1"></i> Скасувати
-                    </button>
-                </div>
-
-            </EditForm>
+            </div>
         </div>
     </section>
-
-
 </div>
 
-
-
 @code {
-    [Parameter]
-    public int Id { get; set; }
-    private Portfolio portfolioCard = new Portfolio();   
-    private const long maxSize = 5 * 1024 * 1024;
-    private const string UploadsSubfolder = "uploads/portfolio";
-    public enum MediaMode { Image, Video }
-    private string ErrorMessage = string.Empty;
-    private bool IsVideo { get; set; } = false;
-    private bool IsEnglish { get; set; } = false;
-    private bool IsUploading;
-   
-    private List<string> PreviewPaths = new();
-    private string safeSubfolder = string.Empty;
-    HashSet<string> allowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".jpg", ".jpeg", ".png", ".webp" };
-    private string physicalFolder = string.Empty;
-    private List<PreparedUploadFile> uploadedImages = new();
+    [Parameter] public int Id { get; set; }
+
+    private Portfolio portfolioCard = new();
+    private bool IsVideo;
+    private bool IsSaving;
+    private string? ErrorMessage;
+
+    private const long MaxFileSize = 20 * 1024 * 1024; // 20MB
+    private static readonly HashSet<string> AllowedExt = new(StringComparer.OrdinalIgnoreCase) { ".jpg", ".jpeg", ".png", ".webp" };
+
+    private PreparedUploadFile? cardImageUpload;
+    private PreparedUploadFile? teacherImageUpload;
 
     protected override async Task OnInitializedAsync()
     {
@@ -242,171 +301,247 @@
             ? await _portfolioService.GetPortfolioByIdAsync(Id) ?? new Portfolio()
             : new Portfolio();
 
-        if(!string.IsNullOrEmpty(portfolioCard.VideoPath))
-        {
-            IsVideo = true;
-        }
-        
+        IsVideo = !string.IsNullOrWhiteSpace(portfolioCard.VideoPath);
+
+        // якщо було "is video" у ImgPath — залишимо як є, але прев'ю працює і без цього
+        if (IsVideo && string.IsNullOrWhiteSpace(portfolioCard.VideoPath))
+            IsVideo = false;
     }
 
-    private async Task OnFileSelected(InputFileChangeEventArgs e)
+    private void OnMediaTypeChanged(ChangeEventArgs _)
     {
-        var files = e.GetMultipleFiles(2);
-
-        foreach (var file in files)
+        // якщо перемикаємось на відео — чистимо завантажене фото картки (але не чіпаємо вже збережене ImgPath)
+        if (IsVideo)
         {
-            // ❌ якщо це не картинка — пропускаємо
-            if (!file.ContentType.StartsWith("image/"))
-                continue;
+            cardImageUpload = null;
+            // Опціонально: якщо хочеш при переключенні на відео одразу чистити ImgPath:
+            // portfolioCard.ImgPath = "is video";
+        }
+        else
+        {
+            // якщо перемикаємось на фото — чистимо VideoPath
+            portfolioCard.VideoPath = string.Empty;
+            // Опціонально: якщо раніше ставив "is video"
+            if (portfolioCard.ImgPath == "is video")
+                portfolioCard.ImgPath = string.Empty;
+        }
+    }
 
-            await using var input = file.OpenReadStream(20 * 1024 * 1024); // 20MB allow
-            using var image = await Image.LoadAsync(input);
+    private async Task OnCardImageSelected(InputFileChangeEventArgs e)
+    {
+        ErrorMessage = null;
 
-            // 🔹 resize
-            if (image.Width > 1600)
+        try
+        {
+            // якщо замінюємо фото — підготуємо нове; старе з диска видалимо вже при збереженні (без падінь)
+            var file = e.File;
+            cardImageUpload = await PrepareImageAsync(file);
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+    }
+
+    private async Task OnTeacherImageSelected(InputFileChangeEventArgs e)
+    {
+        ErrorMessage = null;
+
+        try
+        {
+            var file = e.File;
+            teacherImageUpload = await PrepareImageAsync(file);
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+    }
+
+    private async Task<PreparedUploadFile> PrepareImageAsync(IBrowserFile file)
+    {
+        var ext = Path.GetExtension(file.Name)?.ToLowerInvariant();
+
+        if (string.IsNullOrWhiteSpace(ext) || !AllowedExt.Contains(ext))
+            throw new InvalidOperationException("Дозволені формати: JPG, JPEG, PNG, WEBP.");
+
+        if (file.Size > MaxFileSize)
+            throw new InvalidOperationException($"Файл завеликий: {file.Name} (максимум {MaxFileSize / 1024 / 1024} МБ).");
+
+        await using var input = file.OpenReadStream(MaxFileSize);
+        using var image = await Image.LoadAsync(input);
+
+        // resize
+        if (image.Width > 1600)
+        {
+            image.Mutate(x => x.Resize(new ResizeOptions
             {
-                image.Mutate(x => x.Resize(new ResizeOptions
-                {
-                    Mode = ResizeMode.Max,
-                    Size = new Size(1600, 0)
-                }));
-            }
-
-            // 🔹 compress → byte[]
-            await using var ms = new MemoryStream();
-            await image.SaveAsync(ms, new JpegEncoder
-            {
-                Quality = 75
-            });
-
-            uploadedImages.Add(new PreparedUploadFile
-            {
-                FileName = $"{Guid.NewGuid():N}.jpg",
-                ContentType = "image/jpeg",
-                Data = ms.ToArray()
-            });
+                Mode = ResizeMode.Max,
+                Size = new Size(1600, 0)
+            }));
         }
 
-        StateHasChanged();
+        // compress to jpg
+        await using var ms = new MemoryStream();
+        await image.SaveAsync(ms, new JpegEncoder { Quality = 75 });
+
+        return new PreparedUploadFile
+        {
+            FileName = $"{Guid.NewGuid():N}.jpg",
+            ContentType = "image/jpeg",
+            Data = ms.ToArray()
+        };
+    }
+
+    private string BuildDataUrl(PreparedUploadFile file)
+    {
+        // захист від null, щоб більше НЕ було ArgumentNullException inArray
+        if (file.Data is null || file.Data.Length == 0)
+            return string.Empty;
+
+        return $"data:{file.ContentType};base64,{Convert.ToBase64String(file.Data)}";
     }
 
     private async Task SavePortfolioCardAsync()
     {
-        var savedPaths = new List<string>();
+        if (IsSaving) return;
+        IsSaving = true;
+        ErrorMessage = null;
 
-        if (uploadedImages.Count > 0)
+        try
         {
-            var paths = new List<string>();
-
-            foreach (var file in uploadedImages)
+            // мінімальні перевірки
+            if (string.IsNullOrWhiteSpace(portfolioCard.TitleCard)
+                || string.IsNullOrWhiteSpace(portfolioCard.DescriptionCard)
+                || string.IsNullOrWhiteSpace(portfolioCard.Group))
             {
-                var path = await SavePreparedFileAsync(file);
-                paths.Add(path);
+                ErrorMessage = "Заповни обов’язкові текстові поля.";
+                return;
             }
 
+            // 1) MEDIA логіка:
             if (IsVideo)
             {
-                portfolioCard.VideoPath = portfolioCard.VideoPath;
+                if (string.IsNullOrWhiteSpace(portfolioCard.VideoPath))
+                {
+                    ErrorMessage = "Додай YouTube id/посилання для відео.";
+                    return;
+                }
+
+                // якщо було фото картки — можна залишити як є, але ти раніше використовував маркер:
                 portfolioCard.ImgPath = "is video";
+
+                // нове фото картки тут не потрібне
+                cardImageUpload = null;
             }
             else
             {
-                portfolioCard.ImgPath = paths.First();
-            } 
-      
-            portfolioCard.ImgTeacherPath = paths.Last();                       
-        }
+                // фото-режим: треба мати або нове завантажене фото, або вже існуючий ImgPath
+                if (cardImageUpload is not null)
+                {
+                    // видалити старий файл з диска (якщо був)
+                    DeletePhysicalIfExists(portfolioCard.ImgPath);
 
-        if (string.IsNullOrWhiteSpace(portfolioCard.TitleCard)
-         || string.IsNullOrWhiteSpace(portfolioCard.DescriptionCard)
-         || string.IsNullOrWhiteSpace(portfolioCard.Group)
-         || string.IsNullOrWhiteSpace(portfolioCard.ImgTeacherPath)
-         || string.IsNullOrWhiteSpace(portfolioCard.ImgPath))
-        {
-            return;
-        }
+                    // зберегти новий
+                    portfolioCard.ImgPath = await SavePreparedFileAsync(cardImageUpload);
+                }
+                else
+                {
+                    // якщо немає нового і немає старого — помилка
+                    if (string.IsNullOrWhiteSpace(portfolioCard.ImgPath) || portfolioCard.ImgPath == "is video")
+                    {
+                        ErrorMessage = "Додай фото картки.";
+                        return;
+                    }
+                }
 
-        // portfolioCard.AppointmentId = 1;
-        await _portfolioService.SavePortfolioAsync(portfolioCard);
-        _navigationManager.NavigateTo($"/admin-portfolio");
-        StateHasChanged();
-    }
-
-    private void DeleteOldIfExists(string webRoot, string? imgPath)
-    {
-        if (!string.IsNullOrWhiteSpace(imgPath))
-        {
-            var physicalPath = Path.Combine(webRoot, imgPath.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
-            if (File.Exists(physicalPath))
-            {
-                File.Delete(physicalPath);
+                // у фото-режимі відео не потрібно
+                portfolioCard.VideoPath = string.Empty;
             }
+
+            // 2) TEACHER IMAGE:
+            if (teacherImageUpload is not null)
+            {
+                DeletePhysicalIfExists(portfolioCard.ImgTeacherPath);
+                portfolioCard.ImgTeacherPath = await SavePreparedFileAsync(teacherImageUpload);
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(portfolioCard.ImgTeacherPath))
+                {
+                    ErrorMessage = "Додай фото викладача.";
+                    return;
+                }
+            }
+
+            // 3) SAVE entity (UA/EN керується IsCulture)
+            await _portfolioService.SavePortfolioAsync(portfolioCard);
+
+            _navigationManager.NavigateTo("/admin-portfolio");
         }
-    }
-
-    private async Task<string> SaveOneAsync(IBrowserFile file)
-    {
-        var ext = Path.GetExtension(file.Name)?.ToLowerInvariant();
-        var allowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".jpg", ".jpeg", ".png", ".webp" };
-        if (string.IsNullOrWhiteSpace(ext) || !allowed.Contains(ext))
-            throw new InvalidOperationException("Дозволені формати: JPG, JPEG, PNG, WEBP.");
-
-        // ⚠️ maxSize — це ліміт на ОДИН файл
-        if (file.Size > maxSize)
-            throw new InvalidOperationException($"Файл завеликий: {file.Name} (максимум {maxSize / 1024 / 1024} МБ).");
-
-        var webRoot = _env.WebRootPath ?? throw new InvalidOperationException("WebRootPath недоступний.");
-
-        var safeSubfolder = (UploadsSubfolder ?? "uploads")
-            .Trim()
-            .TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-
-        if (safeSubfolder.Contains(".."))
-            throw new InvalidOperationException("Некоректний підкаталог для завантажень.");
-
-        var physicalFolder = Path.Combine(webRoot, safeSubfolder);
-        Directory.CreateDirectory(physicalFolder);
-
-        var fileName = $"{Guid.NewGuid():N}{ext}";
-        var physicalPath = Path.Combine(physicalFolder, fileName);
-
-        await using var fs = new FileStream(physicalPath, FileMode.Create, FileAccess.Write, FileShare.Read, 81920, true);
-        await file.OpenReadStream(maxSize).CopyToAsync(fs);
-
-        return $"/{safeSubfolder.Replace("\\", "/")}/{fileName}";
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Помилка при збереженні: {ex.Message}";
+        }
+        finally
+        {
+            IsSaving = false;
+        }
     }
 
     private async Task<string> SavePreparedFileAsync(PreparedUploadFile file)
     {
-        var webRoot = _env.WebRootPath!;
-        var safeSubfolder = "uploads";
-        var folder = Path.Combine(webRoot, safeSubfolder);
-
+        var webRoot = _env.WebRootPath ?? throw new InvalidOperationException("WebRootPath недоступний.");
+        var folder = Path.Combine(webRoot, "uploads");
         Directory.CreateDirectory(folder);
 
         var physicalPath = Path.Combine(folder, file.FileName);
         await System.IO.File.WriteAllBytesAsync(physicalPath, file.Data);
 
-        return $"/{safeSubfolder}/{file.FileName}";
+        return $"/uploads/{file.FileName}";
     }
 
+    private void DeletePhysicalIfExists(string? webPath)
+    {
+        if (string.IsNullOrWhiteSpace(webPath)) return;
+        if (webPath == "is video") return; // маркер, не файл
+
+        var webRoot = _env.WebRootPath ?? "";
+        if (string.IsNullOrWhiteSpace(webRoot)) return;
+
+        var relative = webPath.TrimStart('/').Replace('/', Path.DirectorySeparatorChar);
+        var physical = Path.Combine(webRoot, relative);
+
+        if (System.IO.File.Exists(physical))
+            System.IO.File.Delete(physical);
+    }
 
     private async Task DeleteCardAsync(int cardId)
     {
+        try
+        {
+            // видалимо файли якщо це не відео-маркер
+            DeletePhysicalIfExists(portfolioCard.ImgPath);
+            DeletePhysicalIfExists(portfolioCard.ImgTeacherPath);
 
-        _navigationManager.NavigateTo($"/admin-portfolio");
+            await _portfolioService.DeletePortfolioAsync(cardId);
+            _navigationManager.NavigateTo("/admin-portfolio");
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Помилка при видаленні: {ex.Message}";
+        }
     }
 
     private void CancelCard()
     {
-        portfolioCard = new();
-        StateHasChanged();
+        _navigationManager.NavigateTo("/admin-portfolio");
     }
+
     public class PreparedUploadFile
     {
         public string FileName { get; set; } = default!;
         public string ContentType { get; set; } = default!;
-        public byte[] Data { get; set; } = default!;
+        public byte[] Data { get; set; } = Array.Empty<byte>();
     }
-
 }
