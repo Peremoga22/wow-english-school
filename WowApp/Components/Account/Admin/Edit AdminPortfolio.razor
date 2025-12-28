@@ -1,0 +1,412 @@
+﻿@page "/edit-admin-portfolio"
+@page "/edit-admin-portfolio/{Id:int}"
+@using SixLabors.ImageSharp
+@using SixLabors.ImageSharp.Formats.Jpeg
+@using SixLabors.ImageSharp.Processing
+
+@inject PortfolioService _portfolioService
+@inject IWebHostEnvironment _env
+@inject NavigationManager _navigationManager
+@inject IJSRuntime _jSRuntime
+@layout AdminLayout
+@attribute [Authorize(Roles = "Admin")]
+@rendermode InteractiveServer
+
+<div class="container my-4">
+    <!-- Page title -->
+    <div class="mb-4">
+        <h3 class="fw-bold text-primary mb-1">
+            Додавання карток портфоліо
+        </h3>
+        <p class="text-muted mb-0 small">
+            Керування титульним блоком та візуальним наповненням
+        </p>
+    </div>
+
+    <!-- Breadcrumb + actions -->
+    <nav aria-label="breadcrumb"
+         class="bg-white shadow-sm rounded-4 px-3 px-md-4 py-3 mb-4">
+
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <i class="bi bi-house-door me-1"></i>
+                    Адмін-панель
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                   Наповнення портфоліо
+                </li>
+            </ol>                       
+        </div>
+    </nav>
+
+    <section class="mb-5">
+        <div class="card form-shell border-0">
+            <div class="card-header form-header d-flex align-items-center gap-2">
+                <i class="bi bi-journal-text"></i>
+                <strong>@(Id == 0 ? "Додати картку" : "Редагувати картку")</strong>
+            </div>
+
+            <EditForm Model="@portfolioCard"
+                      OnValidSubmit="SavePortfolioCardAsync"
+                      class="p-3 p-md-4">
+
+                <DataAnnotationsValidator />
+                <ValidationSummary class="alert alert-danger small mb-3" />
+                <div class="mb-3">
+                    <label for="TitleCard" class="form-label form-label-compact">
+                        вибрати мову контексту <span class="text-danger">*</span>
+                    </label>
+                    <div class="form-check form-switch language-switch">
+                        <InputCheckbox id="languageSwitch"
+                                       class="form-check-input"
+                                       @bind-Value="IsEnglish" />
+
+                        <label class="form-check-label d-flex align-items-center gap-2"
+                               for="languageSwitch">
+                            <i class="bi @(IsEnglish ? "bi-translate" : "bi-translate")"></i>
+                            <span>
+                                @(IsEnglish ? "English" : "Українська")
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="TitleCard" class="form-label form-label-compact">
+                        Назва картки <span class="text-danger">*</span>
+                    </label>
+                    <InputText id="TitleCard"
+                               @bind-Value="portfolioCard.TitleCard"
+                               class="form-control form-control-lg soft-input"
+                               placeholder="Введіть назву..." />
+                    <ValidationMessage For="@(() => portfolioCard.TitleCard)" class="text-danger small" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="DescriptionCard" class="form-label form-label-compact">
+                        Опис картки <span class="text-danger">*</span>
+                    </label>
+                    <InputText id="DescriptionCard"
+                               @bind-Value="portfolioCard.DescriptionCard"
+                               class="form-control form-control-lg soft-input"
+                               placeholder="Короткий опис..." />
+                    <ValidationMessage For="@(() => portfolioCard.DescriptionCard)" class="text-danger small" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="DescriptionCard" class="form-label form-label-compact">
+                        Назва події яка відображає на картці "Практичні ігри, Творчість ..." <span class="text-danger">*</span>
+                    </label>
+                    <InputText id="DescriptionCard"
+                               @bind-Value="portfolioCard.Group"
+                               class="form-control form-control-lg soft-input"
+                               placeholder="Коротка назва заходу..." />
+                    <ValidationMessage For="@(() => portfolioCard.Group)" class="text-danger small" />
+                </div>
+
+                <div class="form-check form-switch upload-switch">
+                    <InputCheckbox id="mediaTypeSwitch"
+                                   class="form-check-input"
+                                   @bind-Value="IsVideo" />
+
+                    <label class="form-check-label d-flex align-items-center gap-2"
+                           for="mediaTypeSwitch">
+                        <i class="bi @(IsVideo ? "bi-camera-video-fill" : "bi-camera-fill")"></i>
+                        <span>
+                            @(IsVideo ? "Відео" : "Фото")
+                        </span>
+                    </label>
+                </div>
+
+                @if (IsVideo)
+                {
+                    <div class="mb-2">
+                        <label class="form-label form-label-compact">Додайте силку з ютуба на відео</label>
+                        <InputText id="ImageUrl"
+                                   @bind-Value="portfolioCard.VideoPath"
+                                   class="form-control form-control-lg soft-input"
+                                   placeholder="Вставте: url video" />
+
+                        @if (!string.IsNullOrEmpty(portfolioCard.VideoPath))
+                        {
+                            <div class="ratio ratio-16x9">
+                                <lite-youtube videoid="@portfolioCard.VideoPath" style="width: 100%; height: auto;" title="Відео"></lite-youtube>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="mb-2">
+                        <label class="form-label form-label-compact">Фото (jpg/jpeg/png)</label><span class="text-danger">*</span>
+                        <InputFile OnChange="OnFileSelected"
+                                   class="form-control form-control-lg soft-input"
+                                   accept=".jpg,.jpeg,.png" multiple />
+                    </div>
+                }                                             
+               
+
+                @if (uploadedImages.Any())
+                {
+                    <div class="d-flex gap-2 mt-3">
+                        @foreach (var f in uploadedImages)
+                        {
+                            <img src="data:@f.ContentType;base64,@Convert.ToBase64String(f.Data)"
+                                 style="width:120px;height:120px;object-fit:cover;border-radius:12px;" />
+                        }
+                    </div>
+                }
+
+                @if (@portfolioCard.ImgPath != "is video" && !string.IsNullOrEmpty(@portfolioCard.ImgPath))
+                {
+                    <div class="d-flex gap-2 mt-3">
+                        <img src="@portfolioCard.ImgPath"
+                             style="width:120px;height:120px;object-fit:cover;border-radius:12px;" />
+                    </div>
+                    
+                }
+
+                @if (!string.IsNullOrEmpty(@portfolioCard.ImgTeacherPath))
+                {
+                    <div class="d-flex gap-2 mt-3">
+                        <img src="@portfolioCard.ImgTeacherPath"
+                             style="width:120px;height:120px;object-fit:cover;border-radius:12px;" />
+                    </div>
+                }
+
+                <div class="mb-2">
+                    <label class="form-label form-label-compact">Фото Любов Романівни (jpg/jpeg/png)<span class="text-danger">*</span></label>
+                    <InputFile OnChange="OnFileSelected"
+                               class="form-control form-control-lg soft-input"
+                               accept=".jpg,.jpeg,.png" multiple />
+                </div>
+
+                <div class="d-flex flex-column flex-sm-row justify-content-end gap-2 mt-4">
+                    @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+                    {
+                        <div class="alert alert-danger py-2 px-3 small mb-0 me-auto">@ErrorMessage</div>
+                    }
+
+                    @if (portfolioCard.Id > 0)
+                    {
+                        <button type="button"
+                                class="btn btn-outline-danger btn-action-lg"
+                                @onclick="(() => DeleteCardAsync(portfolioCard.Id))">
+                            <i class="bi bi-trash me-1"></i> Видалити
+                        </button>
+                    }
+
+                    <button type="submit" class="btn btn-primary btn-action-lg">
+                        <i class="bi bi-save me-1"></i> Зберегти
+                    </button>
+
+                    <button type="button" class="btn btn-outline-secondary btn-action-lg"
+                            @onclick="CancelCard">
+                        <i class="bi bi-x-circle me-1"></i> Скасувати
+                    </button>
+                </div>
+
+            </EditForm>
+        </div>
+    </section>
+
+
+</div>
+
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private Portfolio portfolioCard = new Portfolio();   
+    private const long maxSize = 5 * 1024 * 1024;
+    private const string UploadsSubfolder = "uploads/portfolio";
+    public enum MediaMode { Image, Video }
+    private string ErrorMessage = string.Empty;
+    private bool IsVideo { get; set; } = false;
+    private bool IsEnglish { get; set; } = false;
+    private bool IsUploading;
+   
+    private List<string> PreviewPaths = new();
+    private string safeSubfolder = string.Empty;
+    HashSet<string> allowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".jpg", ".jpeg", ".png", ".webp" };
+    private string physicalFolder = string.Empty;
+    private List<PreparedUploadFile> uploadedImages = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        portfolioCard = Id > 0
+            ? await _portfolioService.GetPortfolioByIdAsync(Id) ?? new Portfolio()
+            : new Portfolio();
+
+        if(!string.IsNullOrEmpty(portfolioCard.VideoPath))
+        {
+            IsVideo = true;
+        }
+        
+    }
+
+    private async Task OnFileSelected(InputFileChangeEventArgs e)
+    {
+        var files = e.GetMultipleFiles(2);
+
+        foreach (var file in files)
+        {
+            // ❌ якщо це не картинка — пропускаємо
+            if (!file.ContentType.StartsWith("image/"))
+                continue;
+
+            await using var input = file.OpenReadStream(20 * 1024 * 1024); // 20MB allow
+            using var image = await Image.LoadAsync(input);
+
+            // 🔹 resize
+            if (image.Width > 1600)
+            {
+                image.Mutate(x => x.Resize(new ResizeOptions
+                {
+                    Mode = ResizeMode.Max,
+                    Size = new Size(1600, 0)
+                }));
+            }
+
+            // 🔹 compress → byte[]
+            await using var ms = new MemoryStream();
+            await image.SaveAsync(ms, new JpegEncoder
+            {
+                Quality = 75
+            });
+
+            uploadedImages.Add(new PreparedUploadFile
+            {
+                FileName = $"{Guid.NewGuid():N}.jpg",
+                ContentType = "image/jpeg",
+                Data = ms.ToArray()
+            });
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task SavePortfolioCardAsync()
+    {
+        var savedPaths = new List<string>();
+
+        if (uploadedImages.Count > 0)
+        {
+            var paths = new List<string>();
+
+            foreach (var file in uploadedImages)
+            {
+                var path = await SavePreparedFileAsync(file);
+                paths.Add(path);
+            }
+
+            if (IsVideo)
+            {
+                portfolioCard.VideoPath = portfolioCard.VideoPath;
+                portfolioCard.ImgPath = "is video";
+            }
+            else
+            {
+                portfolioCard.ImgPath = paths.First();
+            } 
+      
+            portfolioCard.ImgTeacherPath = paths.Last();                       
+        }
+
+        if (string.IsNullOrWhiteSpace(portfolioCard.TitleCard)
+         || string.IsNullOrWhiteSpace(portfolioCard.DescriptionCard)
+         || string.IsNullOrWhiteSpace(portfolioCard.Group)
+         || string.IsNullOrWhiteSpace(portfolioCard.ImgTeacherPath)
+         || string.IsNullOrWhiteSpace(portfolioCard.ImgPath))
+        {
+            return;
+        }
+
+        // portfolioCard.AppointmentId = 1;
+        await _portfolioService.SavePortfolioAsync(portfolioCard);
+        _navigationManager.NavigateTo($"/admin-portfolio");
+        StateHasChanged();
+    }
+
+    private void DeleteOldIfExists(string webRoot, string? imgPath)
+    {
+        if (!string.IsNullOrWhiteSpace(imgPath))
+        {
+            var physicalPath = Path.Combine(webRoot, imgPath.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+            if (File.Exists(physicalPath))
+            {
+                File.Delete(physicalPath);
+            }
+        }
+    }
+
+    private async Task<string> SaveOneAsync(IBrowserFile file)
+    {
+        var ext = Path.GetExtension(file.Name)?.ToLowerInvariant();
+        var allowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".jpg", ".jpeg", ".png", ".webp" };
+        if (string.IsNullOrWhiteSpace(ext) || !allowed.Contains(ext))
+            throw new InvalidOperationException("Дозволені формати: JPG, JPEG, PNG, WEBP.");
+
+        // ⚠️ maxSize — це ліміт на ОДИН файл
+        if (file.Size > maxSize)
+            throw new InvalidOperationException($"Файл завеликий: {file.Name} (максимум {maxSize / 1024 / 1024} МБ).");
+
+        var webRoot = _env.WebRootPath ?? throw new InvalidOperationException("WebRootPath недоступний.");
+
+        var safeSubfolder = (UploadsSubfolder ?? "uploads")
+            .Trim()
+            .TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+        if (safeSubfolder.Contains(".."))
+            throw new InvalidOperationException("Некоректний підкаталог для завантажень.");
+
+        var physicalFolder = Path.Combine(webRoot, safeSubfolder);
+        Directory.CreateDirectory(physicalFolder);
+
+        var fileName = $"{Guid.NewGuid():N}{ext}";
+        var physicalPath = Path.Combine(physicalFolder, fileName);
+
+        await using var fs = new FileStream(physicalPath, FileMode.Create, FileAccess.Write, FileShare.Read, 81920, true);
+        await file.OpenReadStream(maxSize).CopyToAsync(fs);
+
+        return $"/{safeSubfolder.Replace("\\", "/")}/{fileName}";
+    }
+
+    private async Task<string> SavePreparedFileAsync(PreparedUploadFile file)
+    {
+        var webRoot = _env.WebRootPath!;
+        var safeSubfolder = "uploads";
+        var folder = Path.Combine(webRoot, safeSubfolder);
+
+        Directory.CreateDirectory(folder);
+
+        var physicalPath = Path.Combine(folder, file.FileName);
+        await System.IO.File.WriteAllBytesAsync(physicalPath, file.Data);
+
+        return $"/{safeSubfolder}/{file.FileName}";
+    }
+
+
+    private async Task DeleteCardAsync(int cardId)
+    {
+
+        _navigationManager.NavigateTo($"/admin-portfolio");
+    }
+
+    private void CancelCard()
+    {
+        portfolioCard = new();
+        StateHasChanged();
+    }
+    public class PreparedUploadFile
+    {
+        public string FileName { get; set; } = default!;
+        public string ContentType { get; set; } = default!;
+        public byte[] Data { get; set; } = default!;
+    }
+
+}

@@ -36,7 +36,7 @@
             </ol>
 
             <!-- Action -->
-            <NavLink href="/edit-cosmetology"
+            <NavLink href="/edit-admin-portfolio"
                      class="btn ec-btn-primary px-4 py-2">
                 <i class="bi bi-plus-lg"></i>
                 <span class="d-none d-sm-inline">Додати титулку</span>
@@ -53,82 +53,94 @@
     </div>
 
     <section class="pt-3">
-        <div class="container">
-            <figure class="figure m-0">
-                <div class="row g-2">                   
-                    @if (portfolioList != null && portfolioList.Count > 0)
-                    {
-                        @foreach (var item in portfolioList)
-                        {
-                            <div class="col-lg-4 col-md-6">
-                                <div class="course-card h-100 shadow-sm">
+        <figure class="m-0">
+            <div class="row g-3">
 
-                                    <!-- Image -->
+                @if (portfolioList != null && portfolioList.Count > 0)
+                {
+                    @foreach (var item in portfolioList)
+                    {
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="course-card h-100 d-flex flex-column">
+
+                                @if (!string.IsNullOrWhiteSpace(item.VideoPath))
+                                {
+                                    <div class="course-card__media">
+                                        <div class="ratio ratio-16x9">
+                                            <lite-youtube class="card-img-top object-fit-cover"
+                                                          videoid="@item.VideoPath"
+                                                          title="@item.TitleCard">
+                                            </lite-youtube>
+                                        </div>
+
+                                        <span class="course-category">@item.Group</span>
+                                    </div>
+                                }
+                                else
+                                {
                                     <div class="course-card__img position-relative">
                                         <img src="@item.ImgPath"
                                              alt="@item.TitleCard"
-                                             loading="lazy">
-
-                                        <span class="course-category">
-                                            @item.TitleCard
-                                        </span>
-                                                                               
+                                             loading="lazy"
+                                             class="w-70 d-block">
+                                        <span class="course-category">@item.Group</span>
                                     </div>
+                                }
 
-                                    <!-- Body -->
-                                    <div class="course-card__body d-flex flex-column">
-                                        <h3 class="course-card__title text-truncate"
-                                            title="@item.TitleCard">
-                                            @item.TitleCard
-                                        </h3>
+                                <div class="course-card__body flex-grow-1">
+                                    <h3 class="course-card__title">@item.TitleCard</h3>
+                                    <p class="course-card__text">
+                                        @item.DescriptionCard
+                                    </p>
 
-                                        <p class="course-card__text line-clamp-2"
-                                           title="@item.DescriptionCard">
-                                            @item.DescriptionCard
-                                        </p>
-                                        <div class="course-card__footer">
-                                            <div class="trainer">
-                                                <img src="/images/teacher-grup.jpg" alt="">
-                                                <span>Любов Романівна</span>
-                                            </div>
-                                        </div>
-                                        <!-- Footer -->
-                                        <div class="course-card__footer mt-auto d-flex justify-content-end">
-                                            <button class="btn btn-outline-primary btn-sm"
-                                                    @onclick="() => EdittherapyCard(item.Id)">
-                                                <i class="bi bi-pencil-square me-1"></i>
-                                                Редагувати
-                                            </button>
+                                    <div class="course-card__footer">
+                                        <div class="trainer">
+                                            <img src="@item.ImgTeacherPath"
+                                                 alt="Викладач"
+                                                 loading="lazy">
+                                            <span>Любов Романівна</span>
                                         </div>
                                     </div>
-
                                 </div>
-                            </div>
-                        }
 
+                                <!-- actions bottom -->
+                                <div class="px-3 pb-3 mt-auto d-flex justify-content-end">
+                                    <NavLink class="btn ec-btn-primary px-4 py-2"
+                                             href="@($"/edit-admin-portfolio/{item.Id}")">
+                                        <i class="bi bi-pencil-square"></i>
+                                        <span class="d-none d-sm-inline ms-1">Редагувати</span>
+                                    </NavLink>                                
+                                </div>
+
+                            </div>
+                        </div>
                     }
-                    else
-                    {
-                        <p>На даний момент немає карт. Додайте!</p>
-                    }
-                </div>
-            </figure>
-        </div>
+                }
+                else
+                {
+                    <div class="col-12">
+                        <div class="alert alert-light border rounded-4 mb-0">
+                            На даний момент немає карт. Додайте!
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </figure>
     </section>
+
 
 </div>
 
 
 @code {
     private List<Portfolio>? portfolioList = new();
+    private bool IsVideo = false;
 
     protected override async Task OnInitializedAsync()
     {
         portfolioList = await _portfolioService.GetPortfoliosAsync();
     }
 
-    private void EdittherapyCard(int id)
-    {
-        
-    }
+    
 }

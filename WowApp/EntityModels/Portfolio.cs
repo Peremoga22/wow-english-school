@@ -10,7 +10,7 @@
         public string ImgTeacherPath { get; set; } = string.Empty;
         public string VideoPath { get; set; } = string.Empty;
         public bool IsCulture { get; set; } = false;
-        public int AppointmentId { get; set; }
-        public Appointment Appointment { get; set; } = default!;
+        public int? AppointmentId { get; set; }
+        public Appointment? Appointment { get; set; } = default!;
     }
 }

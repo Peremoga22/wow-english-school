@@ -137,12 +137,12 @@ namespace WowApp.Data
                     .HasDefaultValue(false);
 
                 b.Property(x => x.AppointmentId)
-                    .IsRequired();
+                    .IsRequired(false);
 
                 b.HasOne(x => x.Appointment)
-                    .WithMany(a => a.Portfolios)
-                    .HasForeignKey(x => x.AppointmentId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                 .WithMany()
+                 .HasForeignKey(x => x.AppointmentId)
+                 .OnDelete(DeleteBehavior.SetNull);
             }
         }
 
