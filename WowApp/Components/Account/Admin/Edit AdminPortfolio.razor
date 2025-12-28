@@ -303,25 +303,20 @@
 
         IsVideo = !string.IsNullOrWhiteSpace(portfolioCard.VideoPath);
 
-        // якщо було "is video" у ImgPath — залишимо як є, але прев'ю працює і без цього
         if (IsVideo && string.IsNullOrWhiteSpace(portfolioCard.VideoPath))
             IsVideo = false;
     }
 
     private void OnMediaTypeChanged(ChangeEventArgs _)
-    {
-        // якщо перемикаємось на відео — чистимо завантажене фото картки (але не чіпаємо вже збережене ImgPath)
+    {        
         if (IsVideo)
         {
-            cardImageUpload = null;
-            // Опціонально: якщо хочеш при переключенні на відео одразу чистити ImgPath:
-            // portfolioCard.ImgPath = "is video";
+            cardImageUpload = null;           
         }
         else
-        {
-            // якщо перемикаємось на фото — чистимо VideoPath
+        {            
             portfolioCard.VideoPath = string.Empty;
-            // Опціонально: якщо раніше ставив "is video"
+            
             if (portfolioCard.ImgPath == "is video")
                 portfolioCard.ImgPath = string.Empty;
         }
@@ -332,8 +327,7 @@
         ErrorMessage = null;
 
         try
-        {
-            // якщо замінюємо фото — підготуємо нове; старе з диска видалимо вже при збереженні (без падінь)
+        {            
             var file = e.File;
             cardImageUpload = await PrepareImageAsync(file);
         }
@@ -380,8 +374,7 @@
                 Size = new Size(1600, 0)
             }));
         }
-
-        // compress to jpg
+                
         await using var ms = new MemoryStream();
         await image.SaveAsync(ms, new JpegEncoder { Quality = 75 });
 
@@ -395,7 +388,7 @@
 
     private string BuildDataUrl(PreparedUploadFile file)
     {
-        // захист від null, щоб більше НЕ було ArgumentNullException inArray
+        
         if (file.Data is null || file.Data.Length == 0)
             return string.Empty;
 
@@ -409,8 +402,7 @@
         ErrorMessage = null;
 
         try
-        {
-            // мінімальні перевірки
+        {            
             if (string.IsNullOrWhiteSpace(portfolioCard.TitleCard)
                 || string.IsNullOrWhiteSpace(portfolioCard.DescriptionCard)
                 || string.IsNullOrWhiteSpace(portfolioCard.Group))
@@ -419,7 +411,7 @@
                 return;
             }
 
-            // 1) MEDIA логіка:
+            
             if (IsVideo)
             {
                 if (string.IsNullOrWhiteSpace(portfolioCard.VideoPath))
@@ -427,39 +419,31 @@
                     ErrorMessage = "Додай YouTube id/посилання для відео.";
                     return;
                 }
-
-                // якщо було фото картки — можна залишити як є, але ти раніше використовував маркер:
+                                
                 portfolioCard.ImgPath = "is video";
-
-                // нове фото картки тут не потрібне
+                                
                 cardImageUpload = null;
             }
             else
-            {
-                // фото-режим: треба мати або нове завантажене фото, або вже існуючий ImgPath
+            {               
                 if (cardImageUpload is not null)
-                {
-                    // видалити старий файл з диска (якщо був)
+                {                   
                     DeletePhysicalIfExists(portfolioCard.ImgPath);
-
-                    // зберегти новий
+                                     
                     portfolioCard.ImgPath = await SavePreparedFileAsync(cardImageUpload);
                 }
                 else
-                {
-                    // якщо немає нового і немає старого — помилка
+                {                    
                     if (string.IsNullOrWhiteSpace(portfolioCard.ImgPath) || portfolioCard.ImgPath == "is video")
                     {
                         ErrorMessage = "Додай фото картки.";
                         return;
                     }
                 }
-
-                // у фото-режимі відео не потрібно
+                
                 portfolioCard.VideoPath = string.Empty;
             }
-
-            // 2) TEACHER IMAGE:
+                       
             if (teacherImageUpload is not null)
             {
                 DeletePhysicalIfExists(portfolioCard.ImgTeacherPath);
@@ -504,7 +488,7 @@
     private void DeletePhysicalIfExists(string? webPath)
     {
         if (string.IsNullOrWhiteSpace(webPath)) return;
-        if (webPath == "is video") return; // маркер, не файл
+        if (webPath == "is video") return; 
 
         var webRoot = _env.WebRootPath ?? "";
         if (string.IsNullOrWhiteSpace(webRoot)) return;
@@ -519,8 +503,7 @@
     private async Task DeleteCardAsync(int cardId)
     {
         try
-        {
-            // видалимо файли якщо це не відео-маркер
+        {            
             DeletePhysicalIfExists(portfolioCard.ImgPath);
             DeletePhysicalIfExists(portfolioCard.ImgTeacherPath);
 
