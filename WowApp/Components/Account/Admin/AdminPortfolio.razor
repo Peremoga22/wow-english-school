@@ -1,0 +1,134 @@
+﻿@page "/admin-portfolio"
+
+@inject NavigationManager _navigationManager
+@inject PortfolioService _portfolioService
+@inject IJSRuntime _js
+@layout AdminLayout
+@attribute [Authorize(Roles = "Admin")]
+@rendermode InteractiveServer
+
+<div class="container my-4">
+    <!-- Page title -->
+    <div class="mb-4">
+        <h3 class="fw-bold text-primary mb-1">
+            Наповнення сторінки портфоліо
+        </h3>
+        <p class="text-muted mb-0 small">
+            Керування титульним блоком та візуальним наповненням
+        </p>
+    </div>
+
+    <!-- Breadcrumb + actions -->
+    <nav aria-label="breadcrumb"
+         class="bg-white shadow-sm rounded-4 px-3 px-md-4 py-3 mb-4">
+
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <i class="bi bi-house-door me-1"></i>
+                    Адмін-панель
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Портфоліо
+                </li>
+            </ol>
+
+            <!-- Action -->
+            <NavLink href="/edit-cosmetology"
+                     class="btn ec-btn-primary px-4 py-2">
+                <i class="bi bi-plus-lg"></i>
+                <span class="d-none d-sm-inline">Додати титулку</span>
+            </NavLink>
+
+        </div>
+    </nav>
+
+    <!-- Section title -->
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h4 class="fw-semibold mb-0">
+            Титульний блок сторінки портфоліо
+        </h4>
+    </div>
+
+    <section class="pt-3">
+        <div class="container">
+            <figure class="figure m-0">
+                <div class="row g-2">                   
+                    @if (portfolioList != null && portfolioList.Count > 0)
+                    {
+                        @foreach (var item in portfolioList)
+                        {
+                            <div class="col-lg-4 col-md-6">
+                                <div class="course-card h-100 shadow-sm">
+
+                                    <!-- Image -->
+                                    <div class="course-card__img position-relative">
+                                        <img src="@item.ImgPath"
+                                             alt="@item.TitleCard"
+                                             loading="lazy">
+
+                                        <span class="course-category">
+                                            @item.TitleCard
+                                        </span>
+                                                                               
+                                    </div>
+
+                                    <!-- Body -->
+                                    <div class="course-card__body d-flex flex-column">
+                                        <h3 class="course-card__title text-truncate"
+                                            title="@item.TitleCard">
+                                            @item.TitleCard
+                                        </h3>
+
+                                        <p class="course-card__text line-clamp-2"
+                                           title="@item.DescriptionCard">
+                                            @item.DescriptionCard
+                                        </p>
+                                        <div class="course-card__footer">
+                                            <div class="trainer">
+                                                <img src="/images/teacher-grup.jpg" alt="">
+                                                <span>Любов Романівна</span>
+                                            </div>
+                                        </div>
+                                        <!-- Footer -->
+                                        <div class="course-card__footer mt-auto d-flex justify-content-end">
+                                            <button class="btn btn-outline-primary btn-sm"
+                                                    @onclick="() => EdittherapyCard(item.Id)">
+                                                <i class="bi bi-pencil-square me-1"></i>
+                                                Редагувати
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+
+                    }
+                    else
+                    {
+                        <p>На даний момент немає карт. Додайте!</p>
+                    }
+                </div>
+            </figure>
+        </div>
+    </section>
+
+</div>
+
+
+@code {
+    private List<Portfolio>? portfolioList = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        portfolioList = await _portfolioService.GetPortfoliosAsync();
+    }
+
+    private void EdittherapyCard(int id)
+    {
+        
+    }
+}
