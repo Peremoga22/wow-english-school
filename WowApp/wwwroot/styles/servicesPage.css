@@ -250,3 +250,46 @@
 .ec-bg-soft {
     background-color: #f3f5f8; /* м’який сіро-блакитний */
 }
+
+/* Actions: mobile-first */
+.ec-actions {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    width: 100%;
+}
+
+/* All buttons same sizing */
+.ec-btn-action {
+    border-radius: 999px;
+    padding: .65rem 1.25rem;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    white-space: nowrap;
+}
+
+/* >= 576px: row layout */
+@media (min-width: 576px) {
+    .ec-actions {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .ec-btn-action {
+        width: auto;
+    }
+
+    /* push delete to the right on desktop */
+    .ec-btn-danger {
+        margin-left: auto;
+    }
+}
+
+/* optional: nicer spinner alignment */
+.ec-actions .spinner-border {
+    vertical-align: -0.15em;
+}

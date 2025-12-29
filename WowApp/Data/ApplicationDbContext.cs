@@ -102,12 +102,12 @@ namespace WowApp.Data
                     .HasDefaultValue(false);
 
                 b.Property(x => x.AppointmentId)
-                    .IsRequired();
+                    .IsRequired(false);
 
                 b.HasOne(x => x.Appointment)
-                    .WithMany(a => a.ServiceClients)
+                    .WithMany()
                     .HasForeignKey(x => x.AppointmentId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.SetNull);
             }
         }
 

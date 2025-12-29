@@ -11,7 +11,7 @@
         public string Group { get; set; } = string.Empty;
         public decimal Pice { get; set; }
         public bool IsCulture { get; set; } = false;
-        public int AppointmentId { get; set; }
-        public Appointment Appointment { get; set; } = default!;
+        public int? AppointmentId { get; set; }
+        public Appointment? Appointment { get; set; } = default!;
     }
 }
