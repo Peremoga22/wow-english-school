@@ -1,42 +1,6 @@
 ﻿@page "/services-page"
+@inject ClientService _clientService
 
-@* <div class="container">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-white p-2 mb-5 rounded shadow-sm">
-            <li class="breadcrumb-item"><a href="/" style="color: #f8b7d8;">Домашня сторінка</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Косметологія</li>
-        </ol>
-    </nav>
-</div>
-<section class="pt-3">
-    <div class="container">
-        <figure class="figure m-0">
-            <div class="row g-3">
-               
-                
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="card h-100 shadow-sm">
-                            <img src="/images/carosel2.jpg" class="card-img-top" alt="TitleCard" loading="lazy" decoding="async">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title fw-bold" style="color: #f8b7d8;">
-                                    TitleCard
-                                </h5>
-                                <p class="card-text">DescriptionCard</p>
-                                <div class="card-footer bg-transparent border-0 text-center mt-auto">
-                                    <i class="bi bi-cash-stack me-1"></i>
-                                   Price.ToString("C0", new System.Globalization.CultureInfo("uk-UA"))
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
-            </div>
-        </figure>
-    </div>
-</section>
-
- *@
-@* --- PAGE: Послуги / Косметологія --- *@
 <PageTitle>Service page</PageTitle>
 <div class="container">
     <nav aria-label="breadcrumb">
@@ -90,43 +54,50 @@
         <figure class="figure m-0">
             <div class="row g-3">                              
 
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="card service-card h-100 shadow-sm">
+                <!-- Cards -->
+                <div class="row g-3 g-lg-4">
+                    @foreach (var item in filteredServices)
+                    {
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="card service-card h-100 shadow-sm">
 
-                        <div class="service-media">
-                            <img src="/images/home-children2.jpg"
-                                 class="card-img-top"
-                                 alt="TitleCard"
-                                 loading="lazy"
-                                 decoding="async">
+                                <!-- Image -->
+                                <div class="service-media">
+                                    <img src="@item.ImgPath"
+                                         alt="@item.TitleCard"
+                                         loading="lazy" />
+                                </div>
 
-                            <span class="service-badge">ТОП</span>
+                                <!-- Body -->
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="fw-bold text-center mb-2">
+                                        @item.TitleCard
+                                    </h5>
 
-                            <a href="/contact" class="service-fav" title="Додати в обране">
-                                <i class="bi bi-heart"></i>
-                            </a>
-                        </div>
+                                    <p class="text-muted text-center mb-3">
+                                        @item.DescriptionCard
+                                    </p>
 
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold service-title text-center">
-                                Групові заняття діти
-                            </h5>
-                                                      
-                            <p class="card-text">Місячний абонемент 8/9 занять без відрахувань пропусків; оплата до 10 числа поточного місяця</p>
-                            <div class="card-footer bg-transparent border-0 text-center mt-auto">
-                                <i class="bi bi-cash-stack me-1">1200</i>
-                                @* @item.Price.ToString("C0", new System.Globalization.CultureInfo("uk-UA")) *@
+                                    <div class="service-mini mt-auto">
+                                        <span><i class="bi bi-clock me-1"></i>@item.LessonTime</span>
+                                        <span><i class="bi bi-people me-1"></i>@item.Group</span>
+                                        <span><i class="bi bi-stars me-1"></i>@($"{item.AgeOfStudent}+")</span>
+                                    </div>
+
+                                    <div class="text-center fw-semibold mt-3">
+                                        <i class="bi bi-cash-stack me-1"></i>
+                                        @item.Pice.ToString("N0") грн
+                                    </div>
+
+                                    <a href="/contact"
+                                       class="btn ec-btn-primary rounded-pill px-4 w-100 mt-3">
+                                        Записатись
+                                    </a>
+                                </div>
                             </div>
-
-                            <div class="service-mini">
-                                <span><i class="bi bi-clock me-1"></i> 55 хв</span>
-                                <span><i class="bi bi-shield-check me-1"></i> Дитяча група</span>
-                                <span><i class="bi bi-stars me-1"></i> 8-12 років</span>
-                            </div>
                         </div>
-
-                    </div>
-                </div>                               
+                    }
+                </div>
 
             </div>
         </figure>
@@ -157,5 +128,33 @@
 
 
 @code {
-    private decimal Price = 1800m;
+    private List<ServiceClient> filteredServices = new();
+    private List<ServiceClient> services = new();
+
+    private enum Culture { Ua, En }
+    private Culture selectedCulture = Culture.Ua;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // ПРИКЛАД (видали, коли будеш брати з БД)
+        filteredServices = await _clientService.GetServiceAsync();
+
+         ApplyCulture();
+    }
+
+    private void SetCulture(Culture culture)
+    {
+        selectedCulture = culture;
+        ApplyCulture();
+    }
+
+    private void ApplyCulture()
+    {
+        // IsCulture: false = UA, true = EN
+        var needCulture = selectedCulture == Culture.En;
+
+        filteredServices = services
+            .Where(x => x.IsCulture == needCulture)
+            .ToList();
+    }
 }
