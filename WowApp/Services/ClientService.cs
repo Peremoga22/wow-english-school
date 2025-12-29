@@ -13,19 +13,19 @@ namespace WowApp.Services
             _dbFactory = dbFactory;
         }
 
-        public async Task<List<ServiceClient>> GetPortfoliosAsync(CancellationToken ct = default)
+        public async Task<List<ServiceClient>> GetServiceAsync(CancellationToken ct = default)
         {
             await using var dbContext = _dbFactory.CreateDbContext();
             return await dbContext.ServiceClients.ToListAsync(ct);
         }
 
-        public async Task<ServiceClient?> GetPortfolioByIdAsync(int id, CancellationToken ct = default)
+        public async Task<ServiceClient?> GetServiceByIdAsync(int id, CancellationToken ct = default)
         {
             await using var dbContext = _dbFactory.CreateDbContext();
             return await dbContext.ServiceClients.FirstOrDefaultAsync(p => p.Id == id, ct);
         }
 
-        public async Task SavePortfolioAsync(ServiceClient serviceClient, CancellationToken ct = default)
+        public async Task SaveServiceAsync(ServiceClient serviceClient, CancellationToken ct = default)
         {
             await using var dbContext = await _dbFactory.CreateDbContextAsync(ct);
 
@@ -41,7 +41,7 @@ namespace WowApp.Services
             await dbContext.SaveChangesAsync(ct);
         }
 
-        public async Task DeletePortfolioAsync(int id, CancellationToken ct = default)
+        public async Task DeleteServiceAsync(int id, CancellationToken ct = default)
         {
             await using var dbContext = await _dbFactory.CreateDbContextAsync(ct);
             var serviceClient = await dbContext.ServiceClients.FirstOrDefaultAsync(p => p.Id == id, ct);
