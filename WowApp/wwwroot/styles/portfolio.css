@@ -125,6 +125,41 @@
             height: 200px;
         }
     }
+    /* ===== EC Danger Outline Button ===== */
+    .ec-btn-danger-outline {
+        --ec-danger: #dc3545; /* Bootstrap danger */
+        --ec-danger-soft: #fdecee; /* light background */
+        --ec-danger-hover: #bb2d3b; /* hover red */
 
-
+        background-color: transparent;
+        color: var(--ec-danger);
+        border: 1.5px solid var(--ec-danger);
+        border-radius: 999px;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+        transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+    }
+        /* hover */
+        .ec-btn-danger-outline:hover {
+            background-color: var(--ec-danger);
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(220, 53, 69, 0.25);
+            transform: translateY(-1px);
+        }
+        /* active */
+        .ec-btn-danger-outline:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.25);
+        }
+        /* focus */
+        .ec-btn-danger-outline:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.2);
+        }
+        /* disabled */
+        .ec-btn-danger-outline:disabled,
+        .ec-btn-danger-outline.disabled {
+            opacity: 0.6;
+            pointer-events: none;
+        }
 }
