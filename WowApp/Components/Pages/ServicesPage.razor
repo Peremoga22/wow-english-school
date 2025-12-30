@@ -1,5 +1,8 @@
 ﻿@page "/services-page"
 @inject ClientService _clientService
+@inject CultureStateService _cultureStateService
+@inject NavigationManager _navigationManager
+@using System.Globalization;
 
 <PageTitle>Service page</PageTitle>
 <div class="container">
@@ -131,30 +134,34 @@
     private List<ServiceClient> filteredServices = new();
     private List<ServiceClient> services = new();
 
-    private enum Culture { Ua, En }
-    private Culture selectedCulture = Culture.Ua;
-
     protected override async Task OnInitializedAsync()
     {
-        // ПРИКЛАД (видали, коли будеш брати з БД)
-        filteredServices = await _clientService.GetServiceAsync();
+        _cultureStateService.OnChange += HandleCultureChanged;
 
-         ApplyCulture();
+        // Завантажуємо ВСІ послуги з БД
+        services = await _clientService.GetServiceAsync();
+
+        ApplyCulture();
     }
 
-    private void SetCulture(Culture culture)
+    private void HandleCultureChanged()
     {
-        selectedCulture = culture;
         ApplyCulture();
+        InvokeAsync(StateHasChanged);
     }
 
     private void ApplyCulture()
     {
-        // IsCulture: false = UA, true = EN
-        var needCulture = selectedCulture == Culture.En;
+        // true = EN, false = UA
+        bool needCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "en";
 
         filteredServices = services
             .Where(x => x.IsCulture == needCulture)
             .ToList();
+    }
+
+    public void Dispose()
+    {
+        _cultureStateService.OnChange -= HandleCultureChanged;
     }
 }
