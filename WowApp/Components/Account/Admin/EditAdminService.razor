@@ -1,10 +1,6 @@
 ﻿@page "/edit-admin-service"
 @page "/edit-admin-service/{Id:int}"
 
-@using SixLabors.ImageSharp
-@using SixLabors.ImageSharp.Formats.Jpeg
-@using SixLabors.ImageSharp.Processing
-
 @inject ClientService _clientService
 @inject IWebHostEnvironment _env
 @inject NavigationManager _navigationManager
@@ -222,8 +218,7 @@
     private bool isSaving;
     private PreparedUploadFile? selectedFile;
     private string? ErrorMessage;
-
-    // 300 або 500 KB (за замовчуванням 500)
+       
     private int TargetKb { get; set; } = 500;
 
     protected override async Task OnInitializedAsync()
@@ -275,8 +270,7 @@
 
         var file = e.File;
         if (file is null) return;
-
-        // Даємо завантажувати великі фото, але все одно ставимо "захисний" ліміт, щоб не вбити сервер
+               
         const long hardLimitBytes = 50 * 1024 * 1024; // 50MB
         if (file.Size > hardLimitBytes)
         {
@@ -296,13 +290,12 @@
             ErrorMessage = "Не вдалося прочитати файл (0 bytes).";
             return;
         }
-
-        // Preview може бути важким для дуже великих фото, але працює стабільно.
+               
         var base64 = Convert.ToBase64String(bytes);
         var dataUrl = $"data:{file.ContentType};base64,{base64}";
 
         selectedFile = new PreparedUploadFile(
-            OriginalName: file.Name,       // реальна назва файлу
+            OriginalName: file.Name,       
             ContentType: file.ContentType,
             Size: file.Size,
             Bytes: bytes,
@@ -350,8 +343,8 @@
         var uploadsDir = Path.Combine(_env.WebRootPath, "uploads", "services");
         Directory.CreateDirectory(uploadsDir);
 
-        // Стискаємо до targetKb (300/500 KB). Вихід робимо JPG (найкраще для фото).
-        var targetBytes = Math.Max(50, targetKb) * 1024; // захист від 0/дурних значень
+       
+        var targetBytes = Math.Max(50, targetKb) * 1024;
         var compressed = await CompressToJpegTargetAsync(file.Bytes, targetBytes);
 
         var name = $"{Guid.NewGuid():N}.jpg";
@@ -361,18 +354,14 @@
 
         return $"uploads/services/{name}";
     }
-
-    /// <summary>
-    /// Стискання: 1) обмежуємо розмір по довгій стороні, 2) підбираємо quality, 3) якщо не влазить — зменшуємо розміри ще.
-    /// </summary>
+      
     private static async Task<byte[]> CompressToJpegTargetAsync(byte[] inputBytes, int targetBytes)
     {
         using var ms = new MemoryStream(inputBytes);
         using var image = await Image.LoadAsync(ms);
-
-        // 1) Спершу нормальний "web" розмір (щоб не зберігати 6000x4000)
+               
         const int maxSide = 1920;
-        image.Mutate(ctx => ctx.AutoOrient()); // правильна орієнтація
+        image.Mutate(ctx => ctx.AutoOrient()); 
 
         if (image.Width > maxSide || image.Height > maxSide)
         {
@@ -382,8 +371,7 @@
 
             image.Mutate(ctx => ctx.Resize(w, h));
         }
-
-        // 2) Підбір якості
+               
         var quality = 90;
         var minQuality = 40;
 
@@ -392,20 +380,17 @@
             var bytes = EncodeJpeg(image, quality);
             if (bytes.Length <= targetBytes)
                 return bytes;
-
-            // якщо вже впали до мінімальної якості — зменшуємо розміри ще
+                           
             if (quality <= minQuality)
-            {
-                // зменшення розміру на 15%
+            {                
                 var w2 = Math.Max(1, (int)Math.Round(image.Width * 0.85));
                 var h2 = Math.Max(1, (int)Math.Round(image.Height * 0.85));
-
-                // якщо вже нікуди зменшувати — повертаємо, що вийшло (краще ніж впасти)
+               
                 if (w2 >= image.Width || h2 >= image.Height || w2 < 200 || h2 < 200)
                     return bytes;
 
                 image.Mutate(ctx => ctx.Resize(w2, h2));
-                quality = 90; // після ресайзу пробуємо знову з високої якості
+                quality = 90; 
                 continue;
             }
 
