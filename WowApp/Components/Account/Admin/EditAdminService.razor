@@ -1,6 +1,10 @@
 ﻿@page "/edit-admin-service"
 @page "/edit-admin-service/{Id:int}"
 
+@using SixLabors.ImageSharp
+@using SixLabors.ImageSharp.Formats.Jpeg
+@using SixLabors.ImageSharp.Processing
+
 @inject ClientService _clientService
 @inject IWebHostEnvironment _env
 @inject NavigationManager _navigationManager
@@ -36,13 +40,13 @@
                     disabled="@isSaving">
                 @if (isSaving)
                 {
-                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"> Збереження...</span>
-                   
+                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    <span>Збереження...</span>
                 }
                 else
                 {
-                    <i class="bi bi-check2-circle me-1"> Зберегти</i>
-                   
+                    <i class="bi bi-check2-circle me-1"></i>
+                    <span>Зберегти</span>
                 }
             </button>
 
@@ -57,16 +61,22 @@
                 </button>
             }
         </div>
-
     </div>
 
     <!-- Card -->
     <div class="bg-white shadow-sm rounded-4 p-3 p-md-4">
 
-        @if (loadError is not null)
+        @if (!string.IsNullOrWhiteSpace(loadError))
         {
             <div class="alert alert-danger rounded-4">
                 <b>Помилка:</b> @loadError
+            </div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+        {
+            <div class="alert alert-warning rounded-4">
+                <b>Увага:</b> @ErrorMessage
             </div>
         }
 
@@ -96,7 +106,7 @@
                             </div>
                         </div>
 
-                        <!-- Preview (single block, no duplicates) -->
+                        <!-- Preview -->
                         <div class="ratio ratio-16x9 rounded-4 overflow-hidden bg-light border">
                             @if (!string.IsNullOrWhiteSpace(PreviewUrl))
                             {
@@ -118,8 +128,26 @@
 
                         <div class="mt-3">
                             <InputFile OnChange="OnFileSelected" accept="image/*" class="form-control" />
-                            <div class="text-muted small mt-2">
-                                Порада: JPG/PNG/WebP, до ~5MB.
+
+                            <div class="mt-3">
+                                <div class="fw-semibold small mb-2">Стиснення (вага файлу після збереження)</div>
+
+                                <InputRadioGroup @bind-Value="TargetKb" class="d-flex flex-wrap gap-3">
+                                    <label class="form-check d-flex align-items-center gap-2 mb-0">
+                                        <InputRadio class="form-check-input" Value="300" />
+                                        <span class="small">300 KB</span>
+                                    </label>
+
+                                    <label class="form-check d-flex align-items-center gap-2 mb-0">
+                                        <InputRadio class="form-check-input" Value="500" />
+                                        <span class="small">500 KB</span>
+                                    </label>
+                                </InputRadioGroup>
+
+                                <div class="text-muted small mt-2">
+                                    Можна завантажувати фото будь-якого розміру. Під час збереження я автоматично
+                                    зменшу вагу (і при потребі розмір) до вибраного ліміту.
+                                </div>
                             </div>
 
                             @if (selectedFile is not null)
@@ -176,7 +204,7 @@
                             <label class="form-label fw-semibold">@T("Ціна", "Price")</label>
                             <InputNumber class="form-control" @bind-Value="model.Pice" />
                         </div>
-                                               
+
                     </div>
                 </div>
 
@@ -188,12 +216,16 @@
 @code {
     [Parameter] public int? Id { get; set; }
 
-    private bool IsEdit => Id.HasValue && Id.Value > 0;       
+    private bool IsEdit => Id.HasValue && Id.Value > 0;
     private ServiceClient model = new();
     private string? loadError;
     private bool isSaving;
     private PreparedUploadFile? selectedFile;
     private string? ErrorMessage;
+
+    // 300 або 500 KB (за замовчуванням 500)
+    private int TargetKb { get; set; } = 500;
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -212,11 +244,7 @@
             }
             else
             {
-                // defaults
-                model = new ServiceClient
-                {
-                    IsCulture = false
-                };
+                model = new ServiceClient { IsCulture = false };
             }
         }
         catch (Exception ex)
@@ -224,17 +252,17 @@
             loadError = ex.Message;
         }
     }
-       
+
     private string? PreviewUrl
     {
         get
-        {            
+        {
             if (!string.IsNullOrWhiteSpace(selectedFile?.DataUrl))
                 return selectedFile!.DataUrl;
-                            
+
             if (string.IsNullOrWhiteSpace(model.ImgPath))
                 return null;
-           
+
             return model.ImgPath.StartsWith("/")
                 ? model.ImgPath
                 : "/" + model.ImgPath.TrimStart('/');
@@ -243,12 +271,21 @@
 
     private async Task OnFileSelected(InputFileChangeEventArgs e)
     {
+        ErrorMessage = null;
+
         var file = e.File;
         if (file is null) return;
-               
-        const long maxBytes = 5 * 1024 * 1024;
-             
-        using var stream = file.OpenReadStream(maxBytes);
+
+        // Даємо завантажувати великі фото, але все одно ставимо "захисний" ліміт, щоб не вбити сервер
+        const long hardLimitBytes = 50 * 1024 * 1024; // 50MB
+        if (file.Size > hardLimitBytes)
+        {
+            selectedFile = null;
+            ErrorMessage = "Файл занадто великий (понад 50MB). Завантаж менший.";
+            return;
+        }
+
+        using var stream = file.OpenReadStream(hardLimitBytes);
         using var ms = new MemoryStream();
         await stream.CopyToAsync(ms);
 
@@ -256,14 +293,16 @@
         if (bytes.Length == 0)
         {
             selectedFile = null;
+            ErrorMessage = "Не вдалося прочитати файл (0 bytes).";
             return;
         }
 
+        // Preview може бути важким для дуже великих фото, але працює стабільно.
         var base64 = Convert.ToBase64String(bytes);
         var dataUrl = $"data:{file.ContentType};base64,{base64}";
 
         selectedFile = new PreparedUploadFile(
-            OriginalName: file.Name,
+            OriginalName: file.Name,       // реальна назва файлу
             ContentType: file.ContentType,
             Size: file.Size,
             Bytes: bytes,
@@ -271,7 +310,11 @@
         );
     }
 
-    private void ClearSelectedFile() => selectedFile = null;
+    private void ClearSelectedFile()
+    {
+        selectedFile = null;
+        ErrorMessage = null;
+    }
 
     private async Task SaveAsync()
     {
@@ -279,16 +322,17 @@
 
         isSaving = true;
         loadError = null;
+        ErrorMessage = null;
 
         try
-        {            
+        {
             if (selectedFile is not null)
             {
-                var relative = await SaveImageToWwwRootAsync(selectedFile);
-                model.ImgPath = relative; 
+                var relative = await SaveImageToWwwRootAsync(selectedFile, TargetKb);
+                model.ImgPath = relative;
             }
-                      
-            await _clientService.SaveServiceAsync(model);                      
+
+            await _clientService.SaveServiceAsync(model);
             _navigationManager.NavigateTo("/admin-services");
         }
         catch (Exception ex)
@@ -301,31 +345,87 @@
         }
     }
 
-    private async Task<string> SaveImageToWwwRootAsync(PreparedUploadFile file)
-    {        
+    private async Task<string> SaveImageToWwwRootAsync(PreparedUploadFile file, int targetKb)
+    {
         var uploadsDir = Path.Combine(_env.WebRootPath, "uploads", "services");
         Directory.CreateDirectory(uploadsDir);
-                
-        var ext = GetSafeImageExtension(file.ContentType);
-        var name = $"{Guid.NewGuid():N}{ext}";
+
+        // Стискаємо до targetKb (300/500 KB). Вихід робимо JPG (найкраще для фото).
+        var targetBytes = Math.Max(50, targetKb) * 1024; // захист від 0/дурних значень
+        var compressed = await CompressToJpegTargetAsync(file.Bytes, targetBytes);
+
+        var name = $"{Guid.NewGuid():N}.jpg";
         var fullPath = Path.Combine(uploadsDir, name);
 
-        await File.WriteAllBytesAsync(fullPath, file.Bytes);
-               
+        await System.IO.File.WriteAllBytesAsync(fullPath, compressed);
+
         return $"uploads/services/{name}";
     }
 
-    private static string GetSafeImageExtension(string? contentType)
-        => contentType?.ToLowerInvariant() switch
+    /// <summary>
+    /// Стискання: 1) обмежуємо розмір по довгій стороні, 2) підбираємо quality, 3) якщо не влазить — зменшуємо розміри ще.
+    /// </summary>
+    private static async Task<byte[]> CompressToJpegTargetAsync(byte[] inputBytes, int targetBytes)
+    {
+        using var ms = new MemoryStream(inputBytes);
+        using var image = await Image.LoadAsync(ms);
+
+        // 1) Спершу нормальний "web" розмір (щоб не зберігати 6000x4000)
+        const int maxSide = 1920;
+        image.Mutate(ctx => ctx.AutoOrient()); // правильна орієнтація
+
+        if (image.Width > maxSide || image.Height > maxSide)
         {
-            "image/png" => ".png",
-            "image/webp" => ".webp",
-            "image/gif" => ".gif",
-            _ => ".jpg"
+            var ratio = Math.Min((double)maxSide / image.Width, (double)maxSide / image.Height);
+            var w = Math.Max(1, (int)Math.Round(image.Width * ratio));
+            var h = Math.Max(1, (int)Math.Round(image.Height * ratio));
+
+            image.Mutate(ctx => ctx.Resize(w, h));
+        }
+
+        // 2) Підбір якості
+        var quality = 90;
+        var minQuality = 40;
+
+        while (true)
+        {
+            var bytes = EncodeJpeg(image, quality);
+            if (bytes.Length <= targetBytes)
+                return bytes;
+
+            // якщо вже впали до мінімальної якості — зменшуємо розміри ще
+            if (quality <= minQuality)
+            {
+                // зменшення розміру на 15%
+                var w2 = Math.Max(1, (int)Math.Round(image.Width * 0.85));
+                var h2 = Math.Max(1, (int)Math.Round(image.Height * 0.85));
+
+                // якщо вже нікуди зменшувати — повертаємо, що вийшло (краще ніж впасти)
+                if (w2 >= image.Width || h2 >= image.Height || w2 < 200 || h2 < 200)
+                    return bytes;
+
+                image.Mutate(ctx => ctx.Resize(w2, h2));
+                quality = 90; // після ресайзу пробуємо знову з високої якості
+                continue;
+            }
+
+            quality -= 5;
+        }
+    }
+
+    private static byte[] EncodeJpeg(Image image, int quality)
+    {
+        using var ms = new MemoryStream();
+        var encoder = new JpegEncoder
+        {
+            Quality = quality
         };
+        image.Save(ms, encoder);
+        return ms.ToArray();
+    }
 
     private void GoBack() => _navigationManager.NavigateTo("/admin-services");
-       
+
     private string T(string uk, string en) => model.IsCulture ? en : uk;
 
     private sealed record PreparedUploadFile(
@@ -355,7 +455,7 @@
     {
         try
         {
-            DeletePhysicalIfExists(model.ImgPath);           
+            DeletePhysicalIfExists(model.ImgPath);
 
             await _clientService.DeleteServiceAsync(Id);
             _navigationManager.NavigateTo("/admin-services");
