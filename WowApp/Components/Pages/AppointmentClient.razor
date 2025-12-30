@@ -1,0 +1,140 @@
+﻿@page "/appointment-user"
+
+@inject TelegramBotService _telegramBotService
+@inject NavigationManager _nav
+@inject AuthenticationStateProvider AuthState
+@inject AppointmentNotifier _notification
+@rendermode InteractiveServer
+
+<PageTitle>Безкоштовний урок</PageTitle>
+
+<div class="py-5 ec-bg-soft">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-7">
+
+                <div class="bg-white rounded-4 shadow-sm p-4 p-md-5">
+                    <h2 class="mb-2">Запис на безкоштовний урок</h2>
+                    <p class="text-muted mb-4">Залиште контакти — ми підтвердимо запис і звʼяжемось з вами.</p>
+
+                    <EditForm Model="_model" OnValidSubmit="SubmitAsync" FormName="appointmentForm">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger mb-3" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Ім’я та прізвище</label>
+                            <InputText class="form-control" @bind-Value="_model.ClientName" />
+                            <ValidationMessage For="@(() => _model.ClientName)" class="text-danger" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Телефон</label>
+                            <InputText class="form-control"
+                                       @bind-Value="_model.ClientPhone"
+                                       placeholder="+380XXXXXXXXX або 0XXXXXXXXX"
+                                       @oninput="OnPhoneInput" />
+                            <ValidationMessage For="@(() => _model.ClientPhone)" class="text-danger" />
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-12 col-md-12">
+                                <label class="form-label">Дата</label>
+                                <InputDate class="form-control" @bind-Value="_model.AppointmentDate" />
+                                <ValidationMessage For="@(() => _model.AppointmentDate)" class="text-danger" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3 mt-3">
+                            <label class="form-label">Що вас цікавить? (опціонально)</label>
+                            <InputText class="form-control" @bind-Value="_model.Group" placeholder="Для дорослих/Дитячі" />
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Повідомлення (опціонально)</label>
+                            <InputTextArea class="form-control" @bind-Value="_model.Message" rows="4"
+                                           placeholder="Наприклад: зручний час для дзвінка, вік дитини, рівень..." />
+                        </div>
+
+                        <button class="btn ec-btn-primary w-100 py-2"
+                                type="submit"
+                                disabled="@_saving">
+                            @if (_saving)
+                            {
+                                <span>Відправляємо...</span>
+                            }
+                            else
+                            {
+                                <span>Записатися</span>
+                            }
+                        </button>
+
+                        <button class="btn ec-btn-outline-white w-100 py-2 mt-2"
+                                type="button"
+                                disabled="@_saving"
+                                @onclick="GoHome">
+                            Повернутися на головну
+                        </button>
+
+                        @if (!string.IsNullOrWhiteSpace(_okText))
+                        {
+                            <div class="alert alert-success mt-3 mb-0">@_okText</div>
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(_errText))
+                        {
+                            <div class="alert alert-danger mt-3 mb-0">@_errText</div>
+                        }
+                    </EditForm>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private  Appointment _model = new();
+    private bool _saving;
+    private string? _okText;
+    private string? _errText;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _model.AppointmentDate = DateOnly.FromDateTime(DateTime.Today);
+    }
+
+    private void OnPhoneInput(ChangeEventArgs e)
+    {
+        var v = e.Value?.ToString() ?? "";
+        _model.ClientPhone = v.Replace(" ", "");
+    }
+
+    private async Task SubmitAsync()
+    {
+        _okText = null;
+        _errText = null;
+        _saving = true;
+
+        try
+        {                    
+            var id = await _telegramBotService.SaveAppointmentClientAsync(_model);
+            _okText = $"Готово! Заявку прийнято! Ми скоро з вами звʼяжемося.";
+            await _notification.NotifyNewAppointmentAsync(_model);                      
+        }
+        catch (Exception ex)
+        {
+            _errText = "Сталася помилка при відправці. Спробуйте ще раз.";
+            Console.WriteLine(ex);
+        }
+        finally
+        {
+            _saving = false;          
+        }              
+    }
+
+    private void GoHome()
+    {
+        _nav.NavigateTo("/");
+    }
+}

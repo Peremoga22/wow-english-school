@@ -13,6 +13,7 @@ namespace WowApp.Data
         public DbSet<ServiceClient> ServiceClients => Set<ServiceClient>();
         public DbSet<Portfolio> Portfolios => Set<Portfolio>();
         public DbSet<Review> Reviews => Set<Review>();
+        public DbSet<CallbackRequest> CallbackRequests => Set<CallbackRequest>();        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,7 @@ namespace WowApp.Data
             modelBuilder.ApplyConfiguration(new ServiceClientConfig());
             modelBuilder.ApplyConfiguration(new PortfolioConfig());
             modelBuilder.ApplyConfiguration(new ReviewConfig());
+            modelBuilder.ApplyConfiguration(new CallbackRequestConfig());
         }
 
         public class AppointmentConfig : IEntityTypeConfiguration<Appointment>
@@ -178,6 +180,37 @@ namespace WowApp.Data
                     .WithMany(a => a.Reviews)
                     .HasForeignKey(x => x.AppointmentId)
                     .OnDelete(DeleteBehavior.Cascade);
+            }
+        }
+
+        public class CallbackRequestConfig : IEntityTypeConfiguration<CallbackRequest>
+        {
+            public void Configure(EntityTypeBuilder<CallbackRequest> b)
+            {
+                b.ToTable("CallbackRequests");
+
+                b.HasKey(x => x.Id);
+
+                b.Property(x => x.Name)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                b.Property(x => x.Phone)
+                    .IsRequired()
+                    .HasMaxLength(25);
+
+                b.Property(x => x.Comment)
+                    .HasMaxLength(500);
+
+                b.Property(x => x.IsCulture)
+                    .HasDefaultValue(false);
+
+                b.Property(x => x.IsProcessed)
+                    .HasDefaultValue(false);
+
+                b.Property(x => x.CreatedUtc)
+                    .IsRequired()
+                    .HasDefaultValueSql("GETUTCDATE()");
             }
         }
     }

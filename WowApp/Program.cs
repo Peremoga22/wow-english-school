@@ -3,13 +3,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 using System.Globalization;
+
+using Telegram.Bot;
 
 using WowApp.Components;
 using WowApp.Components.Account;
 using WowApp.Data;
 using WowApp.Services;
+using WowApp.TelegramBot;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +27,14 @@ builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 builder.Services.AddScoped<PortfolioService>();
 builder.Services.AddScoped<ClientService>();
-
+builder.Services.Configure<TelegramOptions>(builder.Configuration.GetSection("Telegram"));
+builder.Services.AddScoped<AppointmentNotifier>();
+builder.Services.AddScoped<TelegramBotService>();
+builder.Services.AddSingleton<ITelegramBotClient>(sp =>
+{
+    var opts = sp.GetRequiredService<IOptions<TelegramOptions>>().Value;
+    return new TelegramBotClient(opts.BotToken);
+});
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = IdentityConstants.ApplicationScheme;
