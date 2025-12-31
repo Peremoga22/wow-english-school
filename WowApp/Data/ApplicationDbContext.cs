@@ -97,19 +97,12 @@ namespace WowApp.Data
                 b.Property(x => x.Group)
                     .HasMaxLength(100);
 
-                b.Property(x => x.Pice)
+                b.Property(x => x.Price)
                     .HasColumnType("decimal(18,2)");
 
                 b.Property(x => x.IsCulture)
-                    .HasDefaultValue(false);
-
-                b.Property(x => x.AppointmentId)
-                    .IsRequired(false);
-
-                b.HasOne(x => x.Appointment)
-                    .WithMany()
-                    .HasForeignKey(x => x.AppointmentId)
-                    .OnDelete(DeleteBehavior.SetNull);
+                    .HasDefaultValue(false);                            
+                               
             }
         }
 
@@ -136,15 +129,8 @@ namespace WowApp.Data
                 b.Property(x => x.VideoPath).HasMaxLength(500);
 
                 b.Property(x => x.IsCulture)
-                    .HasDefaultValue(false);
-
-                b.Property(x => x.AppointmentId)
-                    .IsRequired(false);
-
-                b.HasOne(x => x.Appointment)
-                 .WithMany()
-                 .HasForeignKey(x => x.AppointmentId)
-                 .OnDelete(DeleteBehavior.SetNull);
+                    .HasDefaultValue(false);                              
+                               
             }
         }
 
@@ -172,14 +158,7 @@ namespace WowApp.Data
 
                 b.Property(x => x.IsCulture)
                     .HasDefaultValue(false);
-
-                b.Property(x => x.AppointmentId)
-                    .IsRequired();
-
-                b.HasOne(x => x.Appointment)
-                    .WithMany(a => a.Reviews)
-                    .HasForeignKey(x => x.AppointmentId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                                             
             }
         }
 

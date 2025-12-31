@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WowApp.Data;
 
@@ -12,11 +11,9 @@ using WowApp.Data;
 namespace WowApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251230202348_Add_CallbackRequest_CreatedUtc")]
-    partial class Add_CallbackRequest_CreatedUtc
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -324,9 +321,6 @@ namespace WowApp.Migrations
                     b.Property<int?>("AppointmentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AppointmentId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("DescriptionCard")
                         .IsRequired()
                         .HasMaxLength(2000)
@@ -365,8 +359,6 @@ namespace WowApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppointmentId");
-
-                    b.HasIndex("AppointmentId1");
 
                     b.ToTable("Portfolios", (string)null);
                 });
@@ -426,9 +418,6 @@ namespace WowApp.Migrations
                     b.Property<int?>("AppointmentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AppointmentId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("DescriptionCard")
                         .IsRequired()
                         .HasMaxLength(2000)
@@ -454,7 +443,7 @@ namespace WowApp.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal>("Pice")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("TitleCard")
@@ -465,8 +454,6 @@ namespace WowApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppointmentId");
-
-                    b.HasIndex("AppointmentId1");
 
                     b.ToTable("ServiceClients", (string)null);
                 });
@@ -535,13 +522,9 @@ namespace WowApp.Migrations
             modelBuilder.Entity("WowApp.EntityModels.Portfolio", b =>
                 {
                     b.HasOne("WowApp.EntityModels.Appointment", "Appointment")
-                        .WithMany()
-                        .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("WowApp.EntityModels.Appointment", null)
                         .WithMany("Portfolios")
-                        .HasForeignKey("AppointmentId1");
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Appointment");
                 });
@@ -560,13 +543,9 @@ namespace WowApp.Migrations
             modelBuilder.Entity("WowApp.EntityModels.ServiceClient", b =>
                 {
                     b.HasOne("WowApp.EntityModels.Appointment", "Appointment")
-                        .WithMany()
-                        .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("WowApp.EntityModels.Appointment", null)
                         .WithMany("ServiceClients")
-                        .HasForeignKey("AppointmentId1");
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Appointment");
                 });

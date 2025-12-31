@@ -48,7 +48,7 @@
 
                             @* Права частина: дата/час *@
                             <div class="ec-date">
-                                <div class="ec-date__d">@row.Date.ToString("dd.MM.yyyy")</div>
+                                <div class="ec-date__d">@row.AppointmentDate.ToString("dd.MM.yyyy")</div>
                                                                
                             </div>
                         </div>
@@ -64,38 +64,38 @@
                             </div>
 
                             <div class="ec-proc">
-                                @if (!string.IsNullOrWhiteSpace(row.TitleCard))
+                                @if (!string.IsNullOrWhiteSpace(row.ServiceTitle))
                                 {
-                                    <div class="ec-proc__title">@row.TitleCard</div>
+                                    <div class="ec-proc__title">@row.ServiceTitle</div>
                                 }
                                 else
                                 {
                                     <div class="ec-proc__title text-muted">Послуга не знайдена</div>
                                 }
-
-                                @if (!string.IsNullOrWhiteSpace(row.DescriptionCard))
+@* 
+                                @if (!string.IsNullOrWhiteSpace(row.ServiceClients))
                                 {
                                     <div class="ec-proc__desc">@row.DescriptionCard</div>
-                                }
+                                } *@
                             </div>
                         </div>
 
                         <div class="ec-entry__bottom">
                             <div class="ec-price">
-                                @if (row.Price.HasValue)
+                               @*  @if (row.Price.HasValue)
                                 {
                                     <span class="duration">@row.Price.Value.ToString("C0", ua)</span>
                                 }
                                 else
                                 {
                                     <span class="text-muted">—</span>
-                                }
+                                } *@
                             </div>
 
                             <button class="btn btn-outline-danger btn-sm rounded-pill d-inline-flex align-items-center gap-1"
                                     title="Видалити"
                                     disabled="@deleting.Contains(row.Id)"
-                                    @onclick="() => ConfirmAndDeleteAsync(row)">
+                                    @onclick="() => ConfirmAndDeleteAsync(MapToCalendarRowDto(row))">
                                 <i class="fa-solid fa-trash" aria-hidden="true"></i>
                                 <span>@(deleting.Contains(row.Id) ? "Видаляю..." : "Видалити")</span>
                             </button>
@@ -112,14 +112,14 @@
 
 
 @code {
-    private List<CalendarRowDto> rows = new();
+    private List<Appointment> rows = new();
     private Appointment clientUser = new();
     private static readonly CultureInfo ua = new("uk-UA");
     private HashSet<int> deleting = new();
 
     protected override async Task OnInitializedAsync()
     {
-        rows = await _clientService.ListForCalendarForAdminAsync();
+        rows = await _clientService.GetAllAppointmentAsync();
 
     }
 
@@ -149,5 +149,21 @@
         {
             deleting.Remove(row.Id);
         }
+    }
+
+    private CalendarRowDto MapToCalendarRowDto(Appointment appointment)
+    {
+        return new CalendarRowDto
+        {
+            Id = appointment.Id,
+            Date = appointment.AppointmentDate,
+            ClientName = appointment.ClientName,
+            ClientPhone = appointment.ClientPhone,
+            Group = appointment.Group,
+            TitleCard = appointment.ServiceTitle,
+            DescriptionCard = appointment.Message,
+            Price = null, // Map if available in Appointment
+            IsCompleted = false // Map if available in Appointment
+        };
     }
 }

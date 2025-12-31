@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+using System.Linq;
+
 using WowApp.Data;
 using WowApp.EntityModels;
 using WowApp.ModelsDTOs;
@@ -66,41 +68,12 @@ namespace WowApp.Services
             }
         }
 
-        public async Task<List<CalendarRowDto>> ListForCalendarForAdminAsync(CancellationToken ct = default)
+        public async Task<List<Appointment>> GetAllAppointmentAsync(CancellationToken ct = default)
         {
             await using var db = await _dbFactory.CreateDbContextAsync(ct);
-
-            return await db.Appointments
-                .AsNoTracking()
-                .OrderBy(a => a.AppointmentDate)
-                .Select(a => new CalendarRowDto
-                {
-                    Id = a.Id,
-                    Date = a.AppointmentDate,
-                    Group = a.Group,
-                    ClientName = a.ClientName,
-                    ClientPhone = a.ClientPhone,
-
-                    // беремо перший ServiceClient (якщо він реально прив’язаний по FK)
-                    Price = a.ServiceClients
-                        .Select(sc => (decimal?)sc.Price)
-                        .FirstOrDefault(),
-
-                    TitleCard =
-                        a.ServiceClients
-                            .Select(sc => sc.TitleCard)
-                            .FirstOrDefault()
-                        ?? a.ServiceTitle
-                        ?? "",
-
-                    DescriptionCard =
-                        a.ServiceClients
-                            .Select(sc => sc.DescriptionCard)
-                            .FirstOrDefault()
-                        ?? ""
-                })
-                .ToListAsync(ct);
+            return await db.Appointments.ToListAsync(ct);
         }
+
 
     }
 }
