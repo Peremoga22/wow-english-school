@@ -1,4 +1,6 @@
 ﻿@page "/contacts"
+@inject TelegramBotService _telegramBotService
+@inject AppointmentNotifier _notification
 @rendermode InteractiveServer
 
 <PageTitle>Our Contact</PageTitle>
@@ -145,21 +147,21 @@
                         Заповни форму — ми звʼяжемось із тобою найближчим часом.
                     </p>
 
-                    <EditForm Model="@form" OnValidSubmit="SendAsync">
+                    <EditForm Model="@_model" OnValidSubmit="SendAsync">
                         <DataAnnotationsValidator />
                         <ValidationSummary />
 
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <InputText class="form-control" @bind-Value="form.Name" placeholder="Імʼя" />
+                                    <InputText class="form-control" @bind-Value="_model.ClientName" placeholder="Імʼя" />
                                     <label>Імʼя</label>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <InputText class="form-control" @bind-Value="form.Phone" placeholder="Телефон" />
+                                    <InputText class="form-control" @bind-Value="_model.ClientPhone" placeholder="Телефон" />
                                     <label>Телефон</label>
                                 </div>
                             </div>
@@ -167,7 +169,7 @@
                             <div class="col-12">
                                 <div class="form-floating">
                                     <InputTextArea class="form-control"
-                                                   @bind-Value="form.Message"
+                                                   @bind-Value="_model.Message"
                                                    placeholder="Повідомлення"
                                                    style="height: 140px;" />
                                     <label>Повідомлення</label>
@@ -216,28 +218,42 @@
     private string Address = "м. Стрий, вул. Охримовича, 8/25";
 
     private string? MapUrl = "https://maps.app.goo.gl/cXJn8Ckc4NUtx4bo6";
-    private string? TelegramUrl = "https://t.me/your_channel";
-    private string? InstagramUrl = "https://instagram.com/your_page";
-    private string? FacebookUrl = "https://t.me/your_channel";
+    private string? TelegramUrl = null;
+    private string? InstagramUrl = "https://www.instagram.com/englishclubwow?igsh=MWFsaTZhNDk3NzhybA%3D%3D&utm_source=qr";
+    private string? FacebookUrl = "https://www.facebook.com/share/17nx3CXezu/?mibextid=wwXIfr";
 
     private string WorkdaysHours = "09:00 – 21:00";
     private string SaturdayHours = "09:00 – 15:00";
     private string SundayHours = "вихідний";
 
     // --------- Форма ----------
-    private ContactForm form = new();
+    private Appointment _model = new();
     private bool isSending;
-    private string? success;
+    private string? success;   
+    private string? _errText;
 
     private async Task SendAsync()
     {
         isSending = true;
         success = null;
+       _errText = null;       
 
-        // Тут ти можеш:
-        // 1) зберегти звернення в БД
-        // 2) надіслати в Telegram (як ти робив для записів)
-        // 3) надіслати на email
+        try
+        {
+            var id = await _telegramBotService.SaveAppointmentClientAsync(_model);   
+            _model.AppointmentDate = DateOnly.FromDateTime(DateTime.Now);
+            _model.Group = "==> повідомлення відправлено із сторінки контакти.";
+            await _notification.NotifyNewAppointmentAsync(_model);
+        }
+        catch (Exception ex)
+        {
+            _errText = "Сталася помилка при відправці. Спробуйте ще раз.";
+            Console.WriteLine(ex);
+        }
+        finally
+        {
+            isSending = false;
+        }
         await Task.Delay(600);
 
         success = "Дякуємо! Ми отримали ваше повідомлення і скоро з вами звʼяжемось.";
@@ -246,23 +262,7 @@
 
     private void Clear()
     {
-        form = new ContactForm();
+        _model = new();
         success = null;
-    }
-
-    public class ContactForm
-    {
-        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Вкажіть імʼя")]
-        public string Name { get; set; } = "";
-
-        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Вкажіть телефон")]
-        public string Phone { get; set; } = "";
-
-        [System.ComponentModel.DataAnnotations.EmailAddress(ErrorMessage = "Невірний email")]
-        public string? Email { get; set; }
-
-        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Напишіть повідомлення")]
-        [System.ComponentModel.DataAnnotations.MinLength(5, ErrorMessage = "Повідомлення занадто коротке")]
-        public string Message { get; set; } = "";
-    }
+    }     
 }

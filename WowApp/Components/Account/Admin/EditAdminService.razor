@@ -1,10 +1,6 @@
 ﻿@page "/edit-admin-service"
 @page "/edit-admin-service/{Id:int}"
 
-@using SixLabors.ImageSharp
-@using SixLabors.ImageSharp.Processing
-@using SixLabors.ImageSharp.Formats.Jpeg
-
 @inject ClientService _clientService
 @inject IWebHostEnvironment _env
 @inject NavigationManager _navigationManager
@@ -106,7 +102,7 @@
                             </div>
                         </div>
 
-                        <!-- Preview (як було) -->
+                        <!-- Preview  -->
                         <div class="ratio ratio-16x9 rounded-4 overflow-hidden bg-light border">
                             @if (!string.IsNullOrWhiteSpace(PreviewUrl))
                             {
@@ -208,7 +204,7 @@
                     </div>
                 </div>
 
-                <!-- RIGHT: preview (як у зразку, адаптовано під ServiceClient) -->
+                <!-- RIGHT: preview  -->
                 <div class="col-12 col-lg-4">
                     <div class="border rounded-4 p-3 p-md-4 bg-white shadow-sm h-100">
                         <div class="d-flex align-items-center justify-content-between mb-3">
@@ -273,8 +269,7 @@
     private bool isSaving;
     private PreparedUploadFile? selectedFile;
     private string? ErrorMessage;
-
-    // 300 або 500 (за замовчуванням 500)
+     
     private int TargetKb { get; set; } = 500;
 
     protected override async Task OnInitializedAsync()
@@ -303,8 +298,7 @@
             loadError = ex.Message;
         }
     }
-
-    // Preview як у тебе: або DataUrl, або те що вже збережено в model.ImgPath
+     
     private string? PreviewUrl
     {
         get
@@ -327,8 +321,7 @@
 
         var file = e.File;
         if (file is null) return;
-
-        // Дозволяємо будь-який розмір, але для читання у памʼять ставимо "hard" ліміт (щоб не вбити сервер)
+              
         const long hardLimitBytes = 50 * 1024 * 1024; // 50MB
         if (file.Size > hardLimitBytes)
         {
@@ -411,13 +404,11 @@
 
         return $"uploads/services/{name}";
     }
-
-    // ✅ Стиснення: зменшуємо якість, якщо треба — ще й розмір
+        
     private static async Task<byte[]> CompressToJpegTargetAsync(byte[] inputBytes, int targetBytes)
     {
         using var input = new MemoryStream(inputBytes);
-
-        // ЯВНО: щоб компілятор не плутав Image
+       
         using SixLabors.ImageSharp.Image image = await SixLabors.ImageSharp.Image.LoadAsync(input);
 
         image.Mutate(ctx => ctx.AutoOrient());
@@ -441,12 +432,10 @@
                 return encoded;
 
             if (quality <= minQuality)
-            {
-                // якщо якість вже низька — зменшуємо розмір картинки
+            {                
                 var w2 = Math.Max(1, (int)Math.Round(image.Width * 0.85));
                 var h2 = Math.Max(1, (int)Math.Round(image.Height * 0.85));
-
-                // нижче цього не йдемо, щоб не зробити “мило”
+                               
                 if (w2 >= image.Width || h2 >= image.Height || w2 < 200 || h2 < 200)
                     return encoded;
 
