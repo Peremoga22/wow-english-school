@@ -1,15 +1,153 @@
 ﻿@page "/admin-clients"
 
+
 @using WowApp.Components.Layout
 @inject NavigationManager _navigationManager
 @inject IJSRuntime JS
+@inject ClientService _clientService
 @layout AdminLayout
 @attribute [Authorize(Roles = "Admin")]
 @rendermode InteractiveServer
 
 <PageTitle>Admin clients</PageTitle>
-<h1>Admin</h1>
+<main class="container my-4">
+
+    <section class="ec-panel">
+        <header class="ec-panel__head">
+            <div>
+                <h1 class="ec-title">Календар записів</h1>
+                <p class="ec-subtitle">Оберіть день і перегляньте всі записи за послугами</p>
+            </div>
+        </header>
+
+        <div class="ec-divider"></div>
+
+        @if (rows is null || rows.Count == 0)
+        {
+            <div class="text-muted py-3">Немає записів</div>
+        }
+        else
+        {
+            <div class="ec-grid">
+                @foreach (var row in rows)
+                {
+                    <article class="ec-entry">
+
+                        <div class="ec-entry__top">
+                            @* Ліва частина: “бейдж/група” *@
+                            @if (!string.IsNullOrWhiteSpace(row.Group))
+                            {
+                                <span class="ec-badge">
+                                    @row.Group
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="ec-badge ec-badge--muted">Без групи</span>
+                            }
+
+                            @* Права частина: дата/час *@
+                            <div class="ec-date">
+                                <div class="ec-date__d">@row.Date.ToString("dd.MM.yyyy")</div>
+                                                               
+                            </div>
+                        </div>
+
+                        <div class="ec-entry__body">
+                            <div class="ec-client">
+                                <div class="ec-client__name">@row.ClientName</div>
+
+                                @if (!string.IsNullOrWhiteSpace(row.ClientPhone))
+                                {
+                                    <a class="ec-client__phone" href="tel:@row.ClientPhone">@row.ClientPhone</a>
+                                }
+                            </div>
+
+                            <div class="ec-proc">
+                                @if (!string.IsNullOrWhiteSpace(row.TitleCard))
+                                {
+                                    <div class="ec-proc__title">@row.TitleCard</div>
+                                }
+                                else
+                                {
+                                    <div class="ec-proc__title text-muted">Послуга не знайдена</div>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(row.DescriptionCard))
+                                {
+                                    <div class="ec-proc__desc">@row.DescriptionCard</div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="ec-entry__bottom">
+                            <div class="ec-price">
+                                @if (row.Price.HasValue)
+                                {
+                                    <span class="duration">@row.Price.Value.ToString("C0", ua)</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">—</span>
+                                }
+                            </div>
+
+                            <button class="btn btn-outline-danger btn-sm rounded-pill d-inline-flex align-items-center gap-1"
+                                    title="Видалити"
+                                    disabled="@deleting.Contains(row.Id)"
+                                    @onclick="() => ConfirmAndDeleteAsync(row)">
+                                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                <span>@(deleting.Contains(row.Id) ? "Видаляю..." : "Видалити")</span>
+                            </button>
+                        </div>
+
+                    </article>
+                }
+            </div>
+        }
+    </section>
+
+</main>
+
+
 
 @code {
+    private List<CalendarRowDto> rows = new();
+    private Appointment clientUser = new();
+    private static readonly CultureInfo ua = new("uk-UA");
+    private HashSet<int> deleting = new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        rows = await _clientService.ListForCalendarForAdminAsync();
+
+    }
+
+    private async Task ConfirmAndDeleteAsync(CalendarRowDto row)
+    {
+        if (row is null) return;
+
+        var message =
+            $"Ви дійсно хочете видалити запис?\n\n" +
+            $"Клієнт: {row.ClientName}\n" +
+            $"Дата: {row.Date:dd.MM.yyyy}\n\n" +
+            $"❗ Цю дію неможливо скасувати.";
+
+        var confirmed = await JS.InvokeAsync<bool>("confirm", message);
+
+        if (!confirmed)
+            return;
+
+        deleting.Add(row.Id);
+        try
+        {
+            await _clientService.DeleteAppointmentAsync(row.Id);
+            rows.RemoveAll(r => r.Id == row.Id);
+            StateHasChanged();
+        }
+        finally
+        {
+            deleting.Remove(row.Id);
+        }
+    }
 }
