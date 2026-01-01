@@ -1,0 +1,18 @@
+﻿@page "/admin-home"
+
+@using WowApp.Components.Layout
+@inject NavigationManager _navigationManager
+@inject IJSRuntime JS
+@inject ClientService _clientService
+@layout AdminLayout
+@attribute [Authorize(Roles = "Admin")]
+@rendermode InteractiveServer
+
+<PageTitle>Admin home</PageTitle>
+
+
+
+
+@code {
+
+}
