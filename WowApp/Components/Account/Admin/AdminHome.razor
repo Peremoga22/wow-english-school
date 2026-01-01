@@ -20,24 +20,11 @@
             </p>
         </div>
 
-        <div class="d-flex gap-2 flex-wrap align-items-center">
-            <!-- Culture switch -->
-            <div class="btn-group" role="group" aria-label="Culture switch">
-                <button type="button"
-                        class="btn btn-outline-secondary rounded-pill px-3 @(selectedCulture == Culture.Ua ? "active" : "")"
-                        @onclick="() => selectedCulture = Culture.Ua">
-                    🇺🇦 UA
-                </button>
-                <button type="button"
-                        class="btn btn-outline-secondary rounded-pill px-3 @(selectedCulture == Culture.En ? "active" : "")"
-                        @onclick="() => selectedCulture = Culture.En">
-                    🇬🇧 EN
-                </button>
-            </div>
+        <div class="d-flex gap-2 flex-wrap align-items-center">     
 
             <!-- Add -->
             <NavLink class="btn ec-btn-primary rounded-pill px-4"
-                     href="@AddHref">
+                     href="@AddHrefByCulture">
                 <i class="bi bi-plus-lg me-1"></i>
                 Додати
                 <span class="opacity-75 ms-1">(@(selectedCulture == Culture.En ? "EN" : "UA"))</span>
@@ -124,7 +111,7 @@
 </div>
 
 @code {
-    private enum Culture { Ua, En }
+    private enum Culture { All, Ua, En }
 
     private bool loading = true;
     private readonly HashSet<int> deleting = new();
@@ -132,11 +119,9 @@
     private List<HomeSection> rows = new();
     private List<HomeSection> filtered = new();
 
-    private Culture selectedCulture = Culture.Ua;
+    private Culture selectedCulture = Culture.All;
 
-    private string AddHref =>
-        selectedCulture == Culture.En ? "/edit-admin-home?culture=en" : "/edit-admin-home?culture=uk";
-
+   
     protected override async Task OnInitializedAsync()
     {
         loading = true;
@@ -157,15 +142,20 @@
 
     private void ApplyFilter()
     {
-        var isEn = selectedCulture == Culture.En;
-        filtered = rows.Where(x => x.IsCulture == isEn).ToList();
+        filtered = selectedCulture switch
+        {
+            Culture.En => rows.Where(x => x.IsCulture).ToList(),      // EN
+            Culture.Ua => rows.Where(x => !x.IsCulture).ToList(),     // UA
+            _ => rows.ToList()                                        // 🔥 ALL
+        };
+
         StateHasChanged();
     }
 
     private Culture _lastCulture;
+
     protected override void OnParametersSet()
     {
-        // якщо перемкнули культуру — оновити список
         if (_lastCulture != selectedCulture)
         {
             _lastCulture = selectedCulture;
@@ -194,4 +184,12 @@
             deleting.Remove(row.Id);
         }
     }
+
+    private string AddHrefByCulture => selectedCulture switch
+    {
+        Culture.En => "/edit-admin-home?culture=en",
+        Culture.Ua => "/edit-admin-home?culture=uk",
+        _ => "/edit-admin-home?culture=uk"
+    };
+
 }

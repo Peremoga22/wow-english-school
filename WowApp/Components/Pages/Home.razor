@@ -1,6 +1,8 @@
 ﻿@page "/"
+@using Microsoft.EntityFrameworkCore
 @using WowApp.Resources
-
+@inject ApplicationDbContext Db
+@inject ImageService ImageStore
 @* @inject IStringLocalizer<SharedResource> _localizer *@
 
 
@@ -72,55 +74,64 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4 mt-lg-5">
-            <div class="col-lg-10 mx-auto">
+        @foreach (var item in rows)        
+        {
+       <div class="row mt-4 mt-lg-5">
+        <div class="col-lg-10 mx-auto">
 
-                <div class="ec-photo-middle mb-3">
-                    <img src="images/home-children.jpg"
-                         class="ec-photo ec-photo-side"
-                         alt="English Club activity">
+            <!-- PHOTOS -->
+            <div class="ec-photo-middle mb-3">
+                     <img src="@item.ImgLeftPath"
+                     class="ec-photo ec-photo-side"
+                     alt="@item.PhotoTitle">
 
-                    <img src="images/teacher-grup.jpg"
-                         class="ec-photo ec-photo-center"
-                         alt="English Club learning">
+                     <img src="@item.ImgCenterPath"
+                     class="ec-photo ec-photo-center"
+                     alt="@item.PhotoTitle">
 
-                    <img src="images/home-children2.jpg"
-                         class="ec-photo ec-photo-side"
-                         alt="English Club students">
-                </div>
+                     <img src="@item.ImgRightPath"
+                     class="ec-photo ec-photo-side"
+                    alt="@item.PhotoTitle">
+            </div>
 
-                <!-- DESCRIPTION -->
-                <div class="ec-photo-desc text-center">
-                    <h3 class="ec-photo-title">Живе спілкування англійською</h3>
-                    <p class="ec-photo-text">
-                        Атмосферні заняття в English Club W.O.W — це не просто уроки,
-                        а практика, впевненість та задоволення від навчання.
-                        Ми вчимо говорити, а не зазубрювати.
-                    </p>
-                </div>
-                <!-- CHRISTMAS GREETING -->
+            <!-- DESCRIPTION -->
+            <div class="ec-photo-desc text-center">
+                        <h3 class="ec-photo-title">@item.PhotoTitle</h3>
+                <p class="ec-photo-text">
+                            @item.PhotoText
+                </p>
+            </div>
+
+           
+            @if (!string.IsNullOrWhiteSpace(item.ChristmasTitle) || !string.IsNullOrWhiteSpace(item.ChristmasText))
+            {
                 <div class="row mt-4 mt-lg-5">
                     <div class="col-lg-10 mx-auto">
                         <div class="ec-christmas text-center">
 
                             <div class="ec-christmas-icon">🎄</div>
-
-                            <h3 class="ec-christmas-title">
-                                З Різдвом Христовим!
-                            </h3>
-
-                            <p class="ec-christmas-text">
-                                Нехай це Різдво принесе мир, тепло та натхнення у кожен дім.
-                                Бажаємо нових знань, впевнених кроків до мрій
-                                та приємних відкриттів разом з English Club W.O.W ✨
-                            </p>
+                            @if (!string.IsNullOrWhiteSpace(item.ChristmasTitle))
+                            {
+                                <h3 class="ec-christmas-title">
+                                            @item.ChristmasTitle
+                                </h3>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(item.ChristmasText))
+                            {
+                                <p class="ec-christmas-text">
+                                            @item.ChristmasText
+                                </p>
+                            }
 
                         </div>
                     </div>
                 </div>
+            }
 
+                </div>
             </div>
-        </div>
+         }
+
 
         <!-- Middle: 2 columns like flyer -->
         <div class="row g-4 mt-4 mt-lg-5">
@@ -221,3 +232,29 @@
 </div>
 
 
+@code {
+    private List<HomeSection> rows = new();
+
+    private bool IsEn =>
+        CultureInfo.CurrentUICulture.Name.StartsWith("en", StringComparison.OrdinalIgnoreCase);
+
+    protected override async Task OnInitializedAsync()
+    {
+        // тягнемо контент під поточну мову (перемикається з хедера)
+        rows = await Db.HomeSections
+            .AsNoTracking()
+            .Where(x => x.IsCulture == IsEn)   // true = EN, false = UA (як у тебе в моделі)
+            .OrderByDescending(x => x.UpdatedAtUtc)
+            .ToListAsync();
+
+        // fallback: якщо для EN ще нема — показати UA
+        if (rows.Count == 0 && IsEn)
+        {
+            rows = await Db.HomeSections
+                .AsNoTracking()
+                .Where(x => x.IsCulture == false)
+                .OrderByDescending(x => x.UpdatedAtUtc)
+                .ToListAsync();
+        }
+    }
+}
