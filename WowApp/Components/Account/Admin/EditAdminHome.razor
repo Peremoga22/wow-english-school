@@ -199,8 +199,7 @@
         {
             entity = await Db.HomeSections.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
             if (entity is null)
-            {
-                // якщо відкрили неіснуючий id
+            {                
                 Id = 0;
                 form = new HomeSectionEditVm();
             }
@@ -224,8 +223,7 @@
     }
 
     private void BackToList()
-    {
-        // forceLoad=true — гарантовано працює на хостингах/підпапках/коли NavLink “чомусь” не клікається
+    {       
         Nav.NavigateTo("/admin-home", forceLoad: true);
     }
 
@@ -310,8 +308,7 @@
             }
 
             await Db.SaveChangesAsync();
-
-            // якщо це було створення — оновлюємо роут на /edit-admin-home/{id}
+                      
             if (Id == 0 && entity.Id > 0)
             {
                 Id = entity.Id;

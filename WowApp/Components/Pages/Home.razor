@@ -239,15 +239,13 @@
         CultureInfo.CurrentUICulture.Name.StartsWith("en", StringComparison.OrdinalIgnoreCase);
 
     protected override async Task OnInitializedAsync()
-    {
-        // тягнемо контент під поточну мову (перемикається з хедера)
+    {        
         rows = await Db.HomeSections
             .AsNoTracking()
-            .Where(x => x.IsCulture == IsEn)   // true = EN, false = UA (як у тебе в моделі)
+            .Where(x => x.IsCulture == IsEn)   
             .OrderByDescending(x => x.UpdatedAtUtc)
             .ToListAsync();
-
-        // fallback: якщо для EN ще нема — показати UA
+                  
         if (rows.Count == 0 && IsEn)
         {
             rows = await Db.HomeSections
