@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 using WowApp.EntityModels;
+using WowApp.ModelsDTOs;
 
 namespace WowApp.Data
 {
@@ -13,7 +14,8 @@ namespace WowApp.Data
         public DbSet<ServiceClient> ServiceClients => Set<ServiceClient>();
         public DbSet<Portfolio> Portfolios => Set<Portfolio>();
         public DbSet<Review> Reviews => Set<Review>();
-        public DbSet<CallbackRequest> CallbackRequests => Set<CallbackRequest>();        
+        public DbSet<CallbackRequest> CallbackRequests => Set<CallbackRequest>();
+        public DbSet<HomeSection> HomeSections { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +26,7 @@ namespace WowApp.Data
             modelBuilder.ApplyConfiguration(new PortfolioConfig());
             modelBuilder.ApplyConfiguration(new ReviewConfig());
             modelBuilder.ApplyConfiguration(new CallbackRequestConfig());
+            modelBuilder.ApplyConfiguration(new HomeSectionConfig());
         }
 
         public class AppointmentConfig : IEntityTypeConfiguration<Appointment>
@@ -197,6 +200,26 @@ namespace WowApp.Data
                 b.Property(x => x.CreatedUtc)
                     .IsRequired()
                     .HasDefaultValueSql("GETUTCDATE()");
+            }
+        }
+
+        public class HomeSectionConfig : IEntityTypeConfiguration<HomeSection>
+        {
+            public void Configure(EntityTypeBuilder<HomeSection> b)
+            {
+                b.ToTable("HomeSections");
+
+                b.Property(x => x.PhotoTitle).HasMaxLength(120).IsRequired();
+                b.Property(x => x.PhotoText).HasMaxLength(600).IsRequired();
+
+                b.Property(x => x.ImgLeftPath).HasMaxLength(260).IsRequired();
+                b.Property(x => x.ImgCenterPath).HasMaxLength(260).IsRequired();
+                b.Property(x => x.ImgRightPath).HasMaxLength(260).IsRequired();
+
+                b.Property(x => x.ChristmasTitle).HasMaxLength(120);
+                b.Property(x => x.ChristmasText).HasMaxLength(600);
+
+                b.Property(x => x.UpdatedAtUtc).HasDefaultValueSql("GETUTCDATE()");
             }
         }
     }

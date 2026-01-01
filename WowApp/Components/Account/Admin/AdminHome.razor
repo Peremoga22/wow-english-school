@@ -1,18 +1,322 @@
 ﻿@page "/admin-home"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@inject ApplicationDbContext Db
+@inject ImageService ImageStore
 
-@using WowApp.Components.Layout
-@inject NavigationManager _navigationManager
-@inject IJSRuntime JS
-@inject ClientService _clientService
 @layout AdminLayout
 @attribute [Authorize(Roles = "Admin")]
 @rendermode InteractiveServer
 
-<PageTitle>Admin home</PageTitle>
+<PageTitle>Admin | Home</PageTitle>
 
+<h3 class="mb-3">Home: блок з 3 фото + текст + Різдво</h3>
 
+@if (loading)
+{
+    <div class="text-muted">Завантаження...</div>
+}
+else
+{
+    <EditForm Model="form" OnValidSubmit="SaveAsync">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
+        <div class="row g-4">
+            <!-- LEFT: Form -->
+            <div class="col-lg-6">
+                <div class="p-3 border rounded-4 bg-white shadow-sm">
+
+                    <div class="mb-3">
+                        <label class="form-label">Заголовок</label>
+                        <InputText class="form-control" @bind-Value="form.PhotoTitle" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Текст</label>
+                        <InputTextArea class="form-control" rows="4" @bind-Value="form.PhotoText" />
+                    </div>
+
+                    <hr />
+
+                    <h6 class="mb-2">3 фото</h6>
+
+                    <div class="mb-3">
+                        <label class="form-label">Фото зліва</label>
+                        <InputFile OnChange="e => OnPickAsync(0, e)" accept="image/*" />
+                        <div class="small text-muted mt-1">png/jpg/webp</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Фото по центру</label>
+                        <InputFile OnChange="e => OnPickAsync(1, e)" accept="image/*" />
+                        <div class="small text-muted mt-1">png/jpg/webp</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Фото справа</label>
+                        <InputFile OnChange="e => OnPickAsync(2, e)" accept="image/*" />
+                        <div class="small text-muted mt-1">png/jpg/webp</div>
+                    </div>
+
+                    <hr />
+
+                    <h6 class="mb-2">Різдвяний блок</h6>
+
+                    <div class="mb-3">
+                        <label class="form-label">Заголовок (Різдво)</label>
+                        <InputText class="form-control" @bind-Value="form.ChristmasTitle" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Текст (Різдво)</label>
+                        <InputTextArea class="form-control" rows="4" @bind-Value="form.ChristmasText" />
+                    </div>
+
+                    <button class="btn btn-primary" type="submit" disabled="@saving">
+                        @(saving ? "Збереження..." : "Зберегти")
+                    </button>
+
+                    @if (!string.IsNullOrWhiteSpace(msg))
+                    {
+                        <div class="alert alert-info mt-3 mb-0">@msg</div>
+                    }
+                </div>
+            </div>
+
+            <!-- RIGHT: Preview -->
+            <div class="col-lg-6">
+                <div class="p-3 border rounded-4 bg-white shadow-sm">
+                    <div class="small text-muted mb-2">Preview (як на сайті)</div>
+
+                    <div class="ec-photo-middle mb-3">
+                        <img src="@GetPreviewOrSaved(0)" class="ec-photo ec-photo-side" alt="left" />
+                        <img src="@GetPreviewOrSaved(1)" class="ec-photo ec-photo-center" alt="center" />
+                        <img src="@GetPreviewOrSaved(2)" class="ec-photo ec-photo-side" alt="right" />
+                    </div>
+
+                    <div class="ec-photo-desc text-center">
+                        <h3 class="ec-photo-title">@form.PhotoTitle</h3>
+                        <p class="ec-photo-text">@form.PhotoText</p>
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="ec-christmas text-center">
+                            <div class="ec-christmas-icon">🎄</div>
+                            <h3 class="ec-christmas-title">@form.ChristmasTitle</h3>
+                            <p class="ec-christmas-text">@form.ChristmasText</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
 
 @code {
+    private bool loading = true;
+    private bool saving = false;
+    private string? msg;
 
+    private HomeSectionEditVm form = new();
+    private HomeSection? entity;
+
+    // 0-left,1-center,2-right
+    private IBrowserFile?[] picked = new IBrowserFile?[3];
+    private string?[] preview = new string?[3];
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+
+        entity = await Db.HomeSections.AsNoTracking().FirstOrDefaultAsync();
+
+        if (entity is null)
+        {
+            form = new HomeSectionEditVm(); // порожня форма
+        }
+        else
+        {
+            // ✅ Entity -> VM (мапінг)
+            form = new HomeSectionEditVm
+            {
+                PhotoTitle = entity.PhotoTitle,
+                PhotoText = entity.PhotoText,
+                ChristmasTitle = entity.ChristmasTitle,
+                ChristmasText = entity.ChristmasText,
+                ImgLeftPath = entity.ImgLeftPath,
+                ImgCenterPath = entity.ImgCenterPath,
+                ImgRightPath = entity.ImgRightPath
+            };
+        }
+
+        loading = false;
+    }
+
+    private string GetPreviewOrSaved(int idx)
+    {
+        // якщо вибрали новий файл — показуємо dataURL
+        if (!string.IsNullOrWhiteSpace(preview[idx]))
+            return preview[idx]!;
+
+        // інакше — збережений шлях, або плейсхолдер
+        return idx switch
+        {
+            0 => string.IsNullOrWhiteSpace(form.ImgLeftPath) ? "/images/placeholder.jpg" : form.ImgLeftPath!,
+            1 => string.IsNullOrWhiteSpace(form.ImgCenterPath) ? "/images/placeholder.jpg" : form.ImgCenterPath!,
+            2 => string.IsNullOrWhiteSpace(form.ImgRightPath) ? "/images/placeholder.jpg" : form.ImgRightPath!,
+            _ => "/images/placeholder.jpg"
+        };
+    }
+
+    private async Task OnPickAsync(int idx, InputFileChangeEventArgs e)
+    {
+        msg = null;
+
+        var file = e.File;
+        if (file is null) return;
+
+        // збережемо файл в масив
+        picked[idx] = file;
+
+        // ✅ preview (data url)
+        preview[idx] = await ToDataUrlAsync(file, maxBytes: 600_000); // ~600KB для превʼю
+    }
+
+    private async Task SaveAsync()
+    {
+        saving = true;
+        msg = null;
+
+        try
+        {
+            // беремо ще раз entity з трекінгом
+            entity = await Db.HomeSections.FirstOrDefaultAsync();
+
+            if (entity is null)
+            {
+                // ✅ VM -> Entity (мапінг)
+                entity = new HomeSection
+                {
+                    PhotoTitle = form.PhotoTitle,
+                    PhotoText = form.PhotoText,
+                    ChristmasTitle = form.ChristmasTitle,
+                    ChristmasText = form.ChristmasText,
+                    CreatedAtUtc = DateTime.UtcNow,
+                    UpdatedAtUtc = DateTime.UtcNow
+                };
+
+                Db.HomeSections.Add(entity);
+            }
+            else
+            {
+                // ✅ VM -> Entity (мапінг)
+                entity.PhotoTitle = form.PhotoTitle;
+                entity.PhotoText = form.PhotoText;
+                entity.ChristmasTitle = form.ChristmasTitle;
+                entity.ChristmasText = form.ChristmasText;
+                entity.UpdatedAtUtc = DateTime.UtcNow;
+            }
+
+            // ✅ якщо вибрали нові фото — стискаємо і зберігаємо
+            if (picked[0] is not null)
+            {
+                await ReplaceImageAsync(
+                    oldPath: entity.ImgLeftPath,
+                    setNew: v => entity.ImgLeftPath = v,
+                    file: picked[0]!,
+                    folder: "uploads/home");
+
+                form.ImgLeftPath = entity.ImgLeftPath;
+                picked[0] = null; preview[0] = null;
+            }
+
+            if (picked[1] is not null)
+            {
+                await ReplaceImageAsync(
+                    oldPath: entity.ImgCenterPath,
+                    setNew: v => entity.ImgCenterPath = v,
+                    file: picked[1]!,
+                    folder: "uploads/home");
+
+                form.ImgCenterPath = entity.ImgCenterPath;
+                picked[1] = null; preview[1] = null;
+            }
+
+            if (picked[2] is not null)
+            {
+                await ReplaceImageAsync(
+                    oldPath: entity.ImgRightPath,
+                    setNew: v => entity.ImgRightPath = v,
+                    file: picked[2]!,
+                    folder: "uploads/home");
+
+                form.ImgRightPath = entity.ImgRightPath;
+                picked[2] = null; preview[2] = null;
+            }
+
+            await Db.SaveChangesAsync();
+            msg = "✅ Збережено!";
+        }
+        catch (Exception ex)
+        {
+            msg = "❌ Помилка: " + ex.Message;
+        }
+        finally
+        {
+            saving = false;
+        }
+    }
+
+    private async Task ReplaceImageAsync(string? oldPath, Action<string> setNew, IBrowserFile file, string folder)
+    {
+        // збереження нового
+        var newPath = await ImageStore.SaveCompressedAsync(file, folder, maxWidth: 1600, quality: 75);
+        setNew(newPath);
+
+        // видаляємо старий лише якщо це наш uploads
+        if (!string.IsNullOrWhiteSpace(oldPath) &&
+            oldPath.StartsWith("/uploads/", StringComparison.OrdinalIgnoreCase))
+        {
+            await ImageStore.DeleteIfExistsAsync(oldPath);
+        }
+    }
+
+    private static async Task<string> ToDataUrlAsync(IBrowserFile file, int maxBytes)
+    {
+        // читаємо не більше maxBytes (превʼю, щоб не вбивало RAM)
+        var size = (int)Math.Min(file.Size, maxBytes);
+
+        using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+        var buffer = new byte[size];
+        var read = 0;
+
+        while (read < size)
+        {
+            var n = await stream.ReadAsync(buffer.AsMemory(read, size - read));
+            if (n == 0) break;
+            read += n;
+        }
+
+        var base64 = Convert.ToBase64String(buffer, 0, read);
+        return $"data:{file.ContentType};base64,{base64}";
+    }
+
+    // Мінімальний VM тут, щоб сторінка працювала одразу (можеш винести в окремий файл)
+    public class HomeSectionEditVm
+    {
+        public string PhotoTitle { get; set; } = "Живе спілкування англійською";
+        public string PhotoText { get; set; } =
+            "Атмосферні заняття в English Club W.O.W — це не просто уроки, а практика, впевненість та задоволення від навчання. Ми вчимо говорити, а не зазубрювати.";
+
+        public string ChristmasTitle { get; set; } = "З Різдвом Христовим!";
+        public string ChristmasText { get; set; } =
+            "Нехай це Різдво принесе мир, тепло та натхнення у кожен дім. Бажаємо нових знань, впевнених кроків до мрій та приємних відкриттів разом з English Club W.O.W ✨";
+
+        public string? ImgLeftPath { get; set; }
+        public string? ImgCenterPath { get; set; }
+        public string? ImgRightPath { get; set; }
+    }
 }

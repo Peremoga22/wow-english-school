@@ -31,6 +31,7 @@ builder.Services.Configure<TelegramOptions>(builder.Configuration.GetSection("Te
 builder.Services.AddScoped<AppointmentNotifier>();
 builder.Services.AddScoped<TelegramBotService>();
 builder.Services.AddScoped<ReviewService>();
+builder.Services.AddScoped<ImageService>();
 
 
 builder.Services.AddSingleton<ITelegramBotClient>(sp =>
