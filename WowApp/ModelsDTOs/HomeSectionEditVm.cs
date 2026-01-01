@@ -7,9 +7,9 @@ namespace WowApp.ModelsDTOs
 
         public int? Id { get; set; }
 
-        public string? Photo1Url { get; set; }
-        public string? Photo2Url { get; set; }
-        public string? Photo3Url { get; set; }
+        public string ImgLeftPath { get; set; } = "";
+        public string ImgCenterPath { get; set; } = "";
+        public string ImgRightPath { get; set; } = "";
 
         [Required(ErrorMessage = "Вкажіть заголовок")]
         [StringLength(120)]
@@ -26,5 +26,7 @@ namespace WowApp.ModelsDTOs
         [Required(ErrorMessage = "Вкажіть текст Різдва")]
         [StringLength(700)]
         public string ChristmasText { get; set; } = "";
+
+        public bool IsCulture { get; set; }
     }
 }

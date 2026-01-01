@@ -220,6 +220,8 @@ namespace WowApp.Data
                 b.Property(x => x.ChristmasText).HasMaxLength(600);
 
                 b.Property(x => x.UpdatedAtUtc).HasDefaultValueSql("GETUTCDATE()");
+
+                b.Property(x => x.IsCulture).HasDefaultValue(false);
             }
         }
     }

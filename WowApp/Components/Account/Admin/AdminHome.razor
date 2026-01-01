@@ -1,322 +1,197 @@
 ﻿@page "/admin-home"
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Components.Forms
 @inject ApplicationDbContext Db
-@inject ImageService ImageStore
-
+@inject NavigationManager Nav
 @layout AdminLayout
 @attribute [Authorize(Roles = "Admin")]
 @rendermode InteractiveServer
 
-<PageTitle>Admin | Home</PageTitle>
+<PageTitle>Admin Home</PageTitle>
 
-<h3 class="mb-3">Home: блок з 3 фото + текст + Різдво</h3>
+<div class="container my-4">
 
-@if (loading)
-{
-    <div class="text-muted">Завантаження...</div>
-}
-else
-{
-    <EditForm Model="form" OnValidSubmit="SaveAsync">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-
-        <div class="row g-4">
-            <!-- LEFT: Form -->
-            <div class="col-lg-6">
-                <div class="p-3 border rounded-4 bg-white shadow-sm">
-
-                    <div class="mb-3">
-                        <label class="form-label">Заголовок</label>
-                        <InputText class="form-control" @bind-Value="form.PhotoTitle" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Текст</label>
-                        <InputTextArea class="form-control" rows="4" @bind-Value="form.PhotoText" />
-                    </div>
-
-                    <hr />
-
-                    <h6 class="mb-2">3 фото</h6>
-
-                    <div class="mb-3">
-                        <label class="form-label">Фото зліва</label>
-                        <InputFile OnChange="e => OnPickAsync(0, e)" accept="image/*" />
-                        <div class="small text-muted mt-1">png/jpg/webp</div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Фото по центру</label>
-                        <InputFile OnChange="e => OnPickAsync(1, e)" accept="image/*" />
-                        <div class="small text-muted mt-1">png/jpg/webp</div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Фото справа</label>
-                        <InputFile OnChange="e => OnPickAsync(2, e)" accept="image/*" />
-                        <div class="small text-muted mt-1">png/jpg/webp</div>
-                    </div>
-
-                    <hr />
-
-                    <h6 class="mb-2">Різдвяний блок</h6>
-
-                    <div class="mb-3">
-                        <label class="form-label">Заголовок (Різдво)</label>
-                        <InputText class="form-control" @bind-Value="form.ChristmasTitle" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Текст (Різдво)</label>
-                        <InputTextArea class="form-control" rows="4" @bind-Value="form.ChristmasText" />
-                    </div>
-
-                    <button class="btn btn-primary" type="submit" disabled="@saving">
-                        @(saving ? "Збереження..." : "Зберегти")
-                    </button>
-
-                    @if (!string.IsNullOrWhiteSpace(msg))
-                    {
-                        <div class="alert alert-info mt-3 mb-0">@msg</div>
-                    }
-                </div>
-            </div>
-
-            <!-- RIGHT: Preview -->
-            <div class="col-lg-6">
-                <div class="p-3 border rounded-4 bg-white shadow-sm">
-                    <div class="small text-muted mb-2">Preview (як на сайті)</div>
-
-                    <div class="ec-photo-middle mb-3">
-                        <img src="@GetPreviewOrSaved(0)" class="ec-photo ec-photo-side" alt="left" />
-                        <img src="@GetPreviewOrSaved(1)" class="ec-photo ec-photo-center" alt="center" />
-                        <img src="@GetPreviewOrSaved(2)" class="ec-photo ec-photo-side" alt="right" />
-                    </div>
-
-                    <div class="ec-photo-desc text-center">
-                        <h3 class="ec-photo-title">@form.PhotoTitle</h3>
-                        <p class="ec-photo-text">@form.PhotoText</p>
-                    </div>
-
-                    <div class="mt-4">
-                        <div class="ec-christmas text-center">
-                            <div class="ec-christmas-icon">🎄</div>
-                            <h3 class="ec-christmas-title">@form.ChristmasTitle</h3>
-                            <p class="ec-christmas-text">@form.ChristmasText</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+    <!-- Top bar -->
+    <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3 mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Наповнення сторінки — Домашня</h3>
+            <p class="text-muted mb-0 small">
+                Керування титульним блоком, фото та текстами (UA/EN)
+            </p>
         </div>
-    </EditForm>
-}
+
+        <div class="d-flex gap-2 flex-wrap align-items-center">
+            <!-- Culture switch -->
+            <div class="btn-group" role="group" aria-label="Culture switch">
+                <button type="button"
+                        class="btn btn-outline-secondary rounded-pill px-3 @(selectedCulture == Culture.Ua ? "active" : "")"
+                        @onclick="() => selectedCulture = Culture.Ua">
+                    🇺🇦 UA
+                </button>
+                <button type="button"
+                        class="btn btn-outline-secondary rounded-pill px-3 @(selectedCulture == Culture.En ? "active" : "")"
+                        @onclick="() => selectedCulture = Culture.En">
+                    🇬🇧 EN
+                </button>
+            </div>
+
+            <!-- Add -->
+            <NavLink class="btn ec-btn-primary rounded-pill px-4"
+                     href="@AddHref">
+                <i class="bi bi-plus-lg me-1"></i>
+                Додати
+                <span class="opacity-75 ms-1">(@(selectedCulture == Culture.En ? "EN" : "UA"))</span>
+            </NavLink>
+        </div>
+    </div>
+
+    <!-- Panel -->
+    <section class="ec-panel">
+        <header class="ec-panel__head">
+            <div>
+                <h1 class="ec-title mb-1">Домашня сторінка — записи</h1>
+                <p class="ec-subtitle mb-0">Список блоків контенту (можна редагувати / видаляти)</p>
+            </div>
+        </header>
+
+        <div class="ec-divider"></div>
+
+        @if (loading)
+        {
+            <div class="text-muted py-3">Завантаження...</div>
+        }
+        else if (filtered.Count == 0)
+        {
+            <div class="text-muted py-3">Немає записів для @(selectedCulture == Culture.En ? "EN" : "UA")</div>
+        }
+        else
+        {
+            <div class="row g-3">
+                @foreach (var item in filtered)
+                {
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <article class="border rounded-4 bg-white shadow-sm p-3 h-100 d-flex flex-column">
+                            <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                                <span class="badge rounded-pill @(item.IsCulture ? "text-bg-primary" : "text-bg-secondary")">
+                                    @(item.IsCulture ? "EN" : "UA")
+                                </span>
+
+                                <div class="text-muted small">
+                                    @item.UpdatedAtUtc.ToString("dd.MM.yyyy")
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <div class="fw-semibold text-truncate">@item.PhotoTitle</div>
+                                <div class="text-muted small" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">
+                                    @item.PhotoText
+                                </div>
+                            </div>
+
+                            @if (!string.IsNullOrWhiteSpace(item.ChristmasTitle) || !string.IsNullOrWhiteSpace(item.ChristmasText))
+                            {
+                                <div class="mt-2 p-2 rounded-3 bg-light">
+                                    <div class="small fw-semibold">🎄 @item.ChristmasTitle</div>
+                                    @if (!string.IsNullOrWhiteSpace(item.ChristmasText))
+                                    {
+                                        <div class="text-muted small" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
+                                            @item.ChristmasText
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            <div class="mt-auto pt-3 d-flex gap-2 flex-wrap">
+                                <NavLink class="btn btn-outline-primary btn-sm rounded-pill px-3"
+                                         href="@($"/edit-admin-home/{item.Id}")">
+                                    <i class="bi bi-pencil me-1"></i> Редагувати
+                                </NavLink>
+
+                                <button type="button"
+                                        class="btn btn-outline-danger btn-sm rounded-pill px-3 d-inline-flex align-items-center gap-1"
+                                        disabled="@deleting.Contains(item.Id)"
+                                        @onclick="() => ConfirmAndDeleteAsync(item)">
+                                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                    <span>@(deleting.Contains(item.Id) ? "Видаляю..." : "Видалити")</span>
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+                }
+            </div>
+        }
+    </section>
+</div>
 
 @code {
+    private enum Culture { Ua, En }
+
     private bool loading = true;
-    private bool saving = false;
-    private string? msg;
+    private readonly HashSet<int> deleting = new();
 
-    private HomeSectionEditVm form = new();
-    private HomeSection? entity;
+    private List<HomeSection> rows = new();
+    private List<HomeSection> filtered = new();
 
-    // 0-left,1-center,2-right
-    private IBrowserFile?[] picked = new IBrowserFile?[3];
-    private string?[] preview = new string?[3];
+    private Culture selectedCulture = Culture.Ua;
+
+    private string AddHref =>
+        selectedCulture == Culture.En ? "/edit-admin-home?culture=en" : "/edit-admin-home?culture=uk";
 
     protected override async Task OnInitializedAsync()
     {
         loading = true;
 
-        entity = await Db.HomeSections.AsNoTracking().FirstOrDefaultAsync();
+        rows = await Db.HomeSections
+            .AsNoTracking()
+            .OrderByDescending(x => x.UpdatedAtUtc)
+            .ToListAsync();
 
-        if (entity is null)
-        {
-            form = new HomeSectionEditVm(); // порожня форма
-        }
-        else
-        {
-            // ✅ Entity -> VM (мапінг)
-            form = new HomeSectionEditVm
-            {
-                PhotoTitle = entity.PhotoTitle,
-                PhotoText = entity.PhotoText,
-                ChristmasTitle = entity.ChristmasTitle,
-                ChristmasText = entity.ChristmasText,
-                ImgLeftPath = entity.ImgLeftPath,
-                ImgCenterPath = entity.ImgCenterPath,
-                ImgRightPath = entity.ImgRightPath
-            };
-        }
-
+        ApplyFilter();
         loading = false;
     }
 
-    private string GetPreviewOrSaved(int idx)
+    protected override void OnAfterRender(bool firstRender)
     {
-        // якщо вибрали новий файл — показуємо dataURL
-        if (!string.IsNullOrWhiteSpace(preview[idx]))
-            return preview[idx]!;
+        // нічого
+    }
 
-        // інакше — збережений шлях, або плейсхолдер
-        return idx switch
+    private void ApplyFilter()
+    {
+        var isEn = selectedCulture == Culture.En;
+        filtered = rows.Where(x => x.IsCulture == isEn).ToList();
+        StateHasChanged();
+    }
+
+    private Culture _lastCulture;
+    protected override void OnParametersSet()
+    {
+        // якщо перемкнули культуру — оновити список
+        if (_lastCulture != selectedCulture)
         {
-            0 => string.IsNullOrWhiteSpace(form.ImgLeftPath) ? "/images/placeholder.jpg" : form.ImgLeftPath!,
-            1 => string.IsNullOrWhiteSpace(form.ImgCenterPath) ? "/images/placeholder.jpg" : form.ImgCenterPath!,
-            2 => string.IsNullOrWhiteSpace(form.ImgRightPath) ? "/images/placeholder.jpg" : form.ImgRightPath!,
-            _ => "/images/placeholder.jpg"
-        };
+            _lastCulture = selectedCulture;
+            ApplyFilter();
+        }
     }
 
-    private async Task OnPickAsync(int idx, InputFileChangeEventArgs e)
+    private async Task ConfirmAndDeleteAsync(HomeSection row)
     {
-        msg = null;
+        if (row is null) return;
 
-        var file = e.File;
-        if (file is null) return;
-
-        // збережемо файл в масив
-        picked[idx] = file;
-
-        // ✅ preview (data url)
-        preview[idx] = await ToDataUrlAsync(file, maxBytes: 600_000); // ~600KB для превʼю
-    }
-
-    private async Task SaveAsync()
-    {
-        saving = true;
-        msg = null;
-
+        deleting.Add(row.Id);
         try
         {
-            // беремо ще раз entity з трекінгом
-            entity = await Db.HomeSections.FirstOrDefaultAsync();
+            var entity = await Db.HomeSections.FirstOrDefaultAsync(x => x.Id == row.Id);
+            if (entity is null) return;
 
-            if (entity is null)
-            {
-                // ✅ VM -> Entity (мапінг)
-                entity = new HomeSection
-                {
-                    PhotoTitle = form.PhotoTitle,
-                    PhotoText = form.PhotoText,
-                    ChristmasTitle = form.ChristmasTitle,
-                    ChristmasText = form.ChristmasText,
-                    CreatedAtUtc = DateTime.UtcNow,
-                    UpdatedAtUtc = DateTime.UtcNow
-                };
-
-                Db.HomeSections.Add(entity);
-            }
-            else
-            {
-                // ✅ VM -> Entity (мапінг)
-                entity.PhotoTitle = form.PhotoTitle;
-                entity.PhotoText = form.PhotoText;
-                entity.ChristmasTitle = form.ChristmasTitle;
-                entity.ChristmasText = form.ChristmasText;
-                entity.UpdatedAtUtc = DateTime.UtcNow;
-            }
-
-            // ✅ якщо вибрали нові фото — стискаємо і зберігаємо
-            if (picked[0] is not null)
-            {
-                await ReplaceImageAsync(
-                    oldPath: entity.ImgLeftPath,
-                    setNew: v => entity.ImgLeftPath = v,
-                    file: picked[0]!,
-                    folder: "uploads/home");
-
-                form.ImgLeftPath = entity.ImgLeftPath;
-                picked[0] = null; preview[0] = null;
-            }
-
-            if (picked[1] is not null)
-            {
-                await ReplaceImageAsync(
-                    oldPath: entity.ImgCenterPath,
-                    setNew: v => entity.ImgCenterPath = v,
-                    file: picked[1]!,
-                    folder: "uploads/home");
-
-                form.ImgCenterPath = entity.ImgCenterPath;
-                picked[1] = null; preview[1] = null;
-            }
-
-            if (picked[2] is not null)
-            {
-                await ReplaceImageAsync(
-                    oldPath: entity.ImgRightPath,
-                    setNew: v => entity.ImgRightPath = v,
-                    file: picked[2]!,
-                    folder: "uploads/home");
-
-                form.ImgRightPath = entity.ImgRightPath;
-                picked[2] = null; preview[2] = null;
-            }
-
+            Db.HomeSections.Remove(entity);
             await Db.SaveChangesAsync();
-            msg = "✅ Збережено!";
-        }
-        catch (Exception ex)
-        {
-            msg = "❌ Помилка: " + ex.Message;
+
+            rows.RemoveAll(x => x.Id == row.Id);
+            ApplyFilter();
         }
         finally
         {
-            saving = false;
+            deleting.Remove(row.Id);
         }
-    }
-
-    private async Task ReplaceImageAsync(string? oldPath, Action<string> setNew, IBrowserFile file, string folder)
-    {
-        // збереження нового
-        var newPath = await ImageStore.SaveCompressedAsync(file, folder, maxWidth: 1600, quality: 75);
-        setNew(newPath);
-
-        // видаляємо старий лише якщо це наш uploads
-        if (!string.IsNullOrWhiteSpace(oldPath) &&
-            oldPath.StartsWith("/uploads/", StringComparison.OrdinalIgnoreCase))
-        {
-            await ImageStore.DeleteIfExistsAsync(oldPath);
-        }
-    }
-
-    private static async Task<string> ToDataUrlAsync(IBrowserFile file, int maxBytes)
-    {
-        // читаємо не більше maxBytes (превʼю, щоб не вбивало RAM)
-        var size = (int)Math.Min(file.Size, maxBytes);
-
-        using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
-        var buffer = new byte[size];
-        var read = 0;
-
-        while (read < size)
-        {
-            var n = await stream.ReadAsync(buffer.AsMemory(read, size - read));
-            if (n == 0) break;
-            read += n;
-        }
-
-        var base64 = Convert.ToBase64String(buffer, 0, read);
-        return $"data:{file.ContentType};base64,{base64}";
-    }
-
-    // Мінімальний VM тут, щоб сторінка працювала одразу (можеш винести в окремий файл)
-    public class HomeSectionEditVm
-    {
-        public string PhotoTitle { get; set; } = "Живе спілкування англійською";
-        public string PhotoText { get; set; } =
-            "Атмосферні заняття в English Club W.O.W — це не просто уроки, а практика, впевненість та задоволення від навчання. Ми вчимо говорити, а не зазубрювати.";
-
-        public string ChristmasTitle { get; set; } = "З Різдвом Христовим!";
-        public string ChristmasText { get; set; } =
-            "Нехай це Різдво принесе мир, тепло та натхнення у кожен дім. Бажаємо нових знань, впевнених кроків до мрій та приємних відкриттів разом з English Club W.O.W ✨";
-
-        public string? ImgLeftPath { get; set; }
-        public string? ImgCenterPath { get; set; }
-        public string? ImgRightPath { get; set; }
     }
 }

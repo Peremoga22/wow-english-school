@@ -30,5 +30,7 @@ namespace WowApp.EntityModels
         public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
 
         public DateTime UpdatedAtUtc { get; set; } = DateTime.UtcNow;
+
+        public bool IsCulture { get; set; } = false;
     }
 }
