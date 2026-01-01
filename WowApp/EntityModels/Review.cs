@@ -13,9 +13,11 @@ namespace WowApp.EntityModels
         [StringLength(180, ErrorMessage = "Відгук не може перевищувати 180 символів")]
         public string Content { get; set; } = string.Empty;
         public DateOnly ReviewDate { get; set;  }
+        [Range(1, 5, ErrorMessage = "Оберіть оцінку")]
+        public int Rating { get; set; } = 5;
         public bool IsCulture { get; set; } = false;
         public string DiscussionLink { get; set; } = string.Empty;
-        public int AppointmentId { get; set; }
-        public Appointment Appointment { get; set; } = default!;
+        public int? AppointmentId { get; set; }
+        public Appointment? Appointment { get; set; } = default!;
     }
 }
