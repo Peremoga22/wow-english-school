@@ -10,9 +10,8 @@
         public int AgeOfStudent { get; set; }
         public string Group { get; set; } = string.Empty;
         public decimal Price { get; set; }
-        public bool IsCulture { get; set; } = false;
-
+        public bool IsCulture { get; set; } = false;       
         public int? AppointmentId { get; set; }
-        public Appointment? Appointment { get; set; }
+        public Appointment? Appointment { get; set; }            
     }
 }

@@ -51,8 +51,6 @@ namespace WowApp.Services
             await db.SaveChangesAsync();
 
             return entity.Id;
-        }
-
-       
+        }               
     }
 }

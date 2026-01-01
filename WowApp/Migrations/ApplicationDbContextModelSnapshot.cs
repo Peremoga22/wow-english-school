@@ -254,6 +254,9 @@ namespace WowApp.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ServiceTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -545,7 +548,7 @@ namespace WowApp.Migrations
                     b.HasOne("WowApp.EntityModels.Appointment", "Appointment")
                         .WithMany("ServiceClients")
                         .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Appointment");
                 });

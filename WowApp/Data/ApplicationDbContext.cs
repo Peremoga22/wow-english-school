@@ -50,7 +50,10 @@ namespace WowApp.Data
                                
                 b.Property(x => x.AppointmentDate)
                     .HasColumnType("date");
-                             
+
+                b.Property(x => x.ServiceId)
+                    .IsRequired(false);
+
                 b.HasOne(x => x.User)
                     .WithMany()                
                     .HasForeignKey(x => x.UserId)
@@ -101,8 +104,12 @@ namespace WowApp.Data
                     .HasColumnType("decimal(18,2)");
 
                 b.Property(x => x.IsCulture)
-                    .HasDefaultValue(false);                            
-                               
+                    .HasDefaultValue(false);
+                              
+                b.HasOne(x => x.Appointment)
+                    .WithMany(a => a.ServiceClients)
+                    .HasForeignKey(x => x.AppointmentId)
+                    .OnDelete(DeleteBehavior.SetNull);                                                       
             }
         }
 

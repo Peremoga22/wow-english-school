@@ -12,8 +12,8 @@ using WowApp.Data;
 namespace WowApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251231172405_InitDb")]
-    partial class InitDb
+    [Migration("20260101150645_InitDB")]
+    partial class InitDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -256,6 +256,9 @@ namespace WowApp.Migrations
                     b.Property<string>("Message")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ServiceTitle")
                         .IsRequired()
@@ -548,7 +551,7 @@ namespace WowApp.Migrations
                     b.HasOne("WowApp.EntityModels.Appointment", "Appointment")
                         .WithMany("ServiceClients")
                         .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Appointment");
                 });

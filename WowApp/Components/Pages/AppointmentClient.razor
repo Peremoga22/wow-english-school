@@ -4,6 +4,7 @@
 @inject NavigationManager _nav
 @inject AuthenticationStateProvider AuthState
 @inject AppointmentNotifier _notification
+@inject ClientService _clientService
 @rendermode InteractiveServer
 
 <PageTitle>Безкоштовний урок</PageTitle>
@@ -46,8 +47,20 @@
 
                         <div class="mb-3 mt-3">
                             <label class="form-label">Що вас цікавить? (опціонально)</label>
-                            <InputText class="form-control" @bind-Value="_model.Group" placeholder="Для дорослих/Дитячі" />
+
+                            <InputSelect class="form-select" @bind-Value="_model.ServiceId">
+                                <option value="">— Оберіть послугу —</option>
+
+                                @foreach (var s in services)
+                                {
+                                    <option value="@s.Id">
+                                        @s.TitleCard
+                                    </option>
+                                }
+                            </InputSelect>
                         </div>
+
+
 
                         <div class="mb-4">
                             <label class="form-label">Повідомлення (опціонально)</label>
@@ -95,6 +108,7 @@
 
 @code {
     private  Appointment _model = new();
+    private List<ServiceClient> services = new();
     private bool _saving;
     private string? _okText;
     private string? _errText;
@@ -102,6 +116,7 @@
     protected override async Task OnInitializedAsync()
     {
         _model.AppointmentDate = DateOnly.FromDateTime(DateTime.Today);
+        services = await _clientService.GetServiceAsync();
     }
 
     private void OnPhoneInput(ChangeEventArgs e)
@@ -117,10 +132,13 @@
         _saving = true;
 
         try
-        {                    
+        {
+            var card = services.Where(q => q.Id == _model.ServiceId).FirstOrDefault();
+            _model.Group = card.Group;
+            _model.ServiceTitle = card.TitleCard;
             var id = await _telegramBotService.SaveAppointmentClientAsync(_model);
             _okText = $"Готово! Заявку прийнято! Ми скоро з вами звʼяжемося.";
-            await _notification.NotifyNewAppointmentAsync(_model);                      
+            await _notification.NotifyNewAppointmentAsync(_model);             
         }
         catch (Exception ex)
         {
@@ -129,7 +147,9 @@
         }
         finally
         {
-            _saving = false;          
+            _model = new();
+            _saving = false;     
+            _model.AppointmentDate = DateOnly.FromDateTime(DateTime.Today);
         }              
     }
 

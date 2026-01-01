@@ -33,7 +33,8 @@ namespace WowApp.EntityModels
 
         public string? UserId { get; set; }
         public ApplicationUser? User { get; set; }
-               
+        public int? ServiceId { get; set; }
+
         public List<ServiceClient> ServiceClients { get; set; } = new();
         public List<Portfolio> Portfolios { get; set; } = new();
         public List<Review> Reviews { get; set; } = new();

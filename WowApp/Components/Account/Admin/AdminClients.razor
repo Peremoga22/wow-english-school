@@ -1,6 +1,5 @@
 ﻿@page "/admin-clients"
 
-
 @using WowApp.Components.Layout
 @inject NavigationManager _navigationManager
 @inject IJSRuntime JS
@@ -10,13 +9,13 @@
 @rendermode InteractiveServer
 
 <PageTitle>Admin clients</PageTitle>
-<main class="container my-4">
 
+<main class="container my-4">
     <section class="ec-panel">
         <header class="ec-panel__head">
             <div>
                 <h1 class="ec-title">Календар записів</h1>
-                <p class="ec-subtitle">Оберіть день і перегляньте всі записи за послугами</p>
+                <p class="ec-subtitle">Перегляньте всі записи за послугами</p>
             </div>
         </header>
 
@@ -29,27 +28,23 @@
         else
         {
             <div class="ec-grid">
-                @foreach (var row in rows)
+                @foreach (var appt in rows)
                 {
-                    <article class="ec-entry">
+                    var row = MapToCalendarRowDto(appt);
 
+                    <article class="ec-entry">
                         <div class="ec-entry__top">
-                            @* Ліва частина: “бейдж/група” *@
                             @if (!string.IsNullOrWhiteSpace(row.Group))
                             {
-                                <span class="ec-badge">
-                                    @row.Group
-                                </span>
+                                <span class="ec-badge">@row.Group</span>
                             }
                             else
                             {
                                 <span class="ec-badge ec-badge--muted">Без групи</span>
                             }
 
-                            @* Права частина: дата/час *@
                             <div class="ec-date">
-                                <div class="ec-date__d">@row.AppointmentDate.ToString("dd.MM.yyyy")</div>
-                                                               
+                                <div class="ec-date__d">@row.Date.ToString("dd.MM.yyyy")</div>
                             </div>
                         </div>
 
@@ -64,63 +59,59 @@
                             </div>
 
                             <div class="ec-proc">
-                                @if (!string.IsNullOrWhiteSpace(row.ServiceTitle))
+                                @if (!string.IsNullOrWhiteSpace(row.TitleCard))
                                 {
-                                    <div class="ec-proc__title">@row.ServiceTitle</div>
+                                    <div class="ec-proc__title">@row.TitleCard</div>
                                 }
                                 else
                                 {
                                     <div class="ec-proc__title text-muted">Послуга не знайдена</div>
                                 }
-@* 
-                                @if (!string.IsNullOrWhiteSpace(row.ServiceClients))
+
+                                @if (!string.IsNullOrWhiteSpace(row.DescriptionCard))
                                 {
                                     <div class="ec-proc__desc">@row.DescriptionCard</div>
-                                } *@
+                                }
                             </div>
                         </div>
 
                         <div class="ec-entry__bottom">
                             <div class="ec-price">
-                               @*  @if (row.Price.HasValue)
+                                @if (row.Price.HasValue)
                                 {
                                     <span class="duration">@row.Price.Value.ToString("C0", ua)</span>
                                 }
                                 else
                                 {
                                     <span class="text-muted">—</span>
-                                } *@
+                                }
                             </div>
 
                             <button class="btn btn-outline-danger btn-sm rounded-pill d-inline-flex align-items-center gap-1"
                                     title="Видалити"
                                     disabled="@deleting.Contains(row.Id)"
-                                    @onclick="() => ConfirmAndDeleteAsync(MapToCalendarRowDto(row))">
+                                    @onclick="() => ConfirmAndDeleteAsync(row)">
                                 <i class="fa-solid fa-trash" aria-hidden="true"></i>
                                 <span>@(deleting.Contains(row.Id) ? "Видаляю..." : "Видалити")</span>
                             </button>
                         </div>
-
                     </article>
                 }
             </div>
         }
     </section>
-
 </main>
-
-
 
 @code {
     private List<Appointment> rows = new();
-    private Appointment clientUser = new();
+    private List<ServiceClient> serviceLists = new();
     private static readonly CultureInfo ua = new("uk-UA");
-    private HashSet<int> deleting = new();
+    private readonly HashSet<int> deleting = new();
 
     protected override async Task OnInitializedAsync()
     {
         rows = await _clientService.GetAllAppointmentAsync();
-
+        serviceLists = await _clientService.GetServiceAsync();
     }
 
     private async Task ConfirmAndDeleteAsync(CalendarRowDto row)
@@ -134,9 +125,7 @@
             $"❗ Цю дію неможливо скасувати.";
 
         var confirmed = await JS.InvokeAsync<bool>("confirm", message);
-
-        if (!confirmed)
-            return;
+        if (!confirmed) return;
 
         deleting.Add(row.Id);
         try
@@ -153,6 +142,12 @@
 
     private CalendarRowDto MapToCalendarRowDto(Appointment appointment)
     {
+        // “костиль”: дістаємо першу послугу по AppointmentId
+        var svc = serviceLists
+            .Where(s => s.Id == appointment.ServiceId)
+            .OrderBy(s => s.Id)
+            .FirstOrDefault();
+
         return new CalendarRowDto
         {
             Id = appointment.Id,
@@ -160,10 +155,10 @@
             ClientName = appointment.ClientName,
             ClientPhone = appointment.ClientPhone,
             Group = appointment.Group,
-            TitleCard = appointment.ServiceTitle,
-            DescriptionCard = appointment.Message,
-            Price = null, // Map if available in Appointment
-            IsCompleted = false // Map if available in Appointment
+
+            TitleCard = svc?.TitleCard ?? appointment.ServiceTitle ?? "",
+            DescriptionCard = svc?.DescriptionCard ?? appointment.Message ?? "",
+            Price = (decimal?)svc?.Price
         };
     }
 }
