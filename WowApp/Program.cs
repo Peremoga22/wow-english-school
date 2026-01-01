@@ -30,6 +30,9 @@ builder.Services.AddScoped<ClientService>();
 builder.Services.Configure<TelegramOptions>(builder.Configuration.GetSection("Telegram"));
 builder.Services.AddScoped<AppointmentNotifier>();
 builder.Services.AddScoped<TelegramBotService>();
+builder.Services.AddScoped<ReviewService>();
+
+
 builder.Services.AddSingleton<ITelegramBotClient>(sp =>
 {
     var opts = sp.GetRequiredService<IOptions<TelegramOptions>>().Value;
