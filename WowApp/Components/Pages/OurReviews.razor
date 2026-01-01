@@ -1,102 +1,115 @@
 ﻿@page "/reviews"
 @rendermode InteractiveServer
 
-<PageTitle>Reviews</PageTitle>
+@inject ReviewService ReviewService
+
+<PageTitle>Відгуки</PageTitle>
+
 <div class="py-1 ec-bg-soft">
-<div class="container py-5 ec-bg-soft">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-white p-2 mb-4 rounded shadow-sm">
-            <li class="breadcrumb-item">
-                <a href="/" class="bread-link">Домашня сторінка</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">Відгуки</li>
-        </ol>
-    </nav>
-</div>
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row g-4 align-items-center">
-            <div class="col-lg-7">
-                <span class="badge rounded-pill ec-badge-primary px-3 py-2 mb-3">
-                    English Club
-                </span>
+    <div class="container py-5">
 
-                <h1 class="display-6 fw-bold mb-3">Наші відгуки</h1>
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-white p-2 mb-4 rounded shadow-sm">
+                <li class="breadcrumb-item">
+                    <a href="/" class="bread-link">Домашня сторінка</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Відгуки</li>
+            </ol>
+        </nav>
 
-                <p class="text-muted fs-5 mb-0" style="max-width: 820px;">
-                    Нам важливо, щоб навчання було комфортним і приносило результат.
-                    Ось що кажуть наші студенти ❤️
-                </p>
-            </div>
+        <!-- Header -->
+        <section class="py-4">
+            <div class="row g-4 align-items-stretch">
+                <div class="col-lg-7">
+                    <span class="badge rounded-pill ec-badge-primary px-3 py-2 mb-3">English Club</span>
 
-            <div class="col-lg-5">
-                <div class="p-4 bg-white rounded-4 shadow-sm border h-100">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <div class="fw-bold">Середня оцінка</div>
-                            <div class="text-muted small">
-                                на основі @Filtered.Count відгуків
+                    <h1 class="display-6 fw-bold mb-2">Наші відгуки</h1>
+
+                    <p class="text-muted fs-5 mb-0" style="max-width: 820px;">
+                        Нам важливо, щоб навчання було комфортним і давало результат.
+                        Ось що кажуть наші студенти ❤️
+                    </p>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="p-4 bg-white rounded-4 shadow-sm border h-100">
+                        <div class="d-flex align-items-start justify-content-between gap-3">
+                            <div>
+                                <div class="fw-bold">Середня оцінка</div>
+                                <div class="text-muted small">
+                                    @if (isLoading)
+                                    {
+                                        <span>завантаження…</span>
+                                    }                                   
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="text-end">
-                            <div class="fs-3 fw-bold">@AvgRating.ToString("0.0")</div>
-                            <div class="text-warning">
+                            <div class="ec-stars text-warning" aria-label="Середня оцінка">
                                 @for (var i = 1; i <= 5; i++)
                                 {
-                                    <i class="bi @(i <= Math.Round(AvgRating)
-                                                                               ? "bi-star-fill"
-                                                                               : "bi-star")"></i>
-                                                                }
+                                    <i class="bi @(i <= Math.Round(AvgRating, MidpointRounding.AwayFromZero) ? "bi-star-fill" : "bi-star")"></i>
+                                }
                             </div>
                         </div>
-                    </div>
 
-                    <hr />
+                        <hr />
 
-                    <div class="d-flex gap-2 flex-wrap mb-3">
-                        <span class="badge text-bg-light border">Пояснюємо просто</span>
-                        <span class="badge text-bg-light border">Розмовна практика</span>
-                        <span class="badge text-bg-light border">Результат</span>
-                        <span class="badge text-bg-light border">Комфорт</span>
-                    </div>
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <span class="badge text-bg-light border">Пояснюємо просто</span>
+                            <span class="badge text-bg-light border">Розмовна практика</span>
+                            <span class="badge text-bg-light border">Результат</span>
+                            <span class="badge text-bg-light border">Комфорт</span>
+                        </div>
 
-                    <!-- ✅ КНОПКА ВІДГУКУ -->
-                    <div class="d-grid">
-                            <a href="/add-review"
-                           class="btn ec-btn-primary">
-                            <i class="bi bi-chat-heart me-1"></i>
-                            Залишити відгук
-                        </a>
+                        <div class="d-grid">
+                            <a href="/add-review" class="btn ec-btn-primary">
+                                <i class="bi bi-chat-heart me-1"></i>
+                                Залишити відгук
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
+        <!-- Toolbar -->
+       
 <section class="py-5">
     <div class="container">
         <div class="row g-4">
-
-            <!-- Список відгуків -->
             <div class="col-lg-12">
+
                 <div class="d-flex flex-wrap gap-2 align-items-end mb-3">
                     <div class="me-auto">
                         <h3 class="fw-bold m-0">Відгуки студентів</h3>
                         <div class="text-muted">Можна гортати і шукати по ключових словах</div>
-                    </div>                                       
+                    </div>
+
+                    <div class="ms-auto">
+                        <input class="form-control form-control-sm"
+                               style="min-width: 280px;"
+                               placeholder="Пошук (ім’я, текст, тег)..."
+                               @bind="query"
+                               @bind:event="oninput" />
+                    </div>
                 </div>
 
-                @if (Filtered.Count == 0)
-                {
-                    <div class="alert alert-light border">
-                        Нічого не знайдено. Спробуй змінити пошук 🙂
-                    </div>
-                }
-                else
-                {
-                    <div class="d-flex flex-column gap-3">
+                <div class="d-flex flex-column gap-3">
+                    @if (isLoading)
+                    {
+                        <div class="p-4 bg-white rounded-4 shadow-sm border">
+                            <div class="text-muted">Завантаження...</div>
+                        </div>
+                    }
+                    else if (!Filtered.Any())
+                    {
+                        <div class="p-4 bg-white rounded-4 shadow-sm border">
+                            <div class="fw-bold">Нічого не знайдено</div>
+                            <div class="text-muted small mt-1">Спробуй змінити запит пошуку.</div>
+                        </div>
+                    }
+                    else
+                    {
                         @foreach (var r in Paged)
                         {
                             <div class="p-4 bg-white rounded-4 shadow-sm border">
@@ -104,153 +117,139 @@
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="rounded-circle bg-light border d-flex align-items-center justify-content-center"
                                              style="width: 48px; height: 48px;">
-                                            <span class="fw-bold text-primary">@GetInitials(r.Name)</span>
+                                            <span class="fw-bold text-primary">@GetInitial(r.ClientName)</span>
                                         </div>
+
                                         <div>
-                                            <div class="fw-bold">@r.Name</div>
-                                            <div class="text-muted small">@r.Date.ToString("dd.MM.yyyy")</div>
+                                            <div class="fw-bold">@r.ClientName</div>
+                                            <div class="text-muted small">@FormatDate(r.ReviewDate)</div>
                                         </div>
                                     </div>
 
                                     <div class="text-warning">
                                         @for (var i = 1; i <= 5; i++)
                                         {
-                                            <i class="bi @(i <= r.Rating ? "bi-star-fill" : "bi-star")"></i>
+                                            <i class="bi @(i <= ClampRating(r.Rating) ? "bi-star-fill" : "bi-star")"></i>
                                         }
                                     </div>
                                 </div>
 
                                 <div class="mt-3 text-muted">
-                                    “@r.Text”
+                                    “@r.Content”
                                 </div>
 
-                                @if (!string.IsNullOrWhiteSpace(r.Tag))
-                                {
-                                    <div class="mt-3">
-                                        <span class="badge rounded-pill text-bg-light border">@r.Tag</span>
-                                    </div>
-                                }
                             </div>
                         }
-                    </div>
+                    }
+                </div>
 
-                    <div class="d-flex align-items-center justify-content-between mt-3">
-                        <small class="text-muted">Показано @Paged.Count з @Filtered.Count</small>
+                <div class="d-flex align-items-center justify-content-between mt-3">
+                    <small class="text-muted">Показано @ShownCount з @Filtered.Count()</small>
 
-                        <div class="btn-group">
-                            <button class="btn btn-outline-secondary btn-sm" @onclick="PrevPage" disabled="@IsFirstPage">«</button>
-                            <span class="btn btn-outline-secondary btn-sm disabled">Стор. @@page / @totalPages</span>
-                            <button class="btn btn-outline-secondary btn-sm" @onclick="NextPage" disabled="@IsLastPage">»</button>
-                        </div>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-secondary btn-sm"
+                                disabled="@(page <= 1)"
+                                @onclick="Prev">
+                            «
+                        </button>
+
+                        <span class="btn btn-outline-secondary btn-sm disabled">
+                            Стор. @@page / @TotalPages
+                        </span>
+
+                        <button class="btn btn-outline-secondary btn-sm"
+                                disabled="@(page >= TotalPages)"
+                                @onclick="Next">
+                            »
+                        </button>
                     </div>
-                }
+                </div>
+
             </div>
-                      
-
         </div>
     </div>
 </section>
+      
+    </div>
 </div>
-@code {
-    private readonly List<ReviewVM> reviews = new()
-    {
-        new("Олена", 5, "Дуже зрозуміло пояснюють, багато говоримо на уроці. Нарешті перестала боятися помилок!", "Розмовна практика", DateTime.Today.AddDays(-4)),
-        new("Андрій", 5, "Класна структура уроків. Відчуваю прогрес уже за місяць!", "Результат", DateTime.Today.AddDays(-11)),
-        new("Марія", 4, "Комфортна атмосфера і нормальні домашки — не важко, але ефективно.", "Комфорт", DateTime.Today.AddDays(-21)),
-        new("Ірина", 5, "Підготовка до співбесіди пройшла супер, тепер спокійно спілкуюсь англійською.", "Для роботи", DateTime.Today.AddDays(-34)),
-    };
 
-    private string? search;
+@code {
+    private bool isLoading = true;
+
+    private List<Review> all = new();
+    private string query = "";
 
     private int page = 1;
-    private int pageSize = 4;
-    private int totalPages = 1;
+    private const int PageSize = 6;
 
-    private bool IsFirstPage => page <= 1;
-    private bool IsLastPage => page >= totalPages;
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
 
-    private ReviewForm form = new() { Rating = 5 };
-    private bool isSending;
-    private string? success;
+        all = (await ReviewService.GetReviewAsync())
+            .OrderByDescending(x => x.ReviewDate)
+            .ToList();
 
-    private List<ReviewVM> Filtered
+        isLoading = false;
+    }
+
+    // --- Filtering ---
+    private IEnumerable<Review> Filtered
     {
         get
         {
-            var q = reviews.AsEnumerable();
-            if (!string.IsNullOrWhiteSpace(search))
-            {
-                var s = search.Trim().ToLowerInvariant();
-                q = q.Where(x =>
-                    x.Name.ToLowerInvariant().Contains(s) ||
-                    x.Text.ToLowerInvariant().Contains(s));
-            }
+            var q = (query ?? "").Trim();
+            if (string.IsNullOrWhiteSpace(q)) return all;
 
-            return q
-                .OrderByDescending(x => x.Date)
-                .ToList();
+            return all.Where(r =>
+                Contains(r.ClientName, q) ||
+                Contains(r.Content, q) ||
+                Contains(r.Rating.ToString(), q));
         }
     }
 
-    private List<ReviewVM> Paged
+    // ✅ СЕРЕДНЯ ОЦІНКА (з усіх відгуків, НЕ з пустого Reviews)
+    private double AvgRating => all.Count > 0
+        ? all.Average(r => ClampRating(r.Rating))
+        : 0;
+
+    // --- Paging ---
+    private int TotalPages => Math.Max(1, (int)Math.Ceiling(Filtered.Count() / (double)PageSize));
+
+    private IEnumerable<Review> Paged
     {
         get
         {
-            totalPages = Math.Max(1, (int)Math.Ceiling(Filtered.Count / (double)pageSize));
-            page = Math.Clamp(page, 1, totalPages);
-            return Filtered.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            page = Math.Clamp(page, 1, TotalPages);
+
+            return Filtered
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize);
         }
     }
 
-    private double AvgRating => Filtered.Count == 0 ? 0 : Filtered.Average(x => x.Rating);
+    private int ShownCount => Paged.Count();
 
-    private void PrevPage() { if (!IsFirstPage) page--; }
-    private void NextPage() { if (!IsLastPage) page++; }
+    private void Prev() => page = Math.Max(1, page - 1);
+    private void Next() => page = Math.Min(TotalPages, page + 1);
 
-    private async Task SubmitAsync()
+    // --- Helpers ---
+    private static bool Contains(string? source, string q) =>
+        !string.IsNullOrWhiteSpace(source) &&
+        source.Contains(q, StringComparison.OrdinalIgnoreCase);
+
+    private static int ClampRating(int rating) => Math.Clamp(rating, 1, 5);
+
+    private static string GetInitial(string? name)
     {
-        isSending = true;
-        success = null;
-
-        // TODO: Тут підключиш БД / Telegram / модерацію
-        await Task.Delay(500);
-
-        reviews.Insert(0, new ReviewVM(
-            form.Name.Trim(),
-            form.Rating,
-            form.Text.Trim(),
-            string.IsNullOrWhiteSpace(form.Tag) ? null : form.Tag.Trim(),
-            DateTime.Today));
-
-        form = new ReviewForm { Rating = 5 };
-        success = "Дякуємо! Ваш відгук додано ❤️";
-        isSending = false;
-
-        page = 1;
+        if (string.IsNullOrWhiteSpace(name)) return "•";
+        var ch = name.Trim()[0];
+        return char.ToUpperInvariant(ch).ToString();
     }
 
-    private static string GetInitials(string name)
+    private static string FormatDate(DateOnly d)
     {
-        if (string.IsNullOrWhiteSpace(name)) return "EC";
-        var parts = name.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        if (parts.Length == 1) return parts[0].Substring(0, 1).ToUpperInvariant();
-        return (parts[0].Substring(0, 1) + parts[1].Substring(0, 1)).ToUpperInvariant();
-    }
-
-    private sealed record ReviewVM(string Name, int Rating, string Text, string? Tag, DateTime Date);
-
-    public class ReviewForm
-    {
-        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Вкажіть імʼя")]
-        public string Name { get; set; } = "";
-
-        [System.ComponentModel.DataAnnotations.Range(1, 5, ErrorMessage = "Оцінка має бути 1–5")]
-        public int Rating { get; set; } = 5;
-
-        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Напишіть відгук")]
-        [System.ComponentModel.DataAnnotations.MinLength(5, ErrorMessage = "Відгук занадто короткий")]
-        public string Text { get; set; } = "";
-
-        public string? Tag { get; set; }
+        var dt = d.ToDateTime(TimeOnly.MinValue);
+        return dt.ToString("dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
     }
 }

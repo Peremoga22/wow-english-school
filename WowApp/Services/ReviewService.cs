@@ -13,7 +13,7 @@ namespace WowApp.Services
             _dbFactory = dbFactory;
         }
 
-        public async Task<List<Review>> GetServiceAsync(CancellationToken ct = default)
+        public async Task<List<Review>> GetReviewAsync(CancellationToken ct = default)
         {
             await using var dbContext = _dbFactory.CreateDbContext();
             return await dbContext.Reviews.ToListAsync(ct);
