@@ -1,0 +1,316 @@
+﻿@page "/admin-reviews"
+
+@using WowApp.Components.Layout
+@using System.Globalization
+@inject IJSRuntime JS
+@inject ReviewService _reviewService
+@layout AdminLayout
+@attribute [Authorize(Roles = "Admin")]
+@rendermode InteractiveServer
+
+<PageTitle>Admin • Відгуки</PageTitle>
+
+<div class="admin-page">
+    <div class="admin-header">
+        <div>
+            <h1 class="admin-title">Відгуки</h1>
+            <p class="admin-subtitle">Перегляд та модерація відгуків клієнтів</p>
+        </div>
+
+        <div class="admin-actions">
+            <div class="search">
+                <i class="bi bi-search"></i>
+                <input class="search-input"
+                       placeholder="Пошук по імені, тексту…"
+                       @bind="q"
+                       @bind:event="oninput" />
+                @if (!string.IsNullOrWhiteSpace(q))
+                {
+                    <button class="search-clear" type="button" @onclick="ClearSearch" title="Очистити">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                }
+            </div>
+
+            <select class="sort" @bind="sort">
+                <option value="new">Спочатку нові</option>
+                <option value="old">Спочатку старі</option>
+                <option value="rate_desc">Рейтинг ↓</option>
+                <option value="rate_asc">Рейтинг ↑</option>
+            </select>
+
+            <button class="btn-soft" type="button" @onclick="Reload" disabled="@loading">
+                <i class="bi bi-arrow-clockwise"></i>
+                Оновити
+            </button>
+        </div>
+    </div>
+
+    @if (loading)
+    {
+        <div class="admin-skeleton">
+            <div class="sk-row"></div>
+            <div class="sk-row"></div>
+            <div class="sk-row"></div>
+        </div>
+    }
+    else if (error is not null)
+    {
+        <div class="admin-alert admin-alert-danger">
+            <i class="bi bi-exclamation-triangle"></i>
+            <div>
+                <b>Помилка</b>
+                <div class="small">@error</div>
+            </div>
+            <button class="btn-soft ms-auto" @onclick="Reload">
+                Спробувати ще
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="admin-stats">
+            <div class="stat">
+                <div class="stat-label">Всього</div>
+                <div class="stat-value">@filtered.Count</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Середня оцінка</div>
+                <div class="stat-value">@AvgRatingText</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">З посиланням</div>
+                <div class="stat-value">@filtered.Count(x => !string.IsNullOrWhiteSpace(x.DiscussionLink))</div>
+            </div>
+        </div>
+
+        @if (filtered.Count == 0)
+        {
+            <div class="admin-empty">
+                <div class="admin-empty-icon">
+                    <i class="bi bi-chat-square-heart"></i>
+                </div>
+                <h3>Нічого не знайдено</h3>
+                <p>Спробуй змінити пошук або фільтри.</p>
+                <button class="btn-soft" @onclick="ClearSearch">
+                    Очистити пошук
+                </button>
+            </div>
+        }
+        else
+        {
+            <div class="reviews-grid">
+                @foreach (var r in filtered)
+                {
+                    var isDeleting = deletingIds.Contains(r.Id);
+
+                    <article class="review-card">
+                        <div class="review-top">
+                            <div class="review-person">
+                                <div class="avatar" title="@r.ClientName">
+                                    @Initials(r.ClientName)
+                                </div>
+                                <div class="who">
+                                    <div class="name">@r.ClientName</div>
+                                    <div class="meta">
+                                        <span class="badge">
+                                            <i class="bi bi-calendar3"></i>
+                                            @FormatDate(r.ReviewDate)
+                                        </span>
+
+                                        @if (r.IsCulture)
+                                        {
+                                            <span class="badge badge-blue" title="Culture review">
+                                                <i class="bi bi-translate"></i>
+                                                EN/UA
+                                            </span>
+                                        }
+
+                                        @if (r.AppointmentId > 0)
+                                        {
+                                            <span class="badge badge-dark" title="AppointmentId">
+                                                <i class="bi bi-ticket-perforated"></i>
+                                                #@r.AppointmentId
+                                            </span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="review-actions">
+                                <div class="rating" aria-label="Оцінка">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <i class="bi @(i <= ClampRating(r.Rating) ? "bi-star-fill" : "bi-star")"></i>
+                                    }
+                                </div>
+
+                                <button class="btn-danger-soft"
+                                        disabled="@isDeleting"
+                                        title="Видалити"
+                                        @onclick="() => ConfirmDeleteAsync(r.Id)">
+                                    @if (isDeleting)
+                                    {
+                                        <span class="spinner"></span>
+                                        <span>Видаляю…</span>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-trash3"></i>
+                                        <span>Видалити</span>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="review-body">
+                            <p class="review-text">@r.Content</p>
+                        </div>
+
+                        <div class="review-bottom">
+                            @if (!string.IsNullOrWhiteSpace(r.DiscussionLink))
+                            {
+                                <a class="link" href="@r.DiscussionLink" target="_blank" rel="noopener">
+                                    <i class="bi bi-box-arrow-up-right"></i>
+                                    Відкрити обговорення
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="muted small">
+                                    <i class="bi bi-link-45deg"></i>
+                                    Посилання відсутнє
+                                </span>
+                            }
+
+                            <span class="muted small ms-auto">
+                                ID: @r.Id
+                            </span>
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+    }
+</div>
+
+@code {  
+    private bool loading = true;
+    private string? error;
+
+    private List<Review> all = new();
+    private List<Review> filtered = new();
+
+    private string q = string.Empty;
+    private string sort = "new";
+
+    private readonly HashSet<int> deletingIds = new();
+
+    protected override async Task OnInitializedAsync()
+        => await LoadAsync();
+
+    private async Task LoadAsync()
+    {
+        try
+        {
+            loading = true;
+            error = null;
+                       
+            all = (await _reviewService.GetReviewAsync()).ToList();
+
+            ApplyFilters();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    private void ApplyFilters()
+    {
+        IEnumerable<Review> query = all;
+
+        if (!string.IsNullOrWhiteSpace(q))
+        {
+            var s = q.Trim();
+            query = query.Where(x =>
+                (!string.IsNullOrWhiteSpace(x.ClientName) && x.ClientName.Contains(s, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrWhiteSpace(x.Content) && x.Content.Contains(s, StringComparison.OrdinalIgnoreCase)));
+        }
+
+        query = sort switch
+        {
+            "old" => query.OrderBy(x => x.ReviewDate),
+            "rate_desc" => query.OrderByDescending(x => ClampRating(x.Rating)).ThenByDescending(x => x.ReviewDate),
+            "rate_asc" => query.OrderBy(x => ClampRating(x.Rating)).ThenByDescending(x => x.ReviewDate),
+            _ => query.OrderByDescending(x => x.ReviewDate),
+        };
+
+        filtered = query.ToList();
+    }
+
+    private string AvgRatingText
+        => filtered.Count == 0
+            ? "—"
+            : $"{filtered.Average(x => ClampRating(x.Rating)):0.0} / 5";
+
+    private async Task Reload()
+        => await LoadAsync();
+
+    private void ClearSearch()
+    {
+        q = string.Empty;
+        ApplyFilters();
+    }
+
+    private async Task ConfirmDeleteAsync(int Id)
+    {       
+        var ok = await JS.InvokeAsync<bool>("confirm",
+            $"Видалити відгук від “{Id}”?\n\nЦю дію неможливо скасувати.");
+
+        if (!ok) return;
+
+        deletingIds.Add(Id);
+        try
+        {            
+            await _reviewService.DeleteServiceAsync(Id);
+
+            all.RemoveAll(x => x.Id == Id);
+            ApplyFilters();
+        }
+        finally
+        {
+            deletingIds.Remove(Id);
+        }
+    }
+
+   
+    private static int ClampRating(int rating)
+        => Math.Clamp(rating, 1, 5);
+
+    private static string FormatDate(DateOnly d)
+    {       
+        var dt = d.ToDateTime(TimeOnly.MinValue);
+        return dt.ToString("dd MMM yyyy", new CultureInfo("uk-UA"));
+    }
+
+    private static string Initials(string? name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return "??";
+        var parts = name.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var a = parts.Length > 0 ? parts[0][0].ToString() : "?";
+        var b = parts.Length > 1 ? parts[1][0].ToString() : "";
+        return (a + b).ToUpperInvariant();
+    }
+       
+    private string Sort
+    {
+        get => sort;
+        set { sort = value; ApplyFilters(); }
+    }
+}
+

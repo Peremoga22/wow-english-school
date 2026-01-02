@@ -22,7 +22,7 @@ namespace WowApp.Services
             if (!allowed.Contains(file.ContentType))
                 throw new InvalidOperationException("Дозволені тільки JPG/PNG/WEBP.");
                         
-            await using var input = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+            await using var input = file.OpenReadStream(maxAllowedSize: 20 * 1024 * 1024);
             using var image = await Image.LoadAsync(input);
                        
             if (image.Width > maxWidth)
