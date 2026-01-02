@@ -117,7 +117,183 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdminHeader" xml:space="preserve">
+    <value>Адмінка</value>
+  </data>
+  <data name="ContactHeader" xml:space="preserve">
+    <value>Контакти</value>
+  </data>
+  <data name="ContractHeader" xml:space="preserve">
+    <value>Договір</value>
+  </data>
   <data name="Hero_Lead_1" xml:space="preserve">
-    <value>Англійська для дітей та дорослих</value>
+    <value>Англійська для дітей та дорослих — групові й індивідуальні заняття. Допоможемо заговорити впевнено та покращити результат у навчанні/роботі.</value>
+  </data>
+  <data name="HomeHeader" xml:space="preserve">
+    <value>Домашня</value>
+  </data>
+  <data name="LoginHeader" xml:space="preserve">
+    <value>Логін</value>
+  </data>
+  <data name="LogOutHeader" xml:space="preserve">
+    <value>Вийти</value>
+  </data>
+  <data name="PortfolioHeader" xml:space="preserve">
+    <value>Портфоліо</value>
+  </data>
+  <data name="QuickSignUpHome" xml:space="preserve">
+    <value>Швидкий запис</value>
+  </data>
+  <data name="ReviewHeader" xml:space="preserve">
+    <value>Відгуки</value>
+  </data>
+  <data name="ServiceHeader" xml:space="preserve">
+    <value>Послуги</value>
+  </data>
+  <data name="AboutUsHeader" xml:space="preserve">
+    <value>Про нас</value>
+  </data>
+  <data name="TextHome_1" xml:space="preserve">
+    <value>Безкоштовний пробний урок — визначаємо ваш рівень володіння англійською
+та підбираємо оптимальний формат навчання.</value>
+  </data>
+  <data name="TextHome_2" xml:space="preserve">
+    <value> Зворотний дзвінок — наш менеджер зв’яжеться з вами,
+ щоб проконсультувати та підібрати найкращі умови навчання відповідно до ваших цілей.</value>
+  </data>
+  <data name="TextHome_3" xml:space="preserve">
+    <value>Пн–Пт: 9:00–21:00 • Сб: 9:00–15:00 • Нд: вихідний</value>
+  </data>
+  <data name="TextHome_4" xml:space="preserve">
+    <value>ВИВЧАЙ</value>
+  </data>
+  <data name="TextHome_5" xml:space="preserve">
+    <value>Англійська у побуті</value>
+  </data>
+  <data name="TextHome_6" xml:space="preserve">
+    <value>(розмовний курс)</value>
+  </data>
+  <data name="TextHome_7" xml:space="preserve">
+    <value>Англійська для навчання</value>
+  </data>
+  <data name="TextHome_8" xml:space="preserve">
+    <value>підготовка до ЗНО/іспитів</value>
+  </data>
+  <data name="TextHome_9" xml:space="preserve">
+    <value>Англійська для бізнесу</value>
+  </data>
+  <data name="TextHome_10" xml:space="preserve">
+    <value>(спеціальний курс)</value>
+  </data>
+  <data name="TextHome_11" xml:space="preserve">
+    <value>Англійська для подорожей</value>
+  </data>
+  <data name="TextHome_12" xml:space="preserve">
+    <value>(практичний курс)</value>
+  </data>
+  <data name="TextHome_13" xml:space="preserve">
+    <value>ВДОСКОНАЛЮЙ</value>
+  </data>
+  <data name="TextHome_14" xml:space="preserve">
+    <value>Розмовний клуб</value>
+  </data>
+  <data name="TextHome_15" xml:space="preserve">
+    <value>(розмовна практика)</value>
+  </data>
+  <data name="TextHome_16" xml:space="preserve">
+    <value>Кіноперегляд Англійською</value>
+  </data>
+  <data name="TextHome_17" xml:space="preserve">
+    <value>(англійська на фільмах)</value>
+  </data>
+  <data name="TextHome_18" xml:space="preserve">
+    <value>Клуб книголюбів</value>
+  </data>
+  <data name="TextHome_19" xml:space="preserve">
+    <value>(клуб книголюбів)</value>
+  </data>
+  <data name="TextHome_20" xml:space="preserve">
+    <value>Караоке англійською</value>
+  </data>
+  <data name="TextHome_21" xml:space="preserve">
+    <value>(англійська у піснях)</value>
+  </data>
+  <data name="TextHome_22" xml:space="preserve">
+    <value>ВІДКРИВАЙ СВІТ З НАМИ</value>
+  </data>
+  <data name="TextHome_23" xml:space="preserve">
+    <value>для дітей та дорослих</value>
+  </data>
+  <data name="TextHome_24" xml:space="preserve">
+    <value>групові заняття</value>
+  </data>
+  <data name="TextHome_25" xml:space="preserve">
+    <value>індивідуальні заняття</value>
+  </data>
+  <data name="TextHome_26" xml:space="preserve">
+    <value>корпоративне навчання</value>
+  </data>
+  <data name="TextHome_27" xml:space="preserve">
+    <value>онлайн заняття</value>
+  </data>
+  <data name="TextHome_28" xml:space="preserve">
+    <value>індивідуальний підхід</value>
+  </data>
+  <data name="TextHome_29" xml:space="preserve">
+    <value>Графік роботи</value>
+  </data>
+  <data name="TextHome_30" xml:space="preserve">
+    <value>Понеділок–п’ятниця</value>
+  </data>
+  <data name="TextHome_31" xml:space="preserve">
+    <value>Субота</value>
+  </data>
+  <data name="TextHome_32" xml:space="preserve">
+    <value>Неділя</value>
+  </data>
+  <data name="TextHome_33" xml:space="preserve">
+    <value>вихідний день</value>
+  </data>
+  <data name="TextHome_34" xml:space="preserve">
+    <value>Контакти</value>
+  </data>
+  <data name="TextHome_35" xml:space="preserve">
+    <value>Тел.</value>
+  </data>
+  <data name="TextHome_36" xml:space="preserve">
+    <value>Безкоштовний урок</value>
+  </data>
+  <data name="TextHome_37" xml:space="preserve">
+    <value>Зворотній дзвінок</value>
+  </data>
+  <data name="TextFooter_1" xml:space="preserve">
+    <value>Наш English club використовує сучасні методи навчання. Ми навчаємо говорити англійською легко та з задоволенням.</value>
+  </data>
+  <data name="TextFooter_2" xml:space="preserve">
+    <value>Навігація</value>
+  </data>
+  <data name="TextFooter_3" xml:space="preserve">
+    <value>Про нас</value>
+  </data>
+  <data name="TextFooter_4" xml:space="preserve">
+    <value>Зв'язок</value>
+  </data>
+  <data name="TextFooter_5" xml:space="preserve">
+    <value>Освітні послуги</value>
+  </data>
+  <data name="TextFooter_6" xml:space="preserve">
+    <value>Діти</value>
+  </data>
+  <data name="TextFooter_7" xml:space="preserve">
+    <value>Дорослі</value>
+  </data>
+  <data name="TextFooter_8" xml:space="preserve">
+    <value>Наша історія</value>
+  </data>
+  <data name="TextFooter_9" xml:space="preserve">
+    <value>місто Стрий, вул.Охримовича, 8/25</value>
+  </data>
+  <data name="TextFooter_10" xml:space="preserve">
+    <value>Всі права захищені</value>
   </data>
 </root>

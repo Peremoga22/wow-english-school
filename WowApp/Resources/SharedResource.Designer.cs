@@ -61,11 +61,534 @@ namespace WowApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to English for children and adults.
+        ///   Looks up a localized string similar to About Us.
+        /// </summary>
+        public static string AboutUsHeader {
+            get {
+                return ResourceManager.GetString("AboutUsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin.
+        /// </summary>
+        public static string AdminHeader {
+            get {
+                return ResourceManager.GetString("AdminHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contacts.
+        /// </summary>
+        public static string ContactHeader {
+            get {
+                return ResourceManager.GetString("ContactHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract.
+        /// </summary>
+        public static string ContractHeader {
+            get {
+                return ResourceManager.GetString("ContractHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English for children and adults — group and individual lessons.
+        ///We help you speak confidently and improve your results in studies or at work..
         /// </summary>
         public static string Hero_Lead_1 {
             get {
                 return ResourceManager.GetString("Hero_Lead_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string HomeHeader {
+            get {
+                return ResourceManager.GetString("HomeHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string LoginHeader {
+            get {
+                return ResourceManager.GetString("LoginHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LogOut.
+        /// </summary>
+        public static string LogOutHeader {
+            get {
+                return ResourceManager.GetString("LogOutHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portfolio.
+        /// </summary>
+        public static string PortfolioHeader {
+            get {
+                return ResourceManager.GetString("PortfolioHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quick Sign-Up.
+        /// </summary>
+        public static string QuickSignUpHome {
+            get {
+                return ResourceManager.GetString("QuickSignUpHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reviews.
+        /// </summary>
+        public static string ReviewHeader {
+            get {
+                return ResourceManager.GetString("ReviewHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service.
+        /// </summary>
+        public static string ServiceHeader {
+            get {
+                return ResourceManager.GetString("ServiceHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our English Club uses modern teaching methods. We help you learn to speak English easily and with confidence..
+        /// </summary>
+        public static string TextFooter_1 {
+            get {
+                return ResourceManager.GetString("TextFooter_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All rights reserved..
+        /// </summary>
+        public static string TextFooter_10 {
+            get {
+                return ResourceManager.GetString("TextFooter_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Navigation.
+        /// </summary>
+        public static string TextFooter_2 {
+            get {
+                return ResourceManager.GetString("TextFooter_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About Us.
+        /// </summary>
+        public static string TextFooter_3 {
+            get {
+                return ResourceManager.GetString("TextFooter_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        public static string TextFooter_4 {
+            get {
+                return ResourceManager.GetString("TextFooter_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Educational Services.
+        /// </summary>
+        public static string TextFooter_5 {
+            get {
+                return ResourceManager.GetString("TextFooter_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Children.
+        /// </summary>
+        public static string TextFooter_6 {
+            get {
+                return ResourceManager.GetString("TextFooter_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adults.
+        /// </summary>
+        public static string TextFooter_7 {
+            get {
+                return ResourceManager.GetString("TextFooter_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our Story.
+        /// </summary>
+        public static string TextFooter_8 {
+            get {
+                return ResourceManager.GetString("TextFooter_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stryi, Okhrymovycha St., 8/25.
+        /// </summary>
+        public static string TextFooter_9 {
+            get {
+                return ResourceManager.GetString("TextFooter_9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Free trial lesson — we’ll assess your English level and find the learning format that works best for you..
+        /// </summary>
+        public static string TextHome_1 {
+            get {
+                return ResourceManager.GetString("TextHome_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (special course).
+        /// </summary>
+        public static string TextHome_10 {
+            get {
+                return ResourceManager.GetString("TextHome_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English for Travel.
+        /// </summary>
+        public static string TextHome_11 {
+            get {
+                return ResourceManager.GetString("TextHome_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (practical course).
+        /// </summary>
+        public static string TextHome_12 {
+            get {
+                return ResourceManager.GetString("TextHome_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KEEP IMPROVING.
+        /// </summary>
+        public static string TextHome_13 {
+            get {
+                return ResourceManager.GetString("TextHome_13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speaking Club.
+        /// </summary>
+        public static string TextHome_14 {
+            get {
+                return ResourceManager.GetString("TextHome_14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (speaking practice).
+        /// </summary>
+        public static string TextHome_15 {
+            get {
+                return ResourceManager.GetString("TextHome_15", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Movie Days.
+        /// </summary>
+        public static string TextHome_16 {
+            get {
+                return ResourceManager.GetString("TextHome_16", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (english through movies).
+        /// </summary>
+        public static string TextHome_17 {
+            get {
+                return ResourceManager.GetString("TextHome_17", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookworm Club.
+        /// </summary>
+        public static string TextHome_18 {
+            get {
+                return ResourceManager.GetString("TextHome_18", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (book lovers’ club).
+        /// </summary>
+        public static string TextHome_19 {
+            get {
+                return ResourceManager.GetString("TextHome_19", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request a callback — our manager will get in touch with you to discuss your goals and recommend the best learning option for you..
+        /// </summary>
+        public static string TextHome_2 {
+            get {
+                return ResourceManager.GetString("TextHome_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Karaoke Days.
+        /// </summary>
+        public static string TextHome_20 {
+            get {
+                return ResourceManager.GetString("TextHome_20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (english with songs).
+        /// </summary>
+        public static string TextHome_21 {
+            get {
+                return ResourceManager.GetString("TextHome_21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DISCOVER THE WORLD WITH US.
+        /// </summary>
+        public static string TextHome_22 {
+            get {
+                return ResourceManager.GetString("TextHome_22", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for children and adults.
+        /// </summary>
+        public static string TextHome_23 {
+            get {
+                return ResourceManager.GetString("TextHome_23", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to group lessons.
+        /// </summary>
+        public static string TextHome_24 {
+            get {
+                return ResourceManager.GetString("TextHome_24", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to individual lessons.
+        /// </summary>
+        public static string TextHome_25 {
+            get {
+                return ResourceManager.GetString("TextHome_25", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to corporate training.
+        /// </summary>
+        public static string TextHome_26 {
+            get {
+                return ResourceManager.GetString("TextHome_26", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online lessons.
+        /// </summary>
+        public static string TextHome_27 {
+            get {
+                return ResourceManager.GetString("TextHome_27", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to individual approach.
+        /// </summary>
+        public static string TextHome_28 {
+            get {
+                return ResourceManager.GetString("TextHome_28", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working Hours.
+        /// </summary>
+        public static string TextHome_29 {
+            get {
+                return ResourceManager.GetString("TextHome_29", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mon–Fri 9:00–21:00 • Sat 9:00–15:00 • Sun closed.
+        /// </summary>
+        public static string TextHome_3 {
+            get {
+                return ResourceManager.GetString("TextHome_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monday–Friday.
+        /// </summary>
+        public static string TextHome_30 {
+            get {
+                return ResourceManager.GetString("TextHome_30", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saturday.
+        /// </summary>
+        public static string TextHome_31 {
+            get {
+                return ResourceManager.GetString("TextHome_31", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sunday.
+        /// </summary>
+        public static string TextHome_32 {
+            get {
+                return ResourceManager.GetString("TextHome_32", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to day off.
+        /// </summary>
+        public static string TextHome_33 {
+            get {
+                return ResourceManager.GetString("TextHome_33", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contacts.
+        /// </summary>
+        public static string TextHome_34 {
+            get {
+                return ResourceManager.GetString("TextHome_34", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string TextHome_35 {
+            get {
+                return ResourceManager.GetString("TextHome_35", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Free lesson.
+        /// </summary>
+        public static string TextHome_36 {
+            get {
+                return ResourceManager.GetString("TextHome_36", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Callback.
+        /// </summary>
+        public static string TextHome_37 {
+            get {
+                return ResourceManager.GetString("TextHome_37", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LEARN.
+        /// </summary>
+        public static string TextHome_4 {
+            get {
+                return ResourceManager.GetString("TextHome_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English for Real Life.
+        /// </summary>
+        public static string TextHome_5 {
+            get {
+                return ResourceManager.GetString("TextHome_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (conversational english).
+        /// </summary>
+        public static string TextHome_6 {
+            get {
+                return ResourceManager.GetString("TextHome_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English for Studying.
+        /// </summary>
+        public static string TextHome_7 {
+            get {
+                return ResourceManager.GetString("TextHome_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to preparation for ZNO / Entrance Exams.
+        /// </summary>
+        public static string TextHome_8 {
+            get {
+                return ResourceManager.GetString("TextHome_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Business English.
+        /// </summary>
+        public static string TextHome_9 {
+            get {
+                return ResourceManager.GetString("TextHome_9", resourceCulture);
             }
         }
     }

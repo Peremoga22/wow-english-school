@@ -117,7 +117,182 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdminHeader" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="ContactHeader" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="ContractHeader" xml:space="preserve">
+    <value>Contract</value>
+  </data>
   <data name="Hero_Lead_1" xml:space="preserve">
-    <value>English for children and adults</value>
+    <value>English for children and adults — group and individual lessons.
+We help you speak confidently and improve your results in studies or at work.</value>
+  </data>
+  <data name="HomeHeader" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="LoginHeader" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LogOutHeader" xml:space="preserve">
+    <value>LogOut</value>
+  </data>
+  <data name="PortfolioHeader" xml:space="preserve">
+    <value>Portfolio</value>
+  </data>
+  <data name="QuickSignUpHome" xml:space="preserve">
+    <value>Quick Sign-Up</value>
+  </data>
+  <data name="ReviewHeader" xml:space="preserve">
+    <value>Reviews</value>
+  </data>
+  <data name="ServiceHeader" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="AboutUsHeader" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="TextHome_1" xml:space="preserve">
+    <value>Free trial lesson — we’ll assess your English level and find the learning format that works best for you.</value>
+  </data>
+  <data name="TextHome_2" xml:space="preserve">
+    <value>Request a callback — our manager will get in touch with you to discuss your goals and recommend the best learning option for you.</value>
+  </data>
+  <data name="TextHome_3" xml:space="preserve">
+    <value>Mon–Fri 9:00–21:00 • Sat 9:00–15:00 • Sun closed</value>
+  </data>
+  <data name="TextHome_4" xml:space="preserve">
+    <value>LEARN</value>
+  </data>
+  <data name="TextHome_5" xml:space="preserve">
+    <value>English for Real Life</value>
+  </data>
+  <data name="TextHome_6" xml:space="preserve">
+    <value>(conversational english)</value>
+  </data>
+  <data name="TextHome_7" xml:space="preserve">
+    <value>English for Studying</value>
+  </data>
+  <data name="TextHome_8" xml:space="preserve">
+    <value>preparation for ZNO / Entrance Exams</value>
+  </data>
+  <data name="TextHome_9" xml:space="preserve">
+    <value>Business English</value>
+  </data>
+  <data name="TextHome_10" xml:space="preserve">
+    <value>(special course)</value>
+  </data>
+  <data name="TextHome_11" xml:space="preserve">
+    <value>English for Travel</value>
+  </data>
+  <data name="TextHome_12" xml:space="preserve">
+    <value>(practical course)</value>
+  </data>
+  <data name="TextHome_13" xml:space="preserve">
+    <value>KEEP IMPROVING</value>
+  </data>
+  <data name="TextHome_14" xml:space="preserve">
+    <value>Speaking Club</value>
+  </data>
+  <data name="TextHome_15" xml:space="preserve">
+    <value>(speaking practice)</value>
+  </data>
+  <data name="TextHome_16" xml:space="preserve">
+    <value>Movie Days</value>
+  </data>
+  <data name="TextHome_17" xml:space="preserve">
+    <value>(english through movies)</value>
+  </data>
+  <data name="TextHome_18" xml:space="preserve">
+    <value>Bookworm Club</value>
+  </data>
+  <data name="TextHome_19" xml:space="preserve">
+    <value>(book lovers’ club)</value>
+  </data>
+  <data name="TextHome_20" xml:space="preserve">
+    <value>Karaoke Days</value>
+  </data>
+  <data name="TextHome_21" xml:space="preserve">
+    <value>(english with songs)</value>
+  </data>
+  <data name="TextHome_22" xml:space="preserve">
+    <value>DISCOVER THE WORLD WITH US</value>
+  </data>
+  <data name="TextHome_23" xml:space="preserve">
+    <value>for children and adults</value>
+  </data>
+  <data name="TextHome_24" xml:space="preserve">
+    <value>group lessons</value>
+  </data>
+  <data name="TextHome_25" xml:space="preserve">
+    <value>individual lessons</value>
+  </data>
+  <data name="TextHome_26" xml:space="preserve">
+    <value>corporate training</value>
+  </data>
+  <data name="TextHome_27" xml:space="preserve">
+    <value>online lessons</value>
+  </data>
+  <data name="TextHome_28" xml:space="preserve">
+    <value>individual approach</value>
+  </data>
+  <data name="TextHome_29" xml:space="preserve">
+    <value>Working Hours</value>
+  </data>
+  <data name="TextHome_30" xml:space="preserve">
+    <value>Monday–Friday</value>
+  </data>
+  <data name="TextHome_31" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="TextHome_32" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="TextHome_33" xml:space="preserve">
+    <value>day off</value>
+  </data>
+  <data name="TextHome_34" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="TextHome_35" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="TextHome_36" xml:space="preserve">
+    <value>Free lesson</value>
+  </data>
+  <data name="TextHome_37" xml:space="preserve">
+    <value>Callback</value>
+  </data>
+  <data name="TextFooter_1" xml:space="preserve">
+    <value>Our English Club uses modern teaching methods. We help you learn to speak English easily and with confidence.</value>
+  </data>
+  <data name="TextFooter_2" xml:space="preserve">
+    <value>Navigation</value>
+  </data>
+  <data name="TextFooter_3" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="TextFooter_4" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="TextFooter_5" xml:space="preserve">
+    <value>Educational Services</value>
+  </data>
+  <data name="TextFooter_6" xml:space="preserve">
+    <value>Children</value>
+  </data>
+  <data name="TextFooter_7" xml:space="preserve">
+    <value>Adults</value>
+  </data>
+  <data name="TextFooter_8" xml:space="preserve">
+    <value>Our Story</value>
+  </data>
+  <data name="TextFooter_9" xml:space="preserve">
+    <value>Stryi, Okhrymovycha St., 8/25</value>
+  </data>
+  <data name="TextFooter_10" xml:space="preserve">
+    <value>All rights reserved.</value>
   </data>
 </root>

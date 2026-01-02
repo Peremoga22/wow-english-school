@@ -33,8 +33,7 @@
 
                @*  English for children and adults - *@
                 <p class="ec-lead mt-3 mb-0">
-                    @SharedResource.Hero_Lead_1 — групові й індивідуальні заняття.
-                    Допоможемо заговорити впевнено та покращити результат у навчанні/роботі.
+                    @SharedResource.Hero_Lead_1
                 </p>               
                 <div class="ec-video mt-4">
                     <div class="ec-video-wrap">
@@ -52,14 +51,12 @@
 
             <div class="col-lg-5">
                 <div class="ec-card p-3 p-md-4">
-                    <div class="ec-card-title">Швидкий запис</div>
+                    <div class="ec-card-title">@SharedResource.QuickSignUpHome</div>
                     <div class="ec-card-text">
-                        Безкоштовний пробний урок — визначаємо ваш рівень володіння англійською
-                        та підбираємо оптимальний формат навчання.
+                        @SharedResource.TextHome_1
                     </div>
                     <div class="ec-card-text">
-                        Зворотний дзвінок — наш менеджер зв’яжеться з вами,
-                        щоб проконсультувати та підібрати найкращі умови навчання відповідно до ваших цілей.
+                        @SharedResource.TextHome_2
                     </div>
 
 
@@ -69,67 +66,67 @@
                     </div> *@
 
                     <div class="ec-mini mt-3">
-                        ⏱️ Пн–Пт: 9:00–21:00 • Сб: 9:00–15:00 • Нд: вихідний
+                        ⏱️ @SharedResource.TextHome_3
                     </div>
                 </div>
             </div>
         </div>
         @foreach (var item in rows)        
         {
-       <div class="row mt-4 mt-lg-5">
-        <div class="col-lg-10 mx-auto">
+        <div class="row mt-4 mt-lg-5">
+            <div class="col-lg-10 mx-auto">
 
-            <!-- PHOTOS -->
-            <div class="ec-photo-middle mb-3">
-                     <img src="@item.ImgLeftPath"
-                     class="ec-photo ec-photo-side"
-                     alt="@item.PhotoTitle">
+                <!-- PHOTOS -->
+                <div class="ec-photo-middle mb-3">
+                         <img src="@item.ImgLeftPath"
+                         class="ec-photo ec-photo-side"
+                         alt="@item.PhotoTitle">
 
-                     <img src="@item.ImgCenterPath"
-                     class="ec-photo ec-photo-center"
-                     alt="@item.PhotoTitle">
+                         <img src="@item.ImgCenterPath"
+                         class="ec-photo ec-photo-center"
+                         alt="@item.PhotoTitle">
 
-                     <img src="@item.ImgRightPath"
-                     class="ec-photo ec-photo-side"
-                    alt="@item.PhotoTitle">
-            </div>
+                         <img src="@item.ImgRightPath"
+                         class="ec-photo ec-photo-side"
+                        alt="@item.PhotoTitle">
+                </div>
 
-            <!-- DESCRIPTION -->
-            <div class="ec-photo-desc text-center">
-                        <h3 class="ec-photo-title">@item.PhotoTitle</h3>
-                <p class="ec-photo-text">
-                            @item.PhotoText
-                </p>
-            </div>
+                <!-- DESCRIPTION -->
+                <div class="ec-photo-desc text-center">
+                            <h3 class="ec-photo-title">@item.PhotoTitle</h3>
+                    <p class="ec-photo-text">
+                                @item.PhotoText
+                    </p>
+                </div>
 
            
-            @if (!string.IsNullOrWhiteSpace(item.ChristmasTitle) || !string.IsNullOrWhiteSpace(item.ChristmasText))
-            {
-                <div class="row mt-4 mt-lg-5">
-                    <div class="col-lg-10 mx-auto">
-                        <div class="ec-christmas text-center">
+                @if (!string.IsNullOrWhiteSpace(item.ChristmasTitle) || !string.IsNullOrWhiteSpace(item.ChristmasText))
+                {
+                    <div class="row mt-4 mt-lg-5">
+                        <div class="col-lg-10 mx-auto">
+                            <div class="ec-christmas text-center">
 
-                            <div class="ec-christmas-icon">🎄</div>
-                            @if (!string.IsNullOrWhiteSpace(item.ChristmasTitle))
-                            {
-                                <h3 class="ec-christmas-title">
-                                            @item.ChristmasTitle
-                                </h3>
-                            }
-                            @if (!string.IsNullOrWhiteSpace(item.ChristmasText))
-                            {
-                                <p class="ec-christmas-text">
-                                            @item.ChristmasText
-                                </p>
-                            }
+                                <div class="ec-christmas-icon">🎄</div>
+                                @if (!string.IsNullOrWhiteSpace(item.ChristmasTitle))
+                                {
+                                    <h3 class="ec-christmas-title">
+                                                @item.ChristmasTitle
+                                    </h3>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(item.ChristmasText))
+                                {
+                                    <p class="ec-christmas-text">
+                                                @item.ChristmasText
+                                    </p>
+                                }
 
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
+                  }
 
-                </div>
-            </div>
+             </div>
+         </div>
          }
 
 
@@ -138,14 +135,14 @@
             <div class="col-lg-6">
                 <div class="ec-block">
                     <div class="ec-block-header">
-                        <span class="ec-block-title">ВИВЧАЙ!</span>
+                        <span class="ec-block-title">@SharedResource.TextHome_4!</span>
                     </div>
 
                     <ul class="ec-list mb-0">
-                        <li><b>Англійська у побуті</b> <span class="ec-muted">(розмовний курс)</span></li>
-                        <li><b>Англійська для навчання</b> <span class="ec-muted">(підготовка до ЗНО/іспитів)</span></li>
-                        <li><b>Англійська для бізнесу</b> <span class="ec-muted">(спеціальний курс)</span></li>
-                        <li><b>Англійська для подорожей</b> <span class="ec-muted">(практичний курс)</span></li>
+                        <li><b>@SharedResource.TextHome_5</b> <span class="ec-muted">@SharedResource.TextHome_6</span></li>
+                        <li><b>@SharedResource.TextHome_7</b> <span class="ec-muted">@SharedResource.TextHome_8</span></li>
+                        <li><b>@SharedResource.TextHome_9</b> <span class="ec-muted">@SharedResource.TextHome_10</span></li>
+                        <li><b>@SharedResource.TextHome_11</b> <span class="ec-muted">@SharedResource.TextHome_12</span></li>
                     </ul>
                 </div>
             </div>
@@ -153,14 +150,14 @@
             <div class="col-lg-6">
                 <div class="ec-block">
                     <div class="ec-block-header ec-block-header-alt">
-                        <span class="ec-block-title">ВДОСКОНАЛЮЙ!</span>
+                        <span class="ec-block-title">@SharedResource.TextHome_13!</span>
                     </div>
 
                     <ul class="ec-list mb-0">
-                        <li><b>Speaking Club</b> <span class="ec-muted">(розмовна практика)</span></li>
-                        <li><b>Movie Days</b> <span class="ec-muted">(англійська на фільмах)</span></li>
-                        <li><b>Bookworm Club</b> <span class="ec-muted">(клуб книголюбів)</span></li>
-                        <li><b>Karaoke Days</b> <span class="ec-muted">(англійська у піснях)</span></li>
+                        <li><b>@SharedResource.TextHome_14</b> <span class="ec-muted">@SharedResource.TextHome_15</span></li>
+                        <li><b>@SharedResource.TextHome_16</b> <span class="ec-muted">@SharedResource.TextHome_17</span></li>
+                        <li><b>@SharedResource.TextHome_18</b> <span class="ec-muted">@SharedResource.TextHome_19</span></li>
+                        <li><b>@SharedResource.TextHome_20</b> <span class="ec-muted">@SharedResource.TextHome_21</span></li>
                     </ul>
                 </div>
             </div>
@@ -168,19 +165,19 @@
 
         <!-- CTA bar -->
         <div class="ec-cta mt-4 mt-lg-5">
-            <div class="ec-cta-text">ВІДКРИВАЙ СВІТ З НАМИ!</div>
+            <div class="ec-cta-text">@SharedResource.TextHome_22!</div>
         </div>
 
         <!-- Chips section like flyer -->
         <div class="row mt-4 mt-lg-5">
             <div class="col-lg-10 mx-auto">
                 <div class="ec-chips">
-                    <span class="ec-chip">для дітей та дорослих</span>
-                    <span class="ec-chip">групові заняття</span>
-                    <span class="ec-chip">індивідуальні заняття</span>
-                    <span class="ec-chip">корпоративне навчання</span>
-                    <span class="ec-chip">online заняття</span>
-                    <span class="ec-chip">індивідуальний підхід</span>
+                    <span class="ec-chip">@SharedResource.TextHome_23</span>
+                    <span class="ec-chip">@SharedResource.TextHome_24</span>
+                    <span class="ec-chip">@SharedResource.TextHome_25</span>
+                    <span class="ec-chip">@SharedResource.TextHome_26</span>
+                    <span class="ec-chip">@SharedResource.TextHome_27</span>
+                    <span class="ec-chip">@SharedResource.TextHome_28</span>
                 </div>
             </div>
         </div>
@@ -189,22 +186,22 @@
         <div class="row g-4 mt-4 mt-lg-5">
             <div class="col-lg-6">
                 <div class="ec-footerbox">
-                    <div class="ec-footer-title">Графік роботи</div>
+                    <div class="ec-footer-title">@SharedResource.TextHome_29</div>
                     <div class="ec-footer-text">
-                        <div><b>Понеділок–п’ятниця:</b> 9:00–21:00</div>
-                        <div><b>Субота:</b> 9:00–15:00</div>
-                        <div><b>Неділя:</b> вихідний день</div>
+                        <div><b>@SharedResource.TextHome_30:</b> 9:00–21:00</div>
+                        <div><b>@SharedResource.TextHome_31:</b> 9:00–15:00</div>
+                        <div><b>@SharedResource.TextHome_32:</b> @SharedResource.TextHome_33</div>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-6">
                 <div class="ec-footerbox">
-                    <div class="ec-footer-title">Контакти</div>
+                    <div class="ec-footer-title">@SharedResource.TextHome_34</div>
                     <div class="ec-footer-text">
-                        <div><b>Тел.:</b> <a class="ec-link" href="tel:+380982506416">098-250-64-16</a></div>
+                        <div><b>@SharedResource.TextHome_35:</b> <a class="ec-link" href="tel:+380982506416">098-250-64-16</a></div>
                         <div><b>Telegram:</b> <span class="ec-muted">@@your_username</span></div>
-                        <div><b>E-mail:</b> <a class="ec-link" href="mailto:Lyubovvynnytska87gnail.com">Lyubovvynnytska87gnail.com</a></div>
+                        <div><b>E-mail:</b> <a class="ec-link" href="mailto:Lyubovvynnytska87gnail.com">Lyubovvynnytska87@gmail.com</a></div>
                     </div>
                 </div>
             </div>
@@ -218,13 +215,13 @@
         <!-- Запис на урок -->
         <a href="/appointment-user" class="btn ec-btn-primary px-4 py-2">
             <span class="icon"></span>
-            <span>Безкоштовний урок</span>
+            <span>@SharedResource.TextHome_36</span>
         </a>
 
         <!-- Зворотній дзвінок -->
         <a href="/callback" class="ec-btn-glass-white px-4 py-2">
             <span class="icon">📞</span>
-            <span>Зворотній дзвінок</span>
+            <span>@SharedResource.TextHome_37</span>
         </a>
 
     </div>
