@@ -108,7 +108,7 @@ else
 
 app.UseHttpsRedirection();
 
-
+app.UseStaticFiles();
 app.UseAntiforgery();
 app.MapControllers();
 app.MapStaticAssets();
