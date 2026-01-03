@@ -296,4 +296,121 @@
   <data name="TextFooter_10" xml:space="preserve">
     <value>Всі права захищені</value>
   </data>
+  <data name="TextAboutUs_1" xml:space="preserve">
+    <value>Домашня сторінка</value>
+  </data>
+  <data name="TextAboutUs_2" xml:space="preserve">
+    <value>Про нас</value>
+  </data>
+  <data name="TextAboutUs_3" xml:space="preserve">
+    <value>English Club — школа англійської, де пояснюють просто і дають результат</value>
+  </data>
+  <data name="TextAboutUs_4" xml:space="preserve">
+    <value>Ми допомагаємо впевнено говорити, розуміти співрозмовників та використовувати англійську в житті: для навчання, роботи, подорожей і щоденної комунікації.</value>
+  </data>
+  <data name="TextAboutUs_5" xml:space="preserve">
+    <value>Записатися на заняття</value>
+  </data>
+  <data name="TextAboutUs_6" xml:space="preserve">
+    <value>Контакти</value>
+  </data>
+  <data name="TextAboutUs_7" xml:space="preserve">
+    <value>Рівні A1–C1</value>
+  </data>
+  <data name="TextAboutUs_8" xml:space="preserve">
+    <value>Індивідуально та в групах</value>
+  </data>
+  <data name="TextAboutUs_9" xml:space="preserve">
+    <value>Онлайн або офлайн</value>
+  </data>
+  <data name="TextAboutUs_10" xml:space="preserve">
+    <value>Викладачка English Club</value>
+  </data>
+  <data name="TextAboutUs_11" xml:space="preserve">
+    <value>Любов Романівна Вінницька</value>
+  </data>
+  <data name="TextAboutUs_12" xml:space="preserve">
+    <value>Викладач — фахівець, який допоможе вам вивчити мову.</value>
+  </data>
+  <data name="TextAboutUs_13" xml:space="preserve">
+    <value>Наша мета</value>
+  </data>
+  <data name="TextAboutUs_14" xml:space="preserve">
+    <value>Дати тобі впевненість і практичні навички, щоб англійська стала інструментом, а не “страшним предметом”.</value>
+  </data>
+  <data name="TextAboutUs_15" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="TextAboutUs_16" xml:space="preserve">
+    <value>Міні-групи та індивідуальні заняття. Розмовна практика на кожному уроці, сучасні теми та живі діалоги.</value>
+  </data>
+  <data name="TextAboutUs_17" xml:space="preserve">
+    <value>Результат</value>
+  </data>
+  <data name="TextAboutUs_18" xml:space="preserve">
+    <value>Ти бачиш прогрес: словниковий запас, граматика без “зубріння”, краще розуміння мови на слух.</value>
+  </data>
+  <data name="TextAboutUs_19" xml:space="preserve">
+    <value>Для кого підходить English Club?</value>
+  </data>
+  <data name="TextAboutUs_20" xml:space="preserve">
+    <value>Для студентів, дорослих і підлітків, які хочуть вивчати англійську зрозуміло та системно. Ми підберемо групу за рівнем і метою: робота, навчання, подорожі, екзамени.</value>
+  </data>
+  <data name="TextAboutUs_21" xml:space="preserve">
+    <value>Початківці (A1–A2): база, вимова, прості діалоги</value>
+  </data>
+  <data name="TextAboutUs_22" xml:space="preserve">
+    <value>Середній рівень (B1–B2): розмовна впевненість + граматика</value>
+  </data>
+  <data name="TextAboutUs_23" xml:space="preserve">
+    <value>Просунутий (C1): флюентність, робоча/академічна англійська</value>
+  </data>
+  <data name="TextAboutUs_24" xml:space="preserve">
+    <value>Подивитися ціни та формати</value>
+  </data>
+  <data name="TextAboutUs_25" xml:space="preserve">
+    <value>Як почати</value>
+  </data>
+  <data name="TextAboutUs_26" xml:space="preserve">
+    <value>Залиш заявку (1 хвилина)</value>
+  </data>
+  <data name="TextAboutUs_27" xml:space="preserve">
+    <value>Пройди коротке визначення рівня</value>
+  </data>
+  <data name="TextAboutUs_28" xml:space="preserve">
+    <value>Отримай рекомендацію групи/формату</value>
+  </data>
+  <data name="TextAboutUs_29" xml:space="preserve">
+    <value>Починай навчання</value>
+  </data>
+  <data name="TextAboutUs_30" xml:space="preserve">
+    <value>FAQ — коротко про важлив</value>
+  </data>
+  <data name="TextAboutUs_31" xml:space="preserve">
+    <value>Чи можна без “зубріння” граматики?</value>
+  </data>
+  <data name="TextAboutUs_32" xml:space="preserve">
+    <value>Так. Ми пояснюємо граматику простими прикладами й одразу закріплюємо її в мовленні та вправах.</value>
+  </data>
+  <data name="TextAboutUs_33" xml:space="preserve">
+    <value>Скільки занять потрібно для прогресу?</value>
+  </data>
+  <data name="TextAboutUs_34" xml:space="preserve">
+    <value>Перші зміни відчуваються вже за 3–4 тижні регулярних занять, а відчутний рівень — за 2–3 місяці.</value>
+  </data>
+  <data name="TextAboutUs_35" xml:space="preserve">
+    <value>Онлайн чи офлайн — що краще?</value>
+  </data>
+  <data name="TextAboutUs_36" xml:space="preserve">
+    <value>Обидва формати працюють. Онлайн зручно з будь-якого міста, офлайн — якщо любиш “живий” клас. Підберемо під твій ритм.</value>
+  </data>
+  <data name="TextAboutUs_37" xml:space="preserve">
+    <value>Готовий/готова почати?</value>
+  </data>
+  <data name="TextAboutUs_38" xml:space="preserve">
+    <value>Запишись — і ми підберемо рівень та групу.</value>
+  </data>
+  <data name="TextAboutUs_39" xml:space="preserve">
+    <value>Записатися</value>
+  </data>
 </root>

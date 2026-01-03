@@ -170,6 +170,357 @@ namespace WowApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Home page.
+        /// </summary>
+        public static string TextAboutUs_1 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English Club Teacher.
+        /// </summary>
+        public static string TextAboutUs_10 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liubov Romanivna Vinnytska.
+        /// </summary>
+        public static string TextAboutUs_11 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A teacher is a professional who will help you learn the language..
+        /// </summary>
+        public static string TextAboutUs_12 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our Goal.
+        /// </summary>
+        public static string TextAboutUs_13 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To give you confidence and practical skills so that English becomes a tool, not a “scary subject.”.
+        /// </summary>
+        public static string TextAboutUs_14 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format.
+        /// </summary>
+        public static string TextAboutUs_15 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_15", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Small groups and individual lessons. Speaking practice in every class, modern topics, and lively dialogues..
+        /// </summary>
+        public static string TextAboutUs_16 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_16", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string TextAboutUs_17 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_17", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You will see real progress: a stronger vocabulary, grammar without “cramming,” and better listening comprehension..
+        /// </summary>
+        public static string TextAboutUs_18 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_18", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Who Is English Club For?.
+        /// </summary>
+        public static string TextAboutUs_19 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_19", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About Us.
+        /// </summary>
+        public static string TextAboutUs_2 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For students, adults, and teenagers who want to learn English clearly and systematically. We select groups based on your level and goals: work, studies, travel, or exams..
+        /// </summary>
+        public static string TextAboutUs_20 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beginners (A1–A2): fundamentals, pronunciation, simple dialogues.
+        /// </summary>
+        public static string TextAboutUs_21 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intermediate level (B1–B2): speaking confidence + grammar.
+        /// </summary>
+        public static string TextAboutUs_22 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_22", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced (C1): fluency, professional and academic English.
+        /// </summary>
+        public static string TextAboutUs_23 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_23", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Prices and Formats.
+        /// </summary>
+        public static string TextAboutUs_24 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_24", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How to Get Started.
+        /// </summary>
+        public static string TextAboutUs_25 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_25", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit an application (1 minute).
+        /// </summary>
+        public static string TextAboutUs_26 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_26", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take a short level assessment.
+        /// </summary>
+        public static string TextAboutUs_27 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_27", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get a group/format recommendation.
+        /// </summary>
+        public static string TextAboutUs_28 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_28", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start learning.
+        /// </summary>
+        public static string TextAboutUs_29 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_29", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English Club is an English school where things are explained simply and real results are achieved..
+        /// </summary>
+        public static string TextAboutUs_3 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FAQ — quick answers to the most important questions.
+        /// </summary>
+        public static string TextAboutUs_30 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_30", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can I learn grammar without “cramming”?.
+        /// </summary>
+        public static string TextAboutUs_31 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_31", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes. We explain grammar using simple examples and immediately reinforce it through speaking and practical exercises..
+        /// </summary>
+        public static string TextAboutUs_32 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_32", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How many lessons are needed to see progress?.
+        /// </summary>
+        public static string TextAboutUs_33 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_33", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The first changes are noticeable after 3–4 weeks of regular classes, and a clear improvement can be seen within 2–3 months..
+        /// </summary>
+        public static string TextAboutUs_34 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_34", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online or offline — which is better?.
+        /// </summary>
+        public static string TextAboutUs_35 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_35", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Both formats work well. Online is convenient from any city, while offline is perfect if you enjoy a “live” classroom. We’ll choose what fits your pace best..
+        /// </summary>
+        public static string TextAboutUs_36 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_36", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ready to get started?.
+        /// </summary>
+        public static string TextAboutUs_37 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_37", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign up — and we’ll help you choose the right level and group..
+        /// </summary>
+        public static string TextAboutUs_38 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_38", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Up.
+        /// </summary>
+        public static string TextAboutUs_39 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_39", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We help you speak confidently, understand others, and use English in real life — or studying, work, travel, and everyday communication..
+        /// </summary>
+        public static string TextAboutUs_4 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enroll in a Class.
+        /// </summary>
+        public static string TextAboutUs_5 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contacts.
+        /// </summary>
+        public static string TextAboutUs_6 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Levels A1–C1.
+        /// </summary>
+        public static string TextAboutUs_7 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Individual and Group Classes.
+        /// </summary>
+        public static string TextAboutUs_8 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online or Offline.
+        /// </summary>
+        public static string TextAboutUs_9 {
+            get {
+                return ResourceManager.GetString("TextAboutUs_9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Our English Club uses modern teaching methods. We help you learn to speak English easily and with confidence..
         /// </summary>
         public static string TextFooter_1 {
