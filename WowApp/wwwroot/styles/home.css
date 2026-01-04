@@ -180,4 +180,42 @@
             display: block;
         }
     }
+
+    .ec-title {
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 0.5rem;
+        font-size: clamp(1.6rem, 5vw, 2.4rem);
+    }
+
+    .ec-hero-desc {
+        font-size: 0.95rem;
+        line-height: 1.45;
+        max-width: 36ch;
+    }
+
+    @media (max-width: 576px) {
+        .ec-hero-desc {
+            font-size: 0.9rem;
+            max-width: 100%;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .ec-hero-image {
+            display: none;
+        }
+    }
+
+    .ec-hero-actions {
+        margin-top: 1rem;
+    }
+
+    @media (max-width: 576px) {
+        .ec-hero-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+    }
 }
