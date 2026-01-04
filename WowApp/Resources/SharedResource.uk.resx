@@ -522,4 +522,88 @@
   <data name="TextPortfolio_4" xml:space="preserve">
     <value>Любов Романівна</value>
   </data>
+  <data name="TextOurContacts_1" xml:space="preserve">
+    <value>Домашня сторінка</value>
+  </data>
+  <data name="TextOurContacts_2" xml:space="preserve">
+    <value>Контакти</value>
+  </data>
+  <data name="TextOurContacts_3" xml:space="preserve">
+    <value>Наші контакти</value>
+  </data>
+  <data name="TextOurContacts_4" xml:space="preserve">
+    <value>Напиши або подзвони — підкажемо формат навчання, визначимо рівень і допоможемо обрати групу.</value>
+  </data>
+  <data name="TextOurContacts_5" xml:space="preserve">
+    <value>Графік роботи</value>
+  </data>
+  <data name="TextOurContacts_6" xml:space="preserve">
+    <value>Відповідаємо швидко</value>
+  </data>
+  <data name="TextOurContacts_7" xml:space="preserve">
+    <value>Пн–Пт</value>
+  </data>
+  <data name="TextOurContacts_8" xml:space="preserve">
+    <value>Сб</value>
+  </data>
+  <data name="TextOurContacts_9" xml:space="preserve">
+    <value>Нд</value>
+  </data>
+  <data name="TextOurContacts_10" xml:space="preserve">
+    <value>Звʼязатися з нами</value>
+  </data>
+  <data name="TextOurContacts_11" xml:space="preserve">
+    <value>Маєш питання або хочеш записати дитину на заняття? Напиши нам — ми швидко підберемо формат і рівень.</value>
+  </data>
+  <data name="TextOurContacts_12" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="TextOurContacts_13" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="TextOurContacts_14" xml:space="preserve">
+    <value>Відкрити на карті →</value>
+  </data>
+  <data name="TextOurContacts_15" xml:space="preserve">
+    <value>Підберемо групу за віком та рівнем — просто напиши “Хочу навчатися”</value>
+  </data>
+  <data name="TextOurContacts_16" xml:space="preserve">
+    <value>Залишити заявку</value>
+  </data>
+  <data name="TextOurContacts_17" xml:space="preserve">
+    <value>Заповни форму — ми звʼяжемось із тобою найближчим часом.</value>
+  </data>
+  <data name="TextOurContacts_18" xml:space="preserve">
+    <value>Імʼя</value>
+  </data>
+  <data name="TextOurContacts_19" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="TextOurContacts_20" xml:space="preserve">
+    <value>Повідомлення</value>
+  </data>
+  <data name="TextOurContacts_21" xml:space="preserve">
+    <value>Надсилаємо...</value>
+  </data>
+  <data name="TextOurContacts_22" xml:space="preserve">
+    <value>Надіслати заявку</value>
+  </data>
+  <data name="TextOurContacts_23" xml:space="preserve">
+    <value>Очистити</value>
+  </data>
+  <data name="TextOurContacts_24" xml:space="preserve">
+    <value>м. Стрий, вул. Охримовича, 8/25</value>
+  </data>
+  <data name="TextOurContacts_25" xml:space="preserve">
+    <value>вихідний</value>
+  </data>
+  <data name="TextOurContacts_26" xml:space="preserve">
+    <value>повідомлення відправлено із сторінки контакти.</value>
+  </data>
+  <data name="TextOurContacts_27" xml:space="preserve">
+    <value>Сталася помилка при відправці. Спробуйте ще раз.</value>
+  </data>
+  <data name="TextOurContacts_28" xml:space="preserve">
+    <value>Дякуємо! Ми отримали ваше повідомлення і скоро з вами звʼяжемось.</value>
+  </data>
 </root>

@@ -520,4 +520,88 @@ We help you speak confidently and improve your results in studies or at work.</v
   <data name="TextPortfolio_4" xml:space="preserve">
     <value>Liubov Romanivna</value>
   </data>
+  <data name="TextOurContacts_1" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
+  <data name="TextOurContacts_2" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="TextOurContacts_3" xml:space="preserve">
+    <value>Our Contacts</value>
+  </data>
+  <data name="TextOurContacts_4" xml:space="preserve">
+    <value>Write or call us — we’ll recommend the right learning format, assess your level, and help you choose a group.</value>
+  </data>
+  <data name="TextOurContacts_5" xml:space="preserve">
+    <value>Working Hours</value>
+  </data>
+  <data name="TextOurContacts_6" xml:space="preserve">
+    <value>We respond quickly</value>
+  </data>
+  <data name="TextOurContacts_7" xml:space="preserve">
+    <value>Mon–Fri</value>
+  </data>
+  <data name="TextOurContacts_8" xml:space="preserve">
+    <value>Sat</value>
+  </data>
+  <data name="TextOurContacts_9" xml:space="preserve">
+    <value>Sun</value>
+  </data>
+  <data name="TextOurContacts_10" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="TextOurContacts_11" xml:space="preserve">
+    <value>Have a question or want to enroll your child in classes? Message us — we’ll quickly help you choose the right format and level.</value>
+  </data>
+  <data name="TextOurContacts_12" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="TextOurContacts_13" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="TextOurContacts_14" xml:space="preserve">
+    <value>Open on the map →</value>
+  </data>
+  <data name="TextOurContacts_15" xml:space="preserve">
+    <value>We’ll match you with a group based on age and level — just message us “I want to learn.”</value>
+  </data>
+  <data name="TextOurContacts_16" xml:space="preserve">
+    <value>Submit a Request</value>
+  </data>
+  <data name="TextOurContacts_17" xml:space="preserve">
+    <value>Fill out the form — we’ll get in touch with you as soon as possible.</value>
+  </data>
+  <data name="TextOurContacts_18" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TextOurContacts_19" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="TextOurContacts_20" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="TextOurContacts_21" xml:space="preserve">
+    <value>Sending…</value>
+  </data>
+  <data name="TextOurContacts_22" xml:space="preserve">
+    <value>Submit Application</value>
+  </data>
+  <data name="TextOurContacts_23" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="TextOurContacts_24" xml:space="preserve">
+    <value>Stryi, Okhrymovycha St., 8/25</value>
+  </data>
+  <data name="TextOurContacts_25" xml:space="preserve">
+    <value>Day off</value>
+  </data>
+  <data name="TextOurContacts_26" xml:space="preserve">
+    <value>Message sent from the Contacts page.</value>
+  </data>
+  <data name="TextOurContacts_27" xml:space="preserve">
+    <value>An error occurred while sending. Please try again.</value>
+  </data>
+  <data name="TextOurContacts_28" xml:space="preserve">
+    <value>Thank you! We’ve received your message and will contact you shortly.</value>
+  </data>
 </root>

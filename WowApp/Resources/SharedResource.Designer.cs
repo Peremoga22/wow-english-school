@@ -946,6 +946,258 @@ namespace WowApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Home Page.
         /// </summary>
+        public static string TextOurContacts_1 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Us.
+        /// </summary>
+        public static string TextOurContacts_10 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Have a question or want to enroll your child in classes? Message us — we’ll quickly help you choose the right format and level..
+        /// </summary>
+        public static string TextOurContacts_11 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string TextOurContacts_12 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string TextOurContacts_13 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open on the map →.
+        /// </summary>
+        public static string TextOurContacts_14 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We’ll match you with a group based on age and level — just message us “I want to learn.”.
+        /// </summary>
+        public static string TextOurContacts_15 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_15", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit a Request.
+        /// </summary>
+        public static string TextOurContacts_16 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_16", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill out the form — we’ll get in touch with you as soon as possible..
+        /// </summary>
+        public static string TextOurContacts_17 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_17", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string TextOurContacts_18 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_18", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string TextOurContacts_19 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_19", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contacts.
+        /// </summary>
+        public static string TextOurContacts_2 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string TextOurContacts_20 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_20", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sending….
+        /// </summary>
+        public static string TextOurContacts_21 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit Application.
+        /// </summary>
+        public static string TextOurContacts_22 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_22", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string TextOurContacts_23 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_23", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stryi, Okhrymovycha St., 8/25.
+        /// </summary>
+        public static string TextOurContacts_24 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_24", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day off.
+        /// </summary>
+        public static string TextOurContacts_25 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_25", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message sent from the Contacts page..
+        /// </summary>
+        public static string TextOurContacts_26 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_26", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while sending. Please try again..
+        /// </summary>
+        public static string TextOurContacts_27 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_27", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you! We’ve received your message and will contact you shortly..
+        /// </summary>
+        public static string TextOurContacts_28 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_28", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our Contacts.
+        /// </summary>
+        public static string TextOurContacts_3 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write or call us — we’ll recommend the right learning format, assess your level, and help you choose a group..
+        /// </summary>
+        public static string TextOurContacts_4 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working Hours.
+        /// </summary>
+        public static string TextOurContacts_5 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We respond quickly.
+        /// </summary>
+        public static string TextOurContacts_6 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mon–Fri.
+        /// </summary>
+        public static string TextOurContacts_7 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sat.
+        /// </summary>
+        public static string TextOurContacts_8 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sun.
+        /// </summary>
+        public static string TextOurContacts_9 {
+            get {
+                return ResourceManager.GetString("TextOurContacts_9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home Page.
+        /// </summary>
         public static string TextOurReviews_1 {
             get {
                 return ResourceManager.GetString("TextOurReviews_1", resourceCulture);
