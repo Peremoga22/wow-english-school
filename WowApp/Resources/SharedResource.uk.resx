@@ -606,4 +606,37 @@
   <data name="TextOurContacts_28" xml:space="preserve">
     <value>Дякуємо! Ми отримали ваше повідомлення і скоро з вами звʼяжемось.</value>
   </data>
+  <data name="TextAddReview_1" xml:space="preserve">
+    <value>Повернутися назад</value>
+  </data>
+  <data name="TextAddReview_2" xml:space="preserve">
+    <value>Додати відгук</value>
+  </data>
+  <data name="TextAddReview_3" xml:space="preserve">
+    <value>Твоя думка допомагає нам ставати кращими</value>
+  </data>
+  <data name="TextAddReview_4" xml:space="preserve">
+    <value>Імʼя та прізвище</value>
+  </data>
+  <data name="TextAddReview_5" xml:space="preserve">
+    <value>Твій відгук</value>
+  </data>
+  <data name="TextAddReview_6" xml:space="preserve">
+    <value>Оцініть нас</value>
+  </data>
+  <data name="TextAddReview_7" xml:space="preserve">
+    <value>Обрано:</value>
+  </data>
+  <data name="TextAddReview_8" xml:space="preserve">
+    <value>Надсилаю...</value>
+  </data>
+  <data name="TextAddReview_9" xml:space="preserve">
+    <value>Надіслати відгук</value>
+  </data>
+  <data name="TextAddReview_10" xml:space="preserve">
+    <value>Публікація відгуку може бути після модерації.</value>
+  </data>
+  <data name="TextAddReview_11" xml:space="preserve">
+    <value>Дякуємо за відгук</value>
+  </data>
 </root>

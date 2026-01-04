@@ -604,4 +604,37 @@ We help you speak confidently and improve your results in studies or at work.</v
   <data name="TextOurContacts_28" xml:space="preserve">
     <value>Thank you! We’ve received your message and will contact you shortly.</value>
   </data>
+  <data name="TextAddReview_1" xml:space="preserve">
+    <value>Go back</value>
+  </data>
+  <data name="TextAddReview_2" xml:space="preserve">
+    <value>Add a Review</value>
+  </data>
+  <data name="TextAddReview_3" xml:space="preserve">
+    <value>Your feedback helps us get better.</value>
+  </data>
+  <data name="TextAddReview_4" xml:space="preserve">
+    <value>First and Last Name</value>
+  </data>
+  <data name="TextAddReview_5" xml:space="preserve">
+    <value>Your Review</value>
+  </data>
+  <data name="TextAddReview_6" xml:space="preserve">
+    <value>Rate Us</value>
+  </data>
+  <data name="TextAddReview_7" xml:space="preserve">
+    <value>Selected:</value>
+  </data>
+  <data name="TextAddReview_8" xml:space="preserve">
+    <value>Submitting…</value>
+  </data>
+  <data name="TextAddReview_9" xml:space="preserve">
+    <value>Submit Review</value>
+  </data>
+  <data name="TextAddReview_10" xml:space="preserve">
+    <value>Your review may be published after moderation.</value>
+  </data>
+  <data name="TextAddReview_11" xml:space="preserve">
+    <value>Thank you for your review!</value>
+  </data>
 </root>

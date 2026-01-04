@@ -10,15 +10,15 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-white p-2 mb-4 rounded shadow-sm">
             <li class="breadcrumb-item">
-                <a href="/reviews" class="bread-link">Повернутися назад</a>
+                <a href="/reviews" class="bread-link">@SharedResource.TextAddReview_1</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Додати відгук</li>
+            <li class="breadcrumb-item active" aria-current="page">@SharedResource.TextAddReview_2</li>
         </ol>
     </nav>
 
     <div class="text-center mb-4">
-        <h2 class="courses-title mb-2">Додати відгук</h2>
-        <p class="ec-subtitle mx-auto">Твоя думка допомагає нам ставати кращими 💛</p>
+        <h2 class="courses-title mb-2">@SharedResource.TextAddReview_2</h2>
+        <p class="ec-subtitle mx-auto">@SharedResource.TextAddReview_3 💛</p>
     </div>
 
     <div class="row justify-content-center">
@@ -31,16 +31,16 @@
 
                     <div class="form-floating mb-3 text-start">
                         <InputText class="form-control" @bind-Value="form.ClientName"  />
-                        <label>Імʼя та прізвище</label>
+                        <label>@SharedResource.TextAddReview_4</label>
                     </div>
 
                     <div class="form-floating mb-3 text-start">
                         <InputTextArea class="form-control" @bind-Value="form.Content"  style="height: 140px;" />
-                        <label>Твій відгук</label>
+                        <label>@SharedResource.TextAddReview_5</label>
                     </div>
 
                     <div class="mb-3 text-start">
-                        <label class="form-label text-muted mb-1">Оцініть нас</label>
+                        <label class="form-label text-muted mb-1">@SharedResource.TextAddReview_6</label>
 
                         <div class="star-group">
                             @for (var i = 1; i <= 5; i++)
@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="text-muted small mt-2 text-center">
-                            Обрано: <b>@(form.Rating == 0 ? "—" : form.Rating)</b> / 5
+                            @SharedResource.TextAddReview_7 <b>@(form.Rating == 0 ? "—" : form.Rating)</b> / 5
                         </div>
 
                         <ValidationMessage For="() => form.Rating" />
@@ -66,7 +66,7 @@
 
 
                     <button class="btn ec-btn-primary w-100 py-2" type="submit" disabled="@isSending">
-                        @(isSending ? "Надсилаю..." : "Надіслати відгук")
+                        @(isSending? @SharedResource.TextAddReview_8: @SharedResource.TextAddReview_9)
                     </button>
                 </EditForm>
 
@@ -76,7 +76,7 @@
                 }
 
                 <div class="alert alert-warning mt-3 mb-0 text-start">
-                    Публікація відгуку може бути після модерації.
+                    @SharedResource.TextAddReview_10
                 </div>
 
             </div>
@@ -115,7 +115,7 @@
 
         await ReviewService.SaveServiceAsync(review);
 
-        success = "Дякуємо за відгук ❤️";
+        success = $"{@SharedResource.TextAddReview_11} ❤️";
         form = new Review { Rating = 0 };
         hoverRating = 0;
         isSending = false;

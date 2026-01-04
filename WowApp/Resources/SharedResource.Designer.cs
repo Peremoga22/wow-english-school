@@ -521,6 +521,105 @@ namespace WowApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go back.
+        /// </summary>
+        public static string TextAddReview_1 {
+            get {
+                return ResourceManager.GetString("TextAddReview_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your review may be published after moderation..
+        /// </summary>
+        public static string TextAddReview_10 {
+            get {
+                return ResourceManager.GetString("TextAddReview_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for your review!.
+        /// </summary>
+        public static string TextAddReview_11 {
+            get {
+                return ResourceManager.GetString("TextAddReview_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a Review.
+        /// </summary>
+        public static string TextAddReview_2 {
+            get {
+                return ResourceManager.GetString("TextAddReview_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your feedback helps us get better..
+        /// </summary>
+        public static string TextAddReview_3 {
+            get {
+                return ResourceManager.GetString("TextAddReview_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First and Last Name.
+        /// </summary>
+        public static string TextAddReview_4 {
+            get {
+                return ResourceManager.GetString("TextAddReview_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Review.
+        /// </summary>
+        public static string TextAddReview_5 {
+            get {
+                return ResourceManager.GetString("TextAddReview_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rate Us.
+        /// </summary>
+        public static string TextAddReview_6 {
+            get {
+                return ResourceManager.GetString("TextAddReview_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected:.
+        /// </summary>
+        public static string TextAddReview_7 {
+            get {
+                return ResourceManager.GetString("TextAddReview_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submitting….
+        /// </summary>
+        public static string TextAddReview_8 {
+            get {
+                return ResourceManager.GetString("TextAddReview_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit Review.
+        /// </summary>
+        public static string TextAddReview_9 {
+            get {
+                return ResourceManager.GetString("TextAddReview_9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Our English Club uses modern teaching methods. We help you learn to speak English easily and with confidence..
         /// </summary>
         public static string TextFooter_1 {
