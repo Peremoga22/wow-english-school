@@ -51,6 +51,25 @@ namespace WowApp.Services
             await db.SaveChangesAsync();
 
             return entity.Id;
-        }               
+        }
+
+        public async Task<List<CallbackRequest>> GetAllCallbackAsync( CancellationToken ct = default)
+        {
+            await using var db = await _dbFactory.CreateDbContextAsync(ct);
+
+            return await db.CallbackRequests.ToListAsync(ct);
+        }
+
+        public async Task DeleteServiceAsync(int id, CancellationToken ct = default)
+        {
+            await using var dbContext = await _dbFactory.CreateDbContextAsync(ct);
+            var callback = await dbContext.CallbackRequests.FirstOrDefaultAsync(p => p.Id == id, ct);
+
+            if (callback != null)
+            {
+                dbContext.CallbackRequests.Remove(callback);
+                await dbContext.SaveChangesAsync(ct);
+            }
+        }
     }
 }

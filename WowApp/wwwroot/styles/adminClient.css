@@ -179,4 +179,11 @@
         word-wrap: break-word;
         overflow-wrap: break-word;
     }
+
+  
+    .ec-badge--callback {
+        background: rgba(25,135,84,.12);
+        color: #198754;
+        border-color: rgba(25,135,84,.25);
+    }
 }

@@ -2,6 +2,7 @@
 
 @using WowApp.Components.Layout
 @inject NavigationManager _navigationManager
+@inject TelegramBotService _telegramBotService
 @inject IJSRuntime JS
 @inject ClientService _clientService
 @layout AdminLayout
@@ -99,11 +100,68 @@
                 }
             </div>
         }
+        <hr />
+        <div class="ec-grid">
+            @foreach (var cb in callbaks.OrderByDescending(x => x.Id))
+            {
+                <article class="ec-entry">
+                    <div class="ec-entry__top">
+                        <span class="ec-badge ec-badge--callback">CALL BACK</span>
+
+                        <div class="ec-date">
+                            <div class="ec-date__d">@cb.CreatedUtc.ToString("dd.MM.yyyy")</div>
+                        </div>
+                    </div>
+
+                    <div class="ec-entry__body">
+                        <div class="ec-client">
+                            <div class="ec-client__name">@cb.Name</div>
+
+                            @if (!string.IsNullOrWhiteSpace(cb.Phone))
+                            {
+                                <a class="ec-client__phone" href="tel:@cb.Phone">@cb.Phone</a>
+                            }
+                        </div>
+
+                        <div class="ec-proc">
+                            <div class="ec-proc__title">Заявка на дзвінок</div>
+
+                            @if (!string.IsNullOrWhiteSpace(cb.Comment))
+                            {
+                                <div class="ec-proc__desc">@cb.Comment</div>
+                            }
+                            else
+                            {
+                                <div class="ec-proc__desc text-muted">—</div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="ec-entry__bottom">
+                        <div class="ec-price">
+                            <span class="text-muted">—</span>
+                        </div>
+
+                        <button class="btn btn-outline-danger btn-sm rounded-pill d-inline-flex align-items-center gap-1"
+                                title="Видалити"
+                                disabled="@deletingCallback.Contains(cb.Id)"
+                                @onclick="() => ConfirmAndDeleteCallbackAsync(cb)">
+                            <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                            <span>@(deletingCallback.Contains(cb.Id) ? "Видаляю..." : "Видалити")</span>
+                        </button>
+                    </div>
+                </article>
+            }
+        </div>
     </section>
 </main>
 
+
+
+
 @code {
     private List<Appointment> rows = new();
+    private List<CallbackRequest> callbaks = new();
     private List<ServiceClient> serviceLists = new();
     private static readonly CultureInfo ua = new("uk-UA");
     private readonly HashSet<int> deleting = new();
@@ -112,6 +170,7 @@
     {
         rows = await _clientService.GetAllAppointmentAsync();
         serviceLists = await _clientService.GetServiceAsync();
+        callbaks = await _telegramBotService.GetAllCallbackAsync();
     }
 
     private async Task ConfirmAndDeleteAsync(CalendarRowDto row)
@@ -141,8 +200,7 @@
     }
 
     private CalendarRowDto MapToCalendarRowDto(Appointment appointment)
-    {
-        // “костиль”: дістаємо першу послугу по AppointmentId
+    {      
         var svc = serviceLists
             .Where(s => s.Id == appointment.ServiceId)
             .OrderBy(s => s.Id)
@@ -161,4 +219,33 @@
             Price = (decimal?)svc?.Price
         };
     }
+
+    private readonly HashSet<int> deletingCallback = new();
+
+    private async Task ConfirmAndDeleteCallbackAsync(CallbackRequest cb)
+    {
+        if (cb is null) return;
+
+        var message =
+            $"Видалити запит на дзвінок?\n\n" +
+            $"Клієнт: {cb.Name}\n" +
+            $"Телефон: {cb.Phone}\n\n" +
+            $"❗ Цю дію неможливо скасувати.";
+
+        var confirmed = await JS.InvokeAsync<bool>("confirm", message);
+        if (!confirmed) return;
+
+        deletingCallback.Add(cb.Id);
+        try
+        {
+            await _telegramBotService.DeleteServiceAsync(cb.Id);
+            callbaks.RemoveAll(x => x.Id == cb.Id);
+            StateHasChanged();
+        }
+        finally
+        {
+            deletingCallback.Remove(cb.Id);
+        }
+    }
+
 }
