@@ -836,7 +836,8 @@ namespace WowApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Our English Club uses modern teaching methods. We help you learn to speak English easily and with confidence..
+        ///   Looks up a localized string similar to English Club WOW — English Courses for Kids &amp; Adults | Stryi
+        ///.
         /// </summary>
         public static string TextFooter_1 {
             get {
