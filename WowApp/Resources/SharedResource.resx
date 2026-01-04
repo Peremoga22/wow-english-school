@@ -469,4 +469,55 @@ We help you speak confidently and improve your results in studies or at work.</v
   <data name="TextOurReviews_19" xml:space="preserve">
     <value>Page</value>
   </data>
+  <data name="TextServices_1" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
+  <data name="TextServices_2" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="TextServices_3" xml:space="preserve">
+    <value>Our Services</value>
+  </data>
+  <data name="TextServices_4" xml:space="preserve">
+    <value>Learning English</value>
+  </data>
+  <data name="TextServices_5" xml:space="preserve">
+    <value>Learn English through practice, communication, and engaging tasks. We’ll choose a learning format that matches your level and goals.</value>
+  </data>
+  <data name="TextServices_6" xml:space="preserve">
+    <value>Types of Classes</value>
+  </data>
+  <data name="TextServices_7" xml:space="preserve">
+    <value>Choose the type of class that suits you — we’ll clarify the details and find a convenient time.</value>
+  </data>
+  <data name="TextServices_8" xml:space="preserve">
+    <value>UAH</value>
+  </data>
+  <data name="TextServices_9" xml:space="preserve">
+    <value>Enroll</value>
+  </data>
+  <data name="TextServices_10" xml:space="preserve">
+    <value>Not sure what to choose?</value>
+  </data>
+  <data name="TextServices_11" xml:space="preserve">
+    <value>Message us — we’ll help you choose the best option based on your needs and desired results.</value>
+  </data>
+  <data name="TextServices_12" xml:space="preserve">
+    <value>Get a Consultation</value>
+  </data>
+  <data name="TextServices_13" xml:space="preserve">
+    <value>Callback Request</value>
+  </data>
+  <data name="TextPortfolio_1" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
+  <data name="TextPortfolio_2" xml:space="preserve">
+    <value>Portfolio</value>
+  </data>
+  <data name="TextPortfolio_3" xml:space="preserve">
+    <value>Our Portfolio</value>
+  </data>
+  <data name="TextPortfolio_4" xml:space="preserve">
+    <value>Liubov Romanivna</value>
+  </data>
 </root>

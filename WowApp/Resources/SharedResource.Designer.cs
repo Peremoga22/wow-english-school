@@ -1113,5 +1113,158 @@ namespace WowApp.Resources {
                 return ResourceManager.GetString("TextOurReviews_9", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home Page.
+        /// </summary>
+        public static string TextPortfolio_1 {
+            get {
+                return ResourceManager.GetString("TextPortfolio_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portfolio.
+        /// </summary>
+        public static string TextPortfolio_2 {
+            get {
+                return ResourceManager.GetString("TextPortfolio_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our Portfolio.
+        /// </summary>
+        public static string TextPortfolio_3 {
+            get {
+                return ResourceManager.GetString("TextPortfolio_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liubov Romanivna.
+        /// </summary>
+        public static string TextPortfolio_4 {
+            get {
+                return ResourceManager.GetString("TextPortfolio_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home Page.
+        /// </summary>
+        public static string TextServices_1 {
+            get {
+                return ResourceManager.GetString("TextServices_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not sure what to choose?.
+        /// </summary>
+        public static string TextServices_10 {
+            get {
+                return ResourceManager.GetString("TextServices_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message us — we’ll help you choose the best option based on your needs and desired results..
+        /// </summary>
+        public static string TextServices_11 {
+            get {
+                return ResourceManager.GetString("TextServices_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get a Consultation.
+        /// </summary>
+        public static string TextServices_12 {
+            get {
+                return ResourceManager.GetString("TextServices_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Callback Request.
+        /// </summary>
+        public static string TextServices_13 {
+            get {
+                return ResourceManager.GetString("TextServices_13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Services.
+        /// </summary>
+        public static string TextServices_2 {
+            get {
+                return ResourceManager.GetString("TextServices_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our Services.
+        /// </summary>
+        public static string TextServices_3 {
+            get {
+                return ResourceManager.GetString("TextServices_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Learning English.
+        /// </summary>
+        public static string TextServices_4 {
+            get {
+                return ResourceManager.GetString("TextServices_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Learn English through practice, communication, and engaging tasks. We’ll choose a learning format that matches your level and goals..
+        /// </summary>
+        public static string TextServices_5 {
+            get {
+                return ResourceManager.GetString("TextServices_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Types of Classes.
+        /// </summary>
+        public static string TextServices_6 {
+            get {
+                return ResourceManager.GetString("TextServices_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the type of class that suits you — we’ll clarify the details and find a convenient time..
+        /// </summary>
+        public static string TextServices_7 {
+            get {
+                return ResourceManager.GetString("TextServices_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UAH.
+        /// </summary>
+        public static string TextServices_8 {
+            get {
+                return ResourceManager.GetString("TextServices_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enroll.
+        /// </summary>
+        public static string TextServices_9 {
+            get {
+                return ResourceManager.GetString("TextServices_9", resourceCulture);
+            }
+        }
     }
 }

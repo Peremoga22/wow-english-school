@@ -471,4 +471,55 @@
   <data name="TextOurReviews_19" xml:space="preserve">
     <value>Стор.</value>
   </data>
+  <data name="TextServices_1" xml:space="preserve">
+    <value>Домашня сторінка</value>
+  </data>
+  <data name="TextServices_2" xml:space="preserve">
+    <value>Послуги</value>
+  </data>
+  <data name="TextServices_3" xml:space="preserve">
+    <value>Наші послуги</value>
+  </data>
+  <data name="TextServices_4" xml:space="preserve">
+    <value>Вивчення англійської мови</value>
+  </data>
+  <data name="TextServices_5" xml:space="preserve">
+    <value>Вивчай англійську через практику, спілкування та цікаві завдання. Підберемо формат навчання під твій рівень і цілі.</value>
+  </data>
+  <data name="TextServices_6" xml:space="preserve">
+    <value>Типи занять</value>
+  </data>
+  <data name="TextServices_7" xml:space="preserve">
+    <value>Оберіть для себе тип заняття — ми уточнимо деталі та зручний час.</value>
+  </data>
+  <data name="TextServices_8" xml:space="preserve">
+    <value>грн</value>
+  </data>
+  <data name="TextServices_9" xml:space="preserve">
+    <value>Записатись</value>
+  </data>
+  <data name="TextServices_10" xml:space="preserve">
+    <value>Не знаєте, що обрати?</value>
+  </data>
+  <data name="TextServices_11" xml:space="preserve">
+    <value>Напишіть нам — підберемо процедуру під ваш тип шкіри та бажаний результат.</value>
+  </data>
+  <data name="TextServices_12" xml:space="preserve">
+    <value>Отримати консультацію</value>
+  </data>
+  <data name="TextServices_13" xml:space="preserve">
+    <value>Зворотній дзвінок</value>
+  </data>
+  <data name="TextPortfolio_1" xml:space="preserve">
+    <value>Домашня сторінка</value>
+  </data>
+  <data name="TextPortfolio_2" xml:space="preserve">
+    <value>Портфоліо</value>
+  </data>
+  <data name="TextPortfolio_3" xml:space="preserve">
+    <value>Наше портфоліо</value>
+  </data>
+  <data name="TextPortfolio_4" xml:space="preserve">
+    <value>Любов Романівна</value>
+  </data>
 </root>
