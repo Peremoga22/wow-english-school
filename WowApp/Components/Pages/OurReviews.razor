@@ -120,12 +120,14 @@
                                         </div>
                                     </div>
 
-                                    <div class="text-warning">
-                                        @for (var i = 1; i <= 5; i++)
-                                        {
-                                            <i class="bi @(i <= ClampRating(r.Rating) ? "bi-star-fill" : "bi-star")"></i>
-                                        }
-                                    </div>
+                                            <div class="ec-stars" aria-label="@SharedResource.TextOurReviews_5">
+                                                @for (var i = 1; i <= 5; i++)
+                                                {
+                                                    <i class="bi @(i <= (int)Math.Round(AvgRating, MidpointRounding.AwayFromZero)
+                                                                       ? "bi-star-fill"
+                                                                       : "bi-star")"></i>
+                                            }
+                                        </div>
                                 </div>
 
                                 <div class="mt-3 text-muted">

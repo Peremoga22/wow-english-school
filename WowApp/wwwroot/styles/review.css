@@ -641,4 +641,38 @@
             width: 100%;
         }
     }
+
+    .review-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: .5rem;
+    }
+    /* текст може стискатись */
+    .review-user {
+        min-width: 0;
+    }
+    /* ⭐ зірки — не вилазять */
+    .ec-stars {
+        display: inline-flex;
+        gap: .15rem;
+        white-space: nowrap;
+        flex: 0 0 auto; /* 🔑 не ростуть */
+        max-width: 100%; /* 🔑 не виходять за контейнер */
+        font-size: clamp(.85rem, 3vw, 1rem);
+        color: #ffc107;
+        line-height: 1;
+    }
+
+        .ec-stars .bi {
+            display: block;
+        }
+
+
+    @media (max-width: 380px) {
+        .ec-stars {
+            font-size: .85rem;
+            gap: .1rem;
+        }
+    }
 }
