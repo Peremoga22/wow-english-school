@@ -942,5 +942,176 @@ namespace WowApp.Resources {
                 return ResourceManager.GetString("TextHome_9", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home Page.
+        /// </summary>
+        public static string TextOurReviews_1 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comfort.
+        /// </summary>
+        public static string TextOurReviews_10 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave a Review.
+        /// </summary>
+        public static string TextOurReviews_11 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Student Reviews.
+        /// </summary>
+        public static string TextOurReviews_12 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can browse and search by keywords.
+        /// </summary>
+        public static string TextOurReviews_13 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search (name, text, tag)....
+        /// </summary>
+        public static string TextOurReviews_14 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading….
+        /// </summary>
+        public static string TextOurReviews_15 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_15", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing found.
+        /// </summary>
+        public static string TextOurReviews_16 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_16", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try changing your search query..
+        /// </summary>
+        public static string TextOurReviews_17 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_17", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shown.
+        /// </summary>
+        public static string TextOurReviews_18 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_18", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page.
+        /// </summary>
+        public static string TextOurReviews_19 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_19", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reviews.
+        /// </summary>
+        public static string TextOurReviews_2 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our Reviews.
+        /// </summary>
+        public static string TextOurReviews_3 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It’s important to us that learning is comfortable and delivers real results. Here’s what our students say..
+        /// </summary>
+        public static string TextOurReviews_4 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Average Rating.
+        /// </summary>
+        public static string TextOurReviews_5 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading….
+        /// </summary>
+        public static string TextOurReviews_6 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We explain things simply.
+        /// </summary>
+        public static string TextOurReviews_7 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speaking Practice.
+        /// </summary>
+        public static string TextOurReviews_8 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string TextOurReviews_9 {
+            get {
+                return ResourceManager.GetString("TextOurReviews_9", resourceCulture);
+            }
+        }
     }
 }

@@ -413,4 +413,62 @@
   <data name="TextAboutUs_39" xml:space="preserve">
     <value>Записатися</value>
   </data>
+  <data name="TextOurReviews_1" xml:space="preserve">
+    <value>Домашня сторінка</value>
+  </data>
+  <data name="TextOurReviews_2" xml:space="preserve">
+    <value>Відгуки</value>
+  </data>
+  <data name="TextOurReviews_3" xml:space="preserve">
+    <value>Наші відгуки</value>
+  </data>
+  <data name="TextOurReviews_4" xml:space="preserve">
+    <value>Нам важливо, щоб навчання було комфортним і давало результат.
+ Ось що кажуть наші студенти</value>
+  </data>
+  <data name="TextOurReviews_5" xml:space="preserve">
+    <value>Середня оцінка</value>
+  </data>
+  <data name="TextOurReviews_6" xml:space="preserve">
+    <value>завантаження…</value>
+  </data>
+  <data name="TextOurReviews_7" xml:space="preserve">
+    <value>Пояснюємо просто</value>
+  </data>
+  <data name="TextOurReviews_8" xml:space="preserve">
+    <value>Розмовна практика</value>
+  </data>
+  <data name="TextOurReviews_9" xml:space="preserve">
+    <value>Результат</value>
+  </data>
+  <data name="TextOurReviews_10" xml:space="preserve">
+    <value>Комфорт</value>
+  </data>
+  <data name="TextOurReviews_11" xml:space="preserve">
+    <value>Залишити відгук</value>
+  </data>
+  <data name="TextOurReviews_12" xml:space="preserve">
+    <value>Відгуки студентів</value>
+  </data>
+  <data name="TextOurReviews_13" xml:space="preserve">
+    <value>Можна гортати і шукати по ключових словах</value>
+  </data>
+  <data name="TextOurReviews_14" xml:space="preserve">
+    <value>Пошук (ім’я, текст, тег)...</value>
+  </data>
+  <data name="TextOurReviews_15" xml:space="preserve">
+    <value>Завантаження...</value>
+  </data>
+  <data name="TextOurReviews_16" xml:space="preserve">
+    <value>Нічого не знайдено</value>
+  </data>
+  <data name="TextOurReviews_17" xml:space="preserve">
+    <value>Спробуй змінити запит пошуку.</value>
+  </data>
+  <data name="TextOurReviews_18" xml:space="preserve">
+    <value>Показано</value>
+  </data>
+  <data name="TextOurReviews_19" xml:space="preserve">
+    <value>Стор.</value>
+  </data>
 </root>

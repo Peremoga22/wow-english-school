@@ -412,4 +412,61 @@ We help you speak confidently and improve your results in studies or at work.</v
   <data name="TextAboutUs_39" xml:space="preserve">
     <value>Sign Up</value>
   </data>
+  <data name="TextOurReviews_1" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
+  <data name="TextOurReviews_2" xml:space="preserve">
+    <value>Reviews</value>
+  </data>
+  <data name="TextOurReviews_3" xml:space="preserve">
+    <value>Our Reviews</value>
+  </data>
+  <data name="TextOurReviews_4" xml:space="preserve">
+    <value>It’s important to us that learning is comfortable and delivers real results. Here’s what our students say.</value>
+  </data>
+  <data name="TextOurReviews_5" xml:space="preserve">
+    <value>Average Rating</value>
+  </data>
+  <data name="TextOurReviews_6" xml:space="preserve">
+    <value>Loading…</value>
+  </data>
+  <data name="TextOurReviews_7" xml:space="preserve">
+    <value>We explain things simply</value>
+  </data>
+  <data name="TextOurReviews_8" xml:space="preserve">
+    <value>Speaking Practice</value>
+  </data>
+  <data name="TextOurReviews_9" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="TextOurReviews_10" xml:space="preserve">
+    <value>Comfort</value>
+  </data>
+  <data name="TextOurReviews_11" xml:space="preserve">
+    <value>Leave a Review</value>
+  </data>
+  <data name="TextOurReviews_12" xml:space="preserve">
+    <value>Student Reviews</value>
+  </data>
+  <data name="TextOurReviews_13" xml:space="preserve">
+    <value>You can browse and search by keywords</value>
+  </data>
+  <data name="TextOurReviews_14" xml:space="preserve">
+    <value>Search (name, text, tag)...</value>
+  </data>
+  <data name="TextOurReviews_15" xml:space="preserve">
+    <value>Loading…</value>
+  </data>
+  <data name="TextOurReviews_16" xml:space="preserve">
+    <value>Nothing found</value>
+  </data>
+  <data name="TextOurReviews_17" xml:space="preserve">
+    <value>Try changing your search query.</value>
+  </data>
+  <data name="TextOurReviews_18" xml:space="preserve">
+    <value>Shown</value>
+  </data>
+  <data name="TextOurReviews_19" xml:space="preserve">
+    <value>Page</value>
+  </data>
 </root>
