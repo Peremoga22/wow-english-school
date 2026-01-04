@@ -117,16 +117,15 @@
         min-width: 0;
         line-height: 1.1;
     }
-
-    .ec-title {
+    /*.ec-title {
         margin: 0;
         font-weight: 800;
         letter-spacing: .06em;
-        font-size: clamp(16px, 4.2vw, 22px); /* авто під мобілку */
-        white-space: nowrap; /* не рве слово */
-        overflow: hidden;
-        text-overflow: ellipsis; /* якщо зовсім тісно */
-    }
+        font-size: clamp(16px, 4.2vw, 22px);*/ /* авто під мобілку */
+    /*white-space: nowrap;*/ /* не рве слово */
+    /*overflow: hidden;
+        text-overflow: ellipsis;*/ /* якщо зовсім тісно */
+    /*}
 
     .ec-subtitle {
         font-size: clamp(11px, 3.2vw, 14px);
@@ -134,7 +133,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-    }
+    }*/
     /* Дуже вузькі екрани (старі айфони) */
     /* @media (max-width: 360px) {
         .logo-2-wrap {
@@ -162,5 +161,23 @@
     .logo-3-img {
         height: clamp(28px, 4.5vw, 44px);
         width: auto;
+    }
+
+    .desktop-only {
+        display: block;
+    }
+
+    .mobile-only {
+        display: none;
+    }
+
+    @media (max-width: 576px) {
+        .desktop-only {
+            display: none;
+        }
+
+        .mobile-only {
+            display: block;
+        }
     }
 }

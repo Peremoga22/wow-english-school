@@ -17,10 +17,13 @@
                         <img src="images/logo2.jpg" alt="English Club Logo" class="logo-3-img">
                     </div>
 
-                    <div class="brand-text">
-                        <h1 class="ec-title mb-1">ENGLISH CLUB</h1>
-                        <div class="ec-subtitle">we open the world</div>
-                    </div>
+                    <h1 class="ec-title desktop-only">
+                        English Club WOW — English Courses in Stryi
+                    </h1>
+
+                    <h1 class="ec-title mobile-only">
+                        English Club WOW
+                    </h1>
                 </div>
 
 
@@ -193,7 +196,7 @@
                     <div class="ec-footer-title">@SharedResource.TextHome_34</div>
                     <div class="ec-footer-text">
                         <div><b>@SharedResource.TextHome_35:</b> <a class="ec-link" href="tel:+380982506416">098-250-64-16</a></div>
-                        <div><b>Telegram:</b> <span class="ec-muted">@@your_username</span></div>
+                        <div><b>Telegram:</b> <span class="ec-muted">@UserNameForTelegram</span></div>
                         <div><b>E-mail:</b> <a class="ec-link" href="mailto:Lyubovvynnytska87gnail.com">Lyubovvynnytska87@gmail.com</a></div>
                     </div>
                 </div>
@@ -226,7 +229,7 @@
     [CascadingParameter] public MainLayout? Layout { get; set; }
 
     private List<HomeSection> rows = new();
-
+    public string UserNameForTelegram = "@lyubov_vynnytska";
     private bool IsEn =>
         CultureInfo.CurrentUICulture.Name.StartsWith("en", StringComparison.OrdinalIgnoreCase);
 
