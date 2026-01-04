@@ -598,7 +598,7 @@
     <value>вихідний</value>
   </data>
   <data name="TextOurContacts_26" xml:space="preserve">
-    <value>повідомлення відправлено із сторінки контакти.</value>
+    <value>Відправлено із сторінки контакти.</value>
   </data>
   <data name="TextOurContacts_27" xml:space="preserve">
     <value>Сталася помилка при відправці. Спробуйте ще раз.</value>

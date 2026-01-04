@@ -1421,7 +1421,7 @@ namespace WowApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Message sent from the Contacts page..
+        ///   Looks up a localized string similar to Sent  contact page..
         /// </summary>
         public static string TextOurContacts_26 {
             get {

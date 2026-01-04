@@ -238,10 +238,11 @@
        _errText = null;       
 
         try
-        {
-            var id = await _telegramBotService.SaveAppointmentClientAsync(_model);   
+        {             
             _model.AppointmentDate = DateOnly.FromDateTime(DateTime.Now);
-            _model.Group = $"==> {@SharedResource.TextOurContacts_26}";
+            _model.Group = $"{@SharedResource.TextOurContacts_26}";
+            _model.AppointmentDate = DateOnly.FromDateTime(DateTime.Today);
+            await _telegramBotService.SaveAppointmentClientAsync(_model);
             await _notification.NotifyNewAppointmentAsync(_model);
         }
         catch (Exception ex)
@@ -251,6 +252,7 @@
         }
         finally
         {
+            _model = new();
             isSending = false;
         }
         await Task.Delay(600);

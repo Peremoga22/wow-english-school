@@ -85,6 +85,35 @@ namespace WowApp.TelegramBot
             await _bot.SendMessage(chatId, text, parseMode: ParseMode.Markdown, cancellationToken: ct);
         }
 
+        public async Task NotifyNewReviewAsync(
+                                            Review req,
+                                            long? overrideChatId = null,
+                                            CancellationToken ct = default)
+        {
+            var chatId = overrideChatId ?? _cfg.AdminChatId;
+
+            var stars = new string('⭐', Math.Clamp(req.Rating, 1, 5));
+
+            var text =
+                $"""
+                    ✍️ *Новий відгук*
+                    🆔 ID: *{req.Id}*
+                    👤 Ім’я: *{Esc(req.ClientName)}*
+                    ⭐ Оцінка: *{stars}* ({req.Rating}/5)
+                    📅 Дата: *{req.ReviewDate:dd.MM.yyyy}*
+
+                    💬 *Відгук:*
+                    _{Esc(req.Content)}_
+                    """;
+
+            await _bot.SendMessage(
+                chatId,
+                text,
+                parseMode: ParseMode.Markdown,
+                cancellationToken: ct);
+        }
+
+
         private static string Esc(string s) => s
            .Replace("_", "\\_").Replace("*", "\\*").Replace("[", "\\[").Replace("`", "\\`");
     }

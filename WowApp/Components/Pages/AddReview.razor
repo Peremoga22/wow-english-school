@@ -2,6 +2,7 @@
 @using System.ComponentModel.DataAnnotations
 @inject ReviewService ReviewService
 @inject NavigationManager Nav
+@inject AppointmentNotifier _notification
 @rendermode InteractiveServer
 
 <PageTitle>Додати відгук</PageTitle>
@@ -114,6 +115,7 @@
         };
 
         await ReviewService.SaveServiceAsync(review);
+        await _notification.NotifyNewReviewAsync(review);
 
         success = $"{@SharedResource.TextAddReview_11} ❤️";
         form = new Review { Rating = 0 };
