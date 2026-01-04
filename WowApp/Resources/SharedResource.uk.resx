@@ -639,4 +639,76 @@
   <data name="TextAddReview_11" xml:space="preserve">
     <value>Дякуємо за відгук</value>
   </data>
+  <data name="TextAppointmentClient_1" xml:space="preserve">
+    <value>Запис на безкоштовний урок</value>
+  </data>
+  <data name="TextAppointmentClient_2" xml:space="preserve">
+    <value>Залиште контакти — ми підтвердимо запис і звʼяжемось з вами.</value>
+  </data>
+  <data name="TextAppointmentClient_3" xml:space="preserve">
+    <value>Ім’я та прізвище</value>
+  </data>
+  <data name="TextAppointmentClient_4" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="TextAppointmentClient_5" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="TextAppointmentClient_6" xml:space="preserve">
+    <value>Що вас цікавить? (опціонально)</value>
+  </data>
+  <data name="TextAppointmentClient_7" xml:space="preserve">
+    <value>Оберіть послугу</value>
+  </data>
+  <data name="TextAppointmentClient_8" xml:space="preserve">
+    <value>Повідомлення (опціонально)</value>
+  </data>
+  <data name="TextAppointmentClient_9" xml:space="preserve">
+    <value>Наприклад: зручний час для дзвінка, вік дитини, рівень...</value>
+  </data>
+  <data name="TextAppointmentClient_10" xml:space="preserve">
+    <value>Відправляємо...</value>
+  </data>
+  <data name="TextAppointmentClient_11" xml:space="preserve">
+    <value>Записатися</value>
+  </data>
+  <data name="TextAppointmentClient_12" xml:space="preserve">
+    <value>Повернутися на головну</value>
+  </data>
+  <data name="TextAppointmentClient_13" xml:space="preserve">
+    <value>Готово! Заявку прийнято! Ми скоро з вами звʼяжемося.</value>
+  </data>
+  <data name="TextAppointmentClient_14" xml:space="preserve">
+    <value>Сталася помилка при відправці. Спробуйте ще раз.</value>
+  </data>
+  <data name="TextAppointmentCallback_1" xml:space="preserve">
+    <value>Зворотній дзвінок</value>
+  </data>
+  <data name="TextAppointmentCallback_2" xml:space="preserve">
+    <value>Залиште номер — ми передзвонимо вам у робочий час</value>
+  </data>
+  <data name="TextAppointmentCallback_3" xml:space="preserve">
+    <value>Імʼя та прізвище</value>
+  </data>
+  <data name="TextAppointmentCallback_4" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="TextAppointmentCallback_5" xml:space="preserve">
+    <value>Коментар (опціонально)</value>
+  </data>
+  <data name="TextAppointmentCallback_6" xml:space="preserve">
+    <value>Відправляємо...</value>
+  </data>
+  <data name="TextAppointmentCallback_7" xml:space="preserve">
+    <value>Записатися</value>
+  </data>
+  <data name="TextAppointmentCallback_8" xml:space="preserve">
+    <value>Повернутися на головну</value>
+  </data>
+  <data name="TextAppointmentCallback_9" xml:space="preserve">
+    <value>Готово! Заявку прийнято! Ми скоро з вами звʼяжемося.</value>
+  </data>
+  <data name="TextAppointmentCallback_10" xml:space="preserve">
+    <value>Сталася помилка при відправці. Спробуйте ще раз.</value>
+  </data>
 </root>

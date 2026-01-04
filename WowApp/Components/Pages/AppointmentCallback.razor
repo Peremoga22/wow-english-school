@@ -13,9 +13,9 @@
             <div class="col-12 col-lg-6">
 
                 <div class="bg-white rounded-4 shadow-sm p-4 p-md-5">
-                    <h2 class="mb-2">Зворотній дзвінок</h2>
+                    <h2 class="mb-2">>@SharedResource.TextAppointmentCallback_1</h2>
                     <p class="text-muted mb-4">
-                        Залиште номер — ми передзвонимо вам у робочий час
+                        @SharedResource.TextAppointmentCallback_2
                     </p>
 
                     <EditForm Model="_model"
@@ -26,19 +26,19 @@
                         <ValidationSummary class="text-danger mb-3" />
 
                         <div class="mb-3">
-                            <label class="form-label">Імʼя та прізвище</label>
+                            <label class="form-label">@SharedResource.TextAppointmentCallback_3</label>
                             <InputText class="form-control" @bind-Value="_model.ClientName" />
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Телефон</label>
+                            <label class="form-label">@SharedResource.TextAppointmentCallback_4</label>
                             <InputText class="form-control"
                                        @bind-Value="_model.ClientPhone"
                                        placeholder="+380XXXXXXXXX" />
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label">Коментар (опціонально)</label>
+                            <label class="form-label">@SharedResource.TextAppointmentCallback_5</label>
                             <InputTextArea class="form-control"
                                            @bind-Value="_model.Message"
                                            rows="4" />
@@ -49,11 +49,11 @@
                                 disabled="@_saving">
                             @if (_saving)
                             {
-                                <span>Відправляємо...</span>
+                                <span>@SharedResource.TextAppointmentCallback_6</span>
                             }
                             else
                             {
-                                <span>Записатися</span>
+                                <span>@SharedResource.TextAppointmentCallback_7</span>
                             }
                         </button>
 
@@ -61,7 +61,7 @@
                                 type="button"
                                 disabled="@_saving"
                                 @onclick="GoHome">
-                            Повернутися на головну
+                            @SharedResource.TextAppointmentCallback_8
                         </button>
                         @if (!string.IsNullOrWhiteSpace(_okText))
                         {
@@ -95,13 +95,13 @@
         try
         {
             var id = await _telegramBotService.CreateCallbackAsync(_model);
-            _okText = $"Готово! Заявку прийнято! Ми скоро з вами звʼяжемося.";
+            _okText = @SharedResource.TextAppointmentCallback_9;
             _model.Id = id;
             await _notification.NotifyNewCallbackAsync(_model);
         }
         catch (Exception ex)
         {
-            _errText = "Сталася помилка при відправці. Спробуйте ще раз.";
+            _errText = @SharedResource.TextAppointmentCallback_10;
             Console.WriteLine(ex);
         }
         finally

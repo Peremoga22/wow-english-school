@@ -637,4 +637,76 @@ We help you speak confidently and improve your results in studies or at work.</v
   <data name="TextAddReview_11" xml:space="preserve">
     <value>Thank you for your review!</value>
   </data>
+  <data name="TextAppointmentClient_1" xml:space="preserve">
+    <value>Free Trial Lesson Registration</value>
+  </data>
+  <data name="TextAppointmentClient_2" xml:space="preserve">
+    <value>Leave your contact details — we’ll confirm your registration and get in touch with you.</value>
+  </data>
+  <data name="TextAppointmentClient_3" xml:space="preserve">
+    <value>First and Last Name</value>
+  </data>
+  <data name="TextAppointmentClient_4" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="TextAppointmentClient_5" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="TextAppointmentClient_6" xml:space="preserve">
+    <value>What are you interested in? (optional)</value>
+  </data>
+  <data name="TextAppointmentClient_7" xml:space="preserve">
+    <value>Choose a service</value>
+  </data>
+  <data name="TextAppointmentClient_8" xml:space="preserve">
+    <value>Message (optional)</value>
+  </data>
+  <data name="TextAppointmentClient_9" xml:space="preserve">
+    <value>For example: a convenient time for a call, the child’s age, level, etc.</value>
+  </data>
+  <data name="TextAppointmentClient_10" xml:space="preserve">
+    <value>Sending…</value>
+  </data>
+  <data name="TextAppointmentClient_11" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="TextAppointmentClient_12" xml:space="preserve">
+    <value>Return to Home</value>
+  </data>
+  <data name="TextAppointmentClient_13" xml:space="preserve">
+    <value>Done! Your request has been received. We’ll contact you shortly.</value>
+  </data>
+  <data name="TextAppointmentClient_14" xml:space="preserve">
+    <value>An error occurred while sending. Please try again.</value>
+  </data>
+  <data name="TextAppointmentCallback_1" xml:space="preserve">
+    <value>Callback Request</value>
+  </data>
+  <data name="TextAppointmentCallback_2" xml:space="preserve">
+    <value>Leave your number — we’ll call you back during business hours.</value>
+  </data>
+  <data name="TextAppointmentCallback_3" xml:space="preserve">
+    <value>First and Last Name</value>
+  </data>
+  <data name="TextAppointmentCallback_4" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="TextAppointmentCallback_5" xml:space="preserve">
+    <value>Comment (optional)</value>
+  </data>
+  <data name="TextAppointmentCallback_6" xml:space="preserve">
+    <value>Sending…</value>
+  </data>
+  <data name="TextAppointmentCallback_7" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="TextAppointmentCallback_8" xml:space="preserve">
+    <value>Return to Home</value>
+  </data>
+  <data name="TextAppointmentCallback_9" xml:space="preserve">
+    <value>Done! Your request has been received. We’ll contact you shortly.</value>
+  </data>
+  <data name="TextAppointmentCallback_10" xml:space="preserve">
+    <value>An error occurred while sending. Please try again.</value>
+  </data>
 </root>

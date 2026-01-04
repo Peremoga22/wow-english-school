@@ -15,21 +15,21 @@
             <div class="col-12 col-lg-7">
 
                 <div class="bg-white rounded-4 shadow-sm p-4 p-md-5">
-                    <h2 class="mb-2">Запис на безкоштовний урок</h2>
-                    <p class="text-muted mb-4">Залиште контакти — ми підтвердимо запис і звʼяжемось з вами.</p>
+                    <h2 class="mb-2">@SharedResource.TextAppointmentClient_1</h2>
+                    <p class="text-muted mb-4">@SharedResource.TextAppointmentClient_2</p>
 
                     <EditForm Model="_model" OnValidSubmit="SubmitAsync" FormName="appointmentForm">
                         <DataAnnotationsValidator />
                         <ValidationSummary class="text-danger mb-3" />
 
                         <div class="mb-3">
-                            <label class="form-label">Ім’я та прізвище</label>
+                            <label class="form-label">@SharedResource.TextAppointmentClient_3</label>
                             <InputText class="form-control" @bind-Value="_model.ClientName" />
                             <ValidationMessage For="@(() => _model.ClientName)" class="text-danger" />
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Телефон</label>
+                            <label class="form-label">@SharedResource.TextAppointmentClient_4</label>
                             <InputText class="form-control"
                                        @bind-Value="_model.ClientPhone"
                                        placeholder="+380XXXXXXXXX або 0XXXXXXXXX"
@@ -39,17 +39,17 @@
 
                         <div class="row g-3">
                             <div class="col-12 col-md-12">
-                                <label class="form-label">Дата</label>
+                                <label class="form-label">@SharedResource.TextAppointmentClient_5</label>
                                 <InputDate class="form-control" @bind-Value="_model.AppointmentDate" />
                                 <ValidationMessage For="@(() => _model.AppointmentDate)" class="text-danger" />
                             </div>
                         </div>
 
                         <div class="mb-3 mt-3">
-                            <label class="form-label">Що вас цікавить? (опціонально)</label>
+                            <label class="form-label">@SharedResource.TextAppointmentClient_6</label>
 
                             <InputSelect class="form-select" @bind-Value="_model.ServiceId">
-                                <option value="">— Оберіть послугу —</option>
+                                <option value="">— @SharedResource.TextAppointmentClient_7 —</option>
 
                                 @foreach (var s in services)
                                 {
@@ -63,9 +63,9 @@
 
 
                         <div class="mb-4">
-                            <label class="form-label">Повідомлення (опціонально)</label>
+                            <label class="form-label">@SharedResource.TextAppointmentClient_8)</label>
                             <InputTextArea class="form-control" @bind-Value="_model.Message" rows="4"
-                                           placeholder="Наприклад: зручний час для дзвінка, вік дитини, рівень..." />
+                                           placeholder="@SharedResource.TextAppointmentClient_9" />
                         </div>
 
                         <button class="btn ec-btn-primary w-100 py-2"
@@ -73,11 +73,11 @@
                                 disabled="@_saving">
                             @if (_saving)
                             {
-                                <span>Відправляємо...</span>
+                                <span>@SharedResource.TextAppointmentClient_10</span>
                             }
                             else
                             {
-                                <span>Записатися</span>
+                                <span>@SharedResource.TextAppointmentClient_11</span>
                             }
                         </button>
 
@@ -85,7 +85,7 @@
                                 type="button"
                                 disabled="@_saving"
                                 @onclick="GoHome">
-                            Повернутися на головну
+                            @SharedResource.TextAppointmentClient_12
                         </button>
 
                         @if (!string.IsNullOrWhiteSpace(_okText))
@@ -137,12 +137,12 @@
             _model.Group = card.Group;
             _model.ServiceTitle = card.TitleCard;
             var id = await _telegramBotService.SaveAppointmentClientAsync(_model);
-            _okText = $"Готово! Заявку прийнято! Ми скоро з вами звʼяжемося.";
+            _okText = @SharedResource.TextAppointmentClient_13;
             await _notification.NotifyNewAppointmentAsync(_model);             
         }
         catch (Exception ex)
         {
-            _errText = "Сталася помилка при відправці. Спробуйте ще раз.";
+            _errText = @SharedResource.TextAppointmentClient_14;
             Console.WriteLine(ex);
         }
         finally

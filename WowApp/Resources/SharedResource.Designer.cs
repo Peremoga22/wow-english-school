@@ -620,6 +620,222 @@ namespace WowApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Callback Request.
+        /// </summary>
+        public static string TextAppointmentCallback_1 {
+            get {
+                return ResourceManager.GetString("TextAppointmentCallback_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while sending. Please try again..
+        /// </summary>
+        public static string TextAppointmentCallback_10 {
+            get {
+                return ResourceManager.GetString("TextAppointmentCallback_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave your number — we’ll call you back during business hours..
+        /// </summary>
+        public static string TextAppointmentCallback_2 {
+            get {
+                return ResourceManager.GetString("TextAppointmentCallback_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First and Last Name.
+        /// </summary>
+        public static string TextAppointmentCallback_3 {
+            get {
+                return ResourceManager.GetString("TextAppointmentCallback_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string TextAppointmentCallback_4 {
+            get {
+                return ResourceManager.GetString("TextAppointmentCallback_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment (optional).
+        /// </summary>
+        public static string TextAppointmentCallback_5 {
+            get {
+                return ResourceManager.GetString("TextAppointmentCallback_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sending….
+        /// </summary>
+        public static string TextAppointmentCallback_6 {
+            get {
+                return ResourceManager.GetString("TextAppointmentCallback_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Up.
+        /// </summary>
+        public static string TextAppointmentCallback_7 {
+            get {
+                return ResourceManager.GetString("TextAppointmentCallback_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return to Home.
+        /// </summary>
+        public static string TextAppointmentCallback_8 {
+            get {
+                return ResourceManager.GetString("TextAppointmentCallback_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done! Your request has been received. We’ll contact you shortly..
+        /// </summary>
+        public static string TextAppointmentCallback_9 {
+            get {
+                return ResourceManager.GetString("TextAppointmentCallback_9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Free Trial Lesson Registration.
+        /// </summary>
+        public static string TextAppointmentClient_1 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sending….
+        /// </summary>
+        public static string TextAppointmentClient_10 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Up.
+        /// </summary>
+        public static string TextAppointmentClient_11 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Return to Home.
+        /// </summary>
+        public static string TextAppointmentClient_12 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done! Your request has been received. We’ll contact you shortly..
+        /// </summary>
+        public static string TextAppointmentClient_13 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while sending. Please try again..
+        /// </summary>
+        public static string TextAppointmentClient_14 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave your contact details — we’ll confirm your registration and get in touch with you..
+        /// </summary>
+        public static string TextAppointmentClient_2 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First and Last Name.
+        /// </summary>
+        public static string TextAppointmentClient_3 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string TextAppointmentClient_4 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string TextAppointmentClient_5 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What are you interested in? (optional).
+        /// </summary>
+        public static string TextAppointmentClient_6 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a service.
+        /// </summary>
+        public static string TextAppointmentClient_7 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message (optional).
+        /// </summary>
+        public static string TextAppointmentClient_8 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For example: a convenient time for a call, the child’s age, level, etc..
+        /// </summary>
+        public static string TextAppointmentClient_9 {
+            get {
+                return ResourceManager.GetString("TextAppointmentClient_9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Our English Club uses modern teaching methods. We help you learn to speak English easily and with confidence..
         /// </summary>
         public static string TextFooter_1 {
