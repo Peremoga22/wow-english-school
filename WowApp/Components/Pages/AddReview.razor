@@ -86,6 +86,7 @@
 </div>
 
 @code {
+    [CascadingParameter] public MainLayout? Layout { get; set; }
     private bool isSending;
     private string? success;
     private int hoverRating = 0;
@@ -121,6 +122,16 @@
         form = new Review { Rating = 0 };
         hoverRating = 0;
         isSending = false;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        Layout?.SetSeo(
+            "Послуги — English Club WOW | Стрий та онлайн",
+            "Групові та індивідуальні заняття з англійської для дітей і дорослих. Speaking Club, підготовка до іспитів, онлайн/офлайн навчання."
+        );
     }
 }
 

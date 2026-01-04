@@ -1,26 +1,37 @@
 ﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Routing
+@inject NavigationManager Nav
 
 <HeadContent>
-    <title>We Open the World By Lyubov Vynnytska</title>
+    <title>@PageTitle</title>
+
+    <meta name="description" content="@PageDescription" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- canonical -->
+    <link rel="canonical" href="@CanonicalUrl" />
+
+    <!-- Open Graph (для Facebook/Telegram) -->
+    <meta property="og:title" content="@PageTitle" />
+    <meta property="og:description" content="@PageDescription" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@CanonicalUrl" />
+    <meta property="og:site_name" content="English Club WOW" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- Libraries -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet" />
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
-     
- 
-    <!-- Styles for site -->
+    <!-- Styles -->
     <link href="/styles/home.css" rel="stylesheet" />
     <link href="/styles/portfolio.css" rel="stylesheet" />
     <link href="/styles/servicespage.css" rel="stylesheet" />
@@ -30,36 +41,20 @@
     <link href="/styles/snow.css" rel="stylesheet" />
     <link href="/styles/ios.css" rel="stylesheet" />
     <link href="/styles/review.css" rel="stylesheet" />
-
-
-    <!-- Підключення jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="/site-style.css" rel="stylesheet" />
     <link href="/englishclub.css" rel="stylesheet" />
-    <!-- Підключення easing (анімовані переходи) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
-    <!-- Підключення Waypoints -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
-
-    <script type="module" src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.2.0/src/lite-yt-embed.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.2.0/src/lite-yt-embed.css">
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+
     <script src="lib/wow/wow.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/snow.js"></script>
     <script src="/culture.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </HeadContent>
 
 <div class="main d-flex flex-column min-vh-100">
@@ -67,7 +62,7 @@
     <main class="flex-grow-1 content px-2 py-3">
         @Body
     </main>
-    <Footer/>
+    <Footer />
 </div>
 
 <div id="blazor-error-ui" data-nosnippet>
@@ -76,3 +71,24 @@
     <span class="dismiss">🗙</span>
 </div>
 
+@code {
+   
+    private string PageTitle { get; set; } =
+        "English Club WOW — англійська для дітей і дорослих | Стрий";
+
+    private string PageDescription { get; set; } =
+        "English Club WOW — англійська для дітей і дорослих у Стрию та онлайн. Безкоштовний пробний урок, Speaking Club, групові та індивідуальні заняття.";
+
+    private string CanonicalUrl => Nav.Uri.Split('#')[0];
+
+    public void SetSeo(string? title, string? description)
+    {
+        if (!string.IsNullOrWhiteSpace(title))
+            PageTitle = title;
+
+        if (!string.IsNullOrWhiteSpace(description))
+            PageDescription = description;
+
+        StateHasChanged();
+    }
+}
