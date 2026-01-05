@@ -22,6 +22,15 @@ namespace WowApp.Services
             return await dbContext.ServiceClients.ToListAsync(ct);
         }
 
+        public async Task<List<ServiceClient>> GetServiceCardTitleAsync(bool isCulture, CancellationToken ct = default)
+        {
+            await using var dbContext = _dbFactory.CreateDbContext();
+
+            return await dbContext.ServiceClients
+                .Where(x => x.IsCulture == isCulture)
+                .ToListAsync(ct);
+        }
+
         public async Task<ServiceClient?> GetServiceByIdAsync(int id, CancellationToken ct = default)
         {
             await using var dbContext = _dbFactory.CreateDbContext();

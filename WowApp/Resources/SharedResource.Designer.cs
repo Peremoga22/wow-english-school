@@ -836,7 +836,7 @@ namespace WowApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to English Club WOW — English Courses for Kids &amp; Adults | Stryi
+        ///   Looks up a localized string similar to English Club W.O.W — English Courses for Kids &amp; Adults | Stryi
         ///.
         /// </summary>
         public static string TextFooter_1 {

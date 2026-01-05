@@ -1,5 +1,7 @@
 ﻿@page "/appointment-user"
 
+@using System.Globalization
+
 @inject TelegramBotService _telegramBotService
 @inject NavigationManager _nav
 @inject AuthenticationStateProvider AuthState
@@ -53,17 +55,15 @@
 
                                 @foreach (var s in services)
                                 {
-                                    <option value="@s.Id">
-                                        @s.TitleCard
-                                    </option>
+                                    <option value="@s.Id">@s.TitleCard</option>
                                 }
                             </InputSelect>
+
+                            <ValidationMessage For="@(() => _model.ServiceId)" class="text-danger" />
                         </div>
 
-
-
                         <div class="mb-4">
-                            <label class="form-label">@SharedResource.TextAppointmentClient_8)</label>
+                            <label class="form-label">@SharedResource.TextAppointmentClient_8</label>
                             <InputTextArea class="form-control" @bind-Value="_model.Message" rows="4"
                                            placeholder="@SharedResource.TextAppointmentClient_9" />
                         </div>
@@ -108,7 +108,8 @@
 
 @code {
     [CascadingParameter] public MainLayout? Layout { get; set; }
-    private  Appointment _model = new();
+
+    private Appointment _model = new();
     private List<ServiceClient> services = new();
     private bool _saving;
     private string? _okText;
@@ -117,7 +118,9 @@
     protected override async Task OnInitializedAsync()
     {
         _model.AppointmentDate = DateOnly.FromDateTime(DateTime.Today);
-        services = await _clientService.GetServiceAsync();
+        var culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+        bool isCulture = culture.Equals("en", StringComparison.OrdinalIgnoreCase);
+        services = await _clientService.GetServiceCardTitleAsync(isCulture);
     }
 
     private void OnPhoneInput(ChangeEventArgs e)
@@ -134,24 +137,35 @@
 
         try
         {
-            var card = services.Where(q => q.Id == _model.ServiceId).FirstOrDefault();
+            // ✅ Захист: якщо не вибрали послугу — не падаємо
+            var card = services.FirstOrDefault(q => q.Id == _model.ServiceId);
+            if (card is null)
+            {
+                _errText = SharedResource.TextAppointmentClient_14;
+                return;
+            }
+
             _model.Group = card.Group;
             _model.ServiceTitle = card.TitleCard;
+
             var id = await _telegramBotService.SaveAppointmentClientAsync(_model);
-            _okText = @SharedResource.TextAppointmentClient_13;
-            await _notification.NotifyNewAppointmentAsync(_model);             
+            _okText = SharedResource.TextAppointmentClient_13;
+
+            await _notification.NotifyNewAppointmentAsync(_model);
         }
         catch (Exception ex)
         {
-            _errText = @SharedResource.TextAppointmentClient_14;
+            _errText = SharedResource.TextAppointmentClient_14;
             Console.WriteLine(ex);
         }
         finally
         {
-            _model = new();
-            _saving = false;     
-            _model.AppointmentDate = DateOnly.FromDateTime(DateTime.Today);
-        }              
+            _model = new Appointment
+            {
+                AppointmentDate = DateOnly.FromDateTime(DateTime.Today)
+            };
+            _saving = false;
+        }
     }
 
     private void GoHome()
@@ -164,7 +178,7 @@
         if (!firstRender) return;
 
         Layout?.SetSeo(
-            "Послуги — English Club WOW | Стрий та онлайн",
+            "Послуги — English Club W.O.W | Стрий та онлайн",
             "Групові та індивідуальні заняття з англійської для дітей і дорослих. Speaking Club, підготовка до іспитів, онлайн/офлайн навчання."
         );
     }
