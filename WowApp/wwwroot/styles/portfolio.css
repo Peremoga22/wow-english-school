@@ -162,4 +162,114 @@
             opacity: 0.6;
             pointer-events: none;
         }
+    /* Контейнер медіа */
+    .portfolio-media {
+        border-radius: 16px 16px 0 0;
+        overflow: hidden;
+        background: #f5f7fb; /* фон якщо будуть поля */
+    }
+    /* Фото */
+    .portfolio-img {
+        width: 100%;
+        height: 260px; /* зроби 240/260/280 як подобається */
+        object-fit: contain; /* ключове: фото НЕ ріжеться */
+        display: block;
+    }
+    /* Бейдж групи */
+    .portfolio-media .course-category {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        z-index: 2;
+    }
+    /* Маленька аватарка */
+    .trainer-img {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .portfolio-img {
+        object-fit: cover;
+        object-position: center;
+    }
+
+
+
+    .portfolio-media {
+        border-radius: 16px 16px 0 0;
+        overflow: hidden;
+        background: #f5f7fb;
+    }
+
+    .portfolio-img {
+        width: 100%;
+        height: 260px;
+        object-fit: contain; /* або cover якщо хочеш без полів */
+        display: block;
+    }
+
+    .trainer-img {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    /* Контейнер відео */
+    .portfolio-video {
+        position: relative;
+        width: 100%;
+        min-height: 280px; /* зробили більшим */
+        border-radius: 16px;
+        overflow: hidden;
+        background: #000;
+    }
+        /* Сам lite-youtube */
+        .portfolio-video lite-youtube {
+            width: 100%;
+            height: 100%;
+            display: block;
+            cursor: pointer;
+        }
+    /* ЯВНА кнопка play (підсилюємо UX) */
+    lite-youtube::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.35) 60%);
+    }
+    /* Ховер — даємо зрозуміти, що можна відкрити */
+    .portfolio-video:hover {
+        box-shadow: 0 16px 40px rgba(0,0,0,.25);
+        transform: translateY(-2px);
+        transition: .25s ease;
+    }
+    /* Контейнер медіа */
+    .portfolio-media {
+        border-radius: 16px 16px 0 0;
+        overflow: hidden;
+        background: #f5f7fb; /* фон якщо будуть поля */
+    }
+    /* Фото */
+    .portfolio-img {
+        width: 100%;
+        height: 260px; /* зроби 240/260/280 як подобається */
+        object-fit: contain; /* ключове: фото НЕ ріжеться */
+        display: block;
+    }
+    /* Бейдж групи */
+    .portfolio-media .course-category {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        z-index: 2;
+    }
+    /* Маленька аватарка */
+    .trainer-img {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 }

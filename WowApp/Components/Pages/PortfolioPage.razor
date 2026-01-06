@@ -4,7 +4,7 @@
 @inject CultureStateService _cultureStateService
 @inject NavigationManager _navigationManager
 @inject PortfolioService _portfolioService
-
+@rendermode InteractiveServer
 <PageTitle>Портфоліо</PageTitle>
 <div class="py-5 ec-bg-soft">
     <div class="container">
@@ -28,45 +28,37 @@
                    @*  Практичні курси та заняття, які допоможуть тобі впевнено використовувати англійську в житті та роботі. *@
                 </p>
                 <hr/>
-            </div>
-
-            <div class="row g-4">
+            </div>                     
+          
+            <div class="row g-3 g-lg-4">
                 @foreach (var item in filteredPortfolios)
                 {
-                    <div class="col-lg-4 col-md-6">
-                        <div class="course-card h-100">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+                            @MediaBlock(item)
 
-                            @if (!string.IsNullOrWhiteSpace(item.VideoPath))
-                            {
-                                <div class="course-card__media">
-                                    <div class="ratio ratio-16x9">
-                                        <lite-youtube videoid="@item.VideoPath"
-                                                      class="card-img-top object-fit-cover">
-                                        </lite-youtube>
-                                    </div>
-                                    <span class="course-category">@item.Group</span>
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                                    <h5 class="fw-bold mb-0 text-truncate" title="@item.TitleCard">@item.TitleCard</h5>                                   
                                 </div>
-                            }
-                            else
-                            {
-                                <div class="course-card__img">
-                                    <img src="@item.ImgPath" alt="@item.TitleCard">
-                                    <span class="course-category">@item.Group</span>
-                                </div>
-                            }
 
-                            <div class="course-card__body">
-                                <h3 class="course-card__title">@item.TitleCard</h3>
-                                <p class="course-card__text">@item.DescriptionCard</p>
+                                <p class="text-muted mb-3" style="display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">
+                                    @item.DescriptionCard
+                                </p>
 
-                                <div class="course-card__footer">
-                                    <div class="trainer">
-                                        <img src="@item.ImgTeacherPath" alt="">
-                                        <span>@SharedResource.TextPortfolio_4</span>
-                                    </div>
+                                <div class="mt-auto d-flex align-items-center justify-content-between">
+                                    <div class="mt-auto">
+                                        <div class="trainer d-flex align-items-center gap-2 justify-content-center">
+                                            <img src="@item.ImgTeacherPath"
+                                                 alt="Викладач"
+                                                 class="rounded-circle border"
+                                                 style="width:36px;height:36px;object-fit:cover;"
+                                                 onerror="this.style.display='none'">
+                                            <span>@SharedResource.TextPortfolio_4</span>
+                                        </div>
+                                    </div>                                  
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 }
@@ -76,6 +68,7 @@
         </div>
     </section>
 </div>
+
 
 
 @code {
@@ -124,4 +117,39 @@
             "Групові та індивідуальні заняття з англійської для дітей і дорослих. Speaking Club, підготовка до іспитів, онлайн/офлайн навчання."
         );
     }
+
+    private RenderFragment MediaBlock(Portfolio item) => @<div>
+   @{
+        var hasVideo = !string.IsNullOrWhiteSpace(item.VideoPath);
+        var label = string.IsNullOrWhiteSpace(item.Group) ? "Portfolio" : item.Group;
+    }
+
+    @if (hasVideo)
+    {
+                <div class="position-relative">
+                    <div class="ratio ratio-16x9">
+                        <lite-youtube videoid="@item.VideoPath" title="@item.TitleCard"></lite-youtube>
+                    </div>
+                    <span class="position-absolute top-0 start-0 m-3 badge rounded-pill text-bg-dark bg-opacity-75">
+                        @label
+                    </span>
+                </div>
+    }
+    else
+   {
+                <div class="position-relative" style="height: 220px;">
+                        <img src="@item.ImgPath"
+                         alt="@item.TitleCard"
+                         class="w-100 h-100"
+                         style="object-fit:cover;"
+                         loading="lazy"
+                         onerror="this.src='/images/placeholder.jpg';" />
+
+                    <span class="position-absolute top-0 start-0 m-3 badge rounded-pill text-bg-dark bg-opacity-75">
+                        @label
+                    </span>
+                </div>
+    }
+    </div>;
+
 }
