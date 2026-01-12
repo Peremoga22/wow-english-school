@@ -127,7 +127,7 @@
     <value>Договір</value>
   </data>
   <data name="Hero_Lead_1" xml:space="preserve">
-    <value>Англійська для дітей та дорослих — групові й індивідуальні заняття. Допоможемо заговорити впевнено та покращити результат у навчанні/роботі.</value>
+    <value>Англійська для дітей та дорослих — групові й індивідуальні заняття. Допоможемо заговорити впевнено та покращити результат у навчанні чи в роботі.</value>
   </data>
   <data name="HomeHeader" xml:space="preserve">
     <value>Домашня</value>
@@ -204,7 +204,7 @@
     <value>Кіноперегляд Англійською</value>
   </data>
   <data name="TextHome_17" xml:space="preserve">
-    <value>(англійська на фільмах)</value>
+    <value>(перегляд в оригіналі)</value>
   </data>
   <data name="TextHome_18" xml:space="preserve">
     <value>Клуб книголюбів</value>
@@ -216,7 +216,7 @@
     <value>Караоке англійською</value>
   </data>
   <data name="TextHome_21" xml:space="preserve">
-    <value>(англійська у піснях)</value>
+    <value>(співаємо в оригіналі)</value>
   </data>
   <data name="TextHome_22" xml:space="preserve">
     <value>ВІДКРИВАЙ СВІТ З НАМИ</value>
@@ -317,7 +317,7 @@
     <value>Контакти</value>
   </data>
   <data name="TextAboutUs_7" xml:space="preserve">
-    <value>Рівні A1–C1</value>
+    <value>Рівні A1–C2</value>
   </data>
   <data name="TextAboutUs_8" xml:space="preserve">
     <value>Індивідуально та в групах</value>
@@ -332,7 +332,7 @@
     <value>Любов Романівна Винницька</value>
   </data>
   <data name="TextAboutUs_12" xml:space="preserve">
-    <value>Викладач — фахівець, який допоможе вам вивчити мову.</value>
+    <value>Філолог  та спеціаліст  який допоможе вам вивчити мову.</value>
   </data>
   <data name="TextAboutUs_13" xml:space="preserve">
     <value>Наша мета</value>
@@ -365,7 +365,7 @@
     <value>Середній рівень (B1–B2): розмовна впевненість + граматика</value>
   </data>
   <data name="TextAboutUs_23" xml:space="preserve">
-    <value>Просунутий (C1): флюентність, робоча/академічна англійська</value>
+    <value>Просунутий (C1-C2): флюентність, робоча/академічна англійська</value>
   </data>
   <data name="TextAboutUs_24" xml:space="preserve">
     <value>Подивитися ціни та формати</value>

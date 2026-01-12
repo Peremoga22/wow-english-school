@@ -17,6 +17,12 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="@CanonicalUrl" />
     <meta property="og:site_name" content="English Club W.O.W" />
+    <meta property="og:image" content="https://www.englishclubwow.com/favicon.ico" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" hreflang="uk-UA" href="https://www.englishclubwow.com/" />
+    <link rel="alternate" hreflang="en-US" href="https://www.englishclubwow.com/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.englishclubwow.com/" />
+
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -65,12 +71,11 @@
     </main>
     <Footer />
 </div>
-@* 
 <div id="blazor-error-ui" data-nosnippet>
     An unhandled error has occurred.
     <a href="." class="reload">Reload</a>
     <span class="dismiss">🗙</span>
-</div> *@
+</div>
 
 @code {
    
@@ -80,7 +85,18 @@
     private string PageDescription { get; set; } =
         "English Club W.O.W — англійська для дітей і дорослих у Стрию та онлайн. Безкоштовний пробний урок, Speaking Club, групові та індивідуальні заняття.";
 
-    private string CanonicalUrl => Nav.Uri.Split('#')[0];
+    private string CanonicalUrl => GetCanonical(Nav.Uri);
+
+    private static string GetCanonical(string url)
+    {
+        var u = new Uri(url);        
+        var left = u.GetLeftPart(UriPartial.Path);
+                
+        if (left.EndsWith("/") && u.AbsolutePath != "/")
+            left = left.TrimEnd('/');
+
+        return left;
+    }
 
     public void SetSeo(string? title, string? description)
     {

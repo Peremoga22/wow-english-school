@@ -305,7 +305,7 @@ namespace WowApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Advanced (C1): fluency, professional and academic English.
+        ///   Looks up a localized string similar to Advanced (C1-C2): fluency, professional and academic English.
         /// </summary>
         public static string TextAboutUs_23 {
             get {
@@ -494,7 +494,7 @@ namespace WowApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Levels A1–C1.
+        ///   Looks up a localized string similar to Levels A1–C2.
         /// </summary>
         public static string TextAboutUs_7 {
             get {
