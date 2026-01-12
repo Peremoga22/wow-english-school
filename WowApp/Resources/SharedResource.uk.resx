@@ -177,7 +177,7 @@
     <value>Англійська для навчання</value>
   </data>
   <data name="TextHome_8" xml:space="preserve">
-    <value>підготовка до ЗНО/іспитів</value>
+    <value>(підготовка до ЗНО/іспитів)</value>
   </data>
   <data name="TextHome_9" xml:space="preserve">
     <value>Англійська для бізнесу</value>
@@ -210,7 +210,7 @@
     <value>Клуб книголюбів</value>
   </data>
   <data name="TextHome_19" xml:space="preserve">
-    <value>(клуб книголюбів)</value>
+    <value>(читання в оригіналі)</value>
   </data>
   <data name="TextHome_20" xml:space="preserve">
     <value>Караоке англійською</value>
@@ -332,7 +332,7 @@
     <value>Любов Романівна Винницька</value>
   </data>
   <data name="TextAboutUs_12" xml:space="preserve">
-    <value>Філолог  та спеціаліст  який допоможе вам вивчити мову.</value>
+    <value>Філолог - фахівець, який допоможе вам вивчити мову.</value>
   </data>
   <data name="TextAboutUs_13" xml:space="preserve">
     <value>Наша мета</value>
